@@ -6,8 +6,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 
 @Configuration
@@ -22,7 +20,7 @@ public class BloodSupplyConfig {
             );
             BloodSupply B = new BloodSupply(
                     "B",
-                    10.0
+                    0.0
             );
             BloodSupply AB = new BloodSupply(
                     "AB",
