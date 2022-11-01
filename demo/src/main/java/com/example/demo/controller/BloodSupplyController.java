@@ -18,10 +18,10 @@ public class BloodSupplyController {
         this.bloodSupplyService = bloodSupplyService;
     }
 
-    /*@GetMapping
+    @GetMapping
     public List<BloodSupply> getBloodSupply(){
         return bloodSupplyService.getBloodSupply();
-    }*/
+    }
 
     @GetMapping("/bloodType/{bloodType}")
     @ResponseBody
@@ -29,13 +29,8 @@ public class BloodSupplyController {
         return bloodSupplyService.checkBloodType(bloodType);
     }
 
-    /*@RequestMapping(value = "/BloodType/{bloodType}/Quantity/{quantity}", method = RequestMethod.GET)
-    public boolean checkBloodTypeAndQuantity(@PathVariable(value = "BloodType") String bloodType, @PathVariable(value = "Quantity") int quantity) {
+    @RequestMapping(path = "/bloodType/{bloodType}/{quantity}", method = RequestMethod.GET)
+    public boolean checkBloodTypeAndQuantity(@PathVariable String bloodType, @PathVariable int quantity) {
         return bloodSupplyService.checkBloodTypeAndQuantity(bloodType,quantity);
-    }*/
-
-    @GetMapping
-    public boolean getBloodSupply(){
-        return true;
     }
 }

@@ -24,7 +24,7 @@ public class BloodSupplyConfig {
             );
             BloodSupply AB = new BloodSupply(
                     "AB",
-                    10.0
+                    5.0
             );
             BloodSupply O = new BloodSupply(
                     "O",
