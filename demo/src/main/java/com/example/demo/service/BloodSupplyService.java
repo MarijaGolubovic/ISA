@@ -31,7 +31,7 @@ public class BloodSupplyService {
 
     public boolean checkBloodTypeAndQuantity(String bloodType,int quantity){
         BloodSupply bs =  BloodSupplyRepository.findByBloodType(bloodType);
-        if (bs.getQuantity() > quantity)
+        if (bs.getQuantity() >= quantity)
             return true;
         else
             return false;
