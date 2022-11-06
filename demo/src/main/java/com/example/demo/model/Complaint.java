@@ -17,7 +17,11 @@ public class Complaint {
             generator = "complaint_sequence"
     )
     private Long id;
+    @OneToOne
+    @JoinColumn(name = "bb_id",referencedColumnName = "id")
     private BloodBank bloodBank;
+    @OneToOne
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
     private String description;
     private Date date;

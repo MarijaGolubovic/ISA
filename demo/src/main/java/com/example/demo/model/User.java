@@ -7,7 +7,7 @@ import com.example.demo.model.enumerations.UserType;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "`User`")
 public class User {
     @Id
     @SequenceGenerator(
@@ -24,7 +24,9 @@ public class User {
     private String password;
     private String name;
     private String surname;
-    private Adress adress;
+    @OneToOne
+    @JoinColumn(name = "address_id",referencedColumnName = "id")
+    private Address address;
     private String phoneNumber;
     private String URN; //JMBG
     @Enumerated(EnumType.STRING)
@@ -43,13 +45,13 @@ public class User {
 
     public User() {}
 
-    public User(Long id, String email, String password, String name, String surname, Adress adress, String phoneNumber, String URN, Gender gender, String profession, String infoAboutInstitution, UserType userType, UserStatus userStatus, int pointsNum, int strikesNum) {
+    public User(Long id, String email, String password, String name, String surname, Address address, String phoneNumber, String URN, Gender gender, String profession, String infoAboutInstitution, UserType userType, UserStatus userStatus, int pointsNum, int strikesNum) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.adress = adress;
+        this.address = address;
         this.phoneNumber = phoneNumber;
         this.URN = URN;
         this.gender = gender;
@@ -61,12 +63,12 @@ public class User {
         this.strikesNum = strikesNum;
     }
 
-    public User(String email, String password, String name, String surname, Adress adress, String phoneNumber, String URN, Gender gender, String profession, String infoAboutInstitution, UserType userType, UserStatus userStatus, int pointsNum, int strikesNum) {
+    public User(String email, String password, String name, String surname, Address address, String phoneNumber, String URN, Gender gender, String profession, String infoAboutInstitution, UserType userType, UserStatus userStatus, int pointsNum, int strikesNum) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.adress = adress;
+        this.address = address;
         this.phoneNumber = phoneNumber;
         this.URN = URN;
         this.gender = gender;
@@ -118,12 +120,12 @@ public class User {
         this.surname = surname;
     }
 
-    public Adress getAdress() {
-        return adress;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAdress(Adress adress) {
-        this.adress = adress;
+    public void setAddress(Address adress) {
+        this.address = adress;
     }
 
     public String getPhoneNumber() {
@@ -206,7 +208,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", adress=" + adress +
+                ", address=" + address +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", URN='" + URN + '\'' +
                 ", gender=" + gender +

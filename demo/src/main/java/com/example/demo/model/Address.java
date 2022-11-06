@@ -4,17 +4,17 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class Adress {
+public class Address {
 
     @Id
     @SequenceGenerator(
-            name = "adress_sequence",
-            sequenceName = "adress_sequence",
+            name = "address_sequence",
+            sequenceName = "address_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "adress_sequence"
+            generator = "address_sequence"
     )
     private Long id;
     private String country;
@@ -22,16 +22,16 @@ public class Adress {
     private String street;
     private String number;
 
-    public Adress() { }
+    public Address() { }
 
-    public Adress( String country, String city, String street, String number) {
+    public Address(String country, String city, String street, String number) {
         this.country = country;
         this.city = city;
         this.street = street;
         this.number = number;
     }
 
-    public Adress(Long id, String country, String city, String street, String number) {
+    public Address(Long id, String country, String city, String street, String number) {
         this.id = id;
         this.country = country;
         this.city = city;
@@ -81,7 +81,7 @@ public class Adress {
 
     @Override
     public String toString() {
-        return "Adress{" +
+        return "Address{" +
                 "id=" + id +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
