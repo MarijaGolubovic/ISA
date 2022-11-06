@@ -28,7 +28,7 @@ public class BloodBank {
     @Transient
     private List<User> administrators;
     @OneToOne
-    @JoinColumn(name = "wt_id",referencedColumnName = "id")
+    @JoinColumn(name = "worktime_id",referencedColumnName = "id")
     private WorkTime workTime;
 
     public BloodBank() {

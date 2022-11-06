@@ -7,7 +7,7 @@ import com.example.demo.model.enumerations.UserType;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "`User`")
 public class User {
     @Id
     @SequenceGenerator(
