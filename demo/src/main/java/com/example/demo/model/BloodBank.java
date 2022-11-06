@@ -5,6 +5,7 @@ import java.util.List;
 
 @Entity
 @Table
+
 public class BloodBank {
 
     @Id
@@ -21,28 +22,33 @@ public class BloodBank {
     private String name;
     private String description;
     private double averageRate;
-    private Adress adress;
+    @OneToOne
+    @JoinColumn(name = "address_id",referencedColumnName = "id")
+    private Address address;
+    @Transient
     private List<User> administrators;
+    @OneToOne
+    @JoinColumn(name = "wt_id",referencedColumnName = "id")
     private WorkTime workTime;
 
     public BloodBank() {
     }
 
-    public BloodBank(Long id, String name, String description, double averageRate, Adress adress, List<User> administrators, WorkTime workTime) {
+    public BloodBank(Long id, String name, String description, double averageRate, Address address, List<User> administrators, WorkTime workTime) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.averageRate = averageRate;
-        this.adress = adress;
+        this.address = address;
         this.administrators = administrators;
         this.workTime = workTime;
     }
 
-    public BloodBank(String name, String description, double averageRate, Adress adress, List<User> administrators, WorkTime workTime) {
+    public BloodBank(String name, String description, double averageRate, Address address, List<User> administrators, WorkTime workTime) {
         this.name = name;
         this.description = description;
         this.averageRate = averageRate;
-        this.adress = adress;
+        this.address = address;
         this.administrators = administrators;
         this.workTime = workTime;
     }
@@ -79,12 +85,12 @@ public class BloodBank {
         this.averageRate = averageRate;
     }
 
-    public Adress getAdress() {
-        return adress;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAdress(Adress adress) {
-        this.adress = adress;
+    public void setAddress(Address adress) {
+        this.address = adress;
     }
 
     public List<User> getAdministrators() {
@@ -110,7 +116,7 @@ public class BloodBank {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", averageRate=" + averageRate +
-                ", adress=" + adress +
+                ", address=" + address +
                 ", administrators=" + administrators +
                 ", workTime=" + workTime +
                 '}';

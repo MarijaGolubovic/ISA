@@ -16,5 +16,7 @@ public class Survey {
             generator = "survey_sequence"
     )
     private Long id;
+    @OneToOne
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
 }

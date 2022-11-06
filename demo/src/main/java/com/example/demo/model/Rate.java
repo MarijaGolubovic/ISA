@@ -16,7 +16,11 @@ public class Rate {
             generator = "rate_sequence"
     )
     private Long id;
+    @OneToOne
+    @JoinColumn(name = "bb_id",referencedColumnName = "id")
     private BloodBank bloodBank;
+    @OneToOne
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
     private int rate;
 

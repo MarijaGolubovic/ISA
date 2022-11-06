@@ -19,8 +19,12 @@ public class BloodSupply {
             generator = "blood_sequence"
     )
     private Long id;
+    @Enumerated(EnumType.STRING)
+    @Column(name="bloodType")
     private BloodType bloodType;
     private Double quantity; //u jedinicama?
+    @OneToOne
+    @JoinColumn(name = "bb_id",referencedColumnName = "id")
     private BloodBank bloodBank;
 
     public BloodSupply() {

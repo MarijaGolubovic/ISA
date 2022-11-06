@@ -21,11 +21,16 @@ public class Appointment {
             generator = "appointment_sequence"
     )
     private Long id;
+    @OneToOne
+    @JoinColumn(name = "bb_id",referencedColumnName = "id")
     private BloodBank bloodBank;
     private Date date;
     private Time time;
     private int duration; //in minutes
+    @Transient
     private List<User> medicalStuff;
+    @Enumerated(EnumType.STRING)
+    @Column(name="appstatus")
     private AppointmentStatus status;
 
     public Appointment() {
