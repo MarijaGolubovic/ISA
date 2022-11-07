@@ -9,7 +9,7 @@ import { UserResponse } from '../model/user.model';
 export class UserService {
 
   apiHost: string = 'http://localhost:8080/';
-  headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+  headers: HttpHeaders = new HttpHeaders({'Access-Control-Allow-Origin': '*' });
 
   constructor(private http: HttpClient) { }
 
