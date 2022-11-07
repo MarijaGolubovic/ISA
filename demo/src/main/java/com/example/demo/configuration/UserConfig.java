@@ -18,39 +18,7 @@ public class UserConfig {
     @Bean
     CommandLineRunner commandLineRunner(UserRepository repository){
         return args ->{
-            User Nemanja = new User(
-                    "nemanja.nemanjic@gmail.com",
-                    "123",
-                    "Nemanja",
-                    "Nemanjic",
-                    null,
-                    "065/026-549",
-                    "1234567891235",
-                    Gender.MALE,
-                    "nastavnik",
-                    "",
-                    UserType.REGISTERED,
-                    UserStatus.ACTIVATED,
-                    0,
-                    0
-            );
-            User Nikolina = new User(
-                    "nikolina.nikolic@gmail.com",
-                    "123",
-                    "Nikolina",
-                    "Nikolic",
-                    null,
-                    "065/026-549",
-                    "1234567891235",
-                    Gender.FEMALE,
-                    "menadzer",
-                    "",
-                    UserType.ADMIN_CENTER,
-                    UserStatus.ACTIVATED,
-                    0,
-                    0
-            );
-            repository.saveAll(List.of(Nemanja,Nikolina));
+
         };
     }
 }

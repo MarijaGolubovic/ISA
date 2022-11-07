@@ -9,12 +9,16 @@ import { UserResponse } from '../model/user.model';
 export class UserService {
 
   apiHost: string = 'http://localhost:8080/';
-  headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+  headers: HttpHeaders = new HttpHeaders({'Access-Control-Allow-Origin': '*' });
 
   constructor(private http: HttpClient) { }
 
   getUserResponses(): Observable<UserResponse[]> {
     return this.http.get<UserResponse[]>(this.apiHost + 'api/user', {headers: this.headers});
+  }
+
+  searchUsers(name:string,surname:string): Observable<UserResponse[]> {
+    return this.http.get<UserResponse[]>(this.apiHost + 'api/user/search/'+ name + '/' + surname, {headers: this.headers});
   }
 
 }

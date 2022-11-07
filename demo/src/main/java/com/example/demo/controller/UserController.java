@@ -20,10 +20,15 @@ public class UserController {
         this.userService = userService;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public List<UserResponse> getAllUserResponses(){
         return userService.getAllUserResponses();
     }
 
-
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(path = "/search/{name}/{surname}", method = RequestMethod.GET)
+    public List<UserResponse> getAllUsersResponseForNameAndSurname(@PathVariable String name, @PathVariable String surname){
+        return userService.getAllUsersResponseForNameAndSurname(name,surname);
+    }
 }
