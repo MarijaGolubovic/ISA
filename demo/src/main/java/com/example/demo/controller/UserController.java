@@ -26,5 +26,9 @@ public class UserController {
         return userService.getAllUserResponses();
     }
 
-
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(path = "/search/{name}/{surname}", method = RequestMethod.GET)
+    public List<UserResponse> getAllUsersResponseForNameAndSurname(@PathVariable String name, @PathVariable String surname){
+        return userService.getAllUsersResponseForNameAndSurname(name,surname);
+    }
 }

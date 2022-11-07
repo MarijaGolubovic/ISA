@@ -17,4 +17,8 @@ export class UserService {
     return this.http.get<UserResponse[]>(this.apiHost + 'api/user', {headers: this.headers});
   }
 
+  searchUsers(name:string,surname:string): Observable<UserResponse[]> {
+    return this.http.get<UserResponse[]>(this.apiHost + 'api/user/search/'+ name + '/' + surname, {headers: this.headers});
+  }
+
 }

@@ -30,6 +30,13 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public List<UserResponse> getAllUsersResponseForNameAndSurname(String name, String surname){
+        return UserRepository.findByNameAndSurname(name,surname)
+                .stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
+
     private UserResponse convertEntityToDto(User user){
         UserResponse userResponse = new UserResponse();
         userResponse.setName(user.getName());
