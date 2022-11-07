@@ -11,9 +11,5 @@ import java.util.List;
 @Configuration
 public class BloodSupplyConfig {
 
-    @Bean
-    CommandLineRunner commandLineRunner(BloodSupplyRepository repository){
-        return args ->{
-        };
-    }
+
 }
