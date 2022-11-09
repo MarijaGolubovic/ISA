@@ -1,0 +1,44 @@
+<div class="container rounded bg-white mt-5 mb-5">
+  <div class="row">
+      <div class="col-md-3 border-right">
+          <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">{{loggedUser.name}} {{loggedUser.surname}}</span><span class="text-black-50">{{loggedUser.email}}</span><span> </span></div>
+      </div>
+      <div class="col-md-5 border-right">
+          <div class="p-3 py-5">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h4 class="text-right">Profile Settings</h4>
+              </div>
+              <div class="row mt-2">
+                  <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" [(ngModel)]="loggedUser.name" ><label class="labels" style="color: red;">{{nameError}}</label></div>
+                  <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" [(ngModel)]="loggedUser.surname"><label class="labels" style="color: red;">{{surnameError}}</label></div>
+              </div>
+              <div class="row mt-3">
+                  <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" value="" [(ngModel)]="loggedUser.phoneNumber"><label class="labels" style="color: red;">{{phoneError}}</label></div>
+                  <div class="col-md-12"><label class="labels">Country</label><input type="text" class="form-control" value="" [(ngModel)]="loggedUser.address.country"><label class="labels" style="color: red;">{{countryError}}</label></div>
+                  <div class="col-md-12"><label class="labels">City</label><input type="text" class="form-control" value="" [(ngModel)]="loggedUser.address.city"><label class="labels" style="color: red;">{{cityError}}</label></div>
+                  <div class="col-md-12"><label class="labels">Street</label><input type="text" class="form-control" value="" [(ngModel)]="loggedUser.address.street"><label class="labels" style="color: red;">{{streetError}}</label></div>
+                  <div class="col-md-12"><label class="labels">Number</label><input type="text" class="form-control" value="" [(ngModel)]="loggedUser.address.number"><label class="labels" style="color: red;">{{numberError}}</label></div>
+                  <div class="col-md-12"><label class="labels">Profession</label><input type="text" class="form-control" value="" [(ngModel)]="loggedUser.profession"><label class="labels" style="color: red;">{{professionError}}</label></div>
+                  <div class="col-md-12"><label class="labels">Information about institute</label><input type="text" class="form-control" value="" [(ngModel)]="loggedUser.infoAboutInstitution"><label class="labels" style="color: red;">{{informationError}}</label></div>
+                </div>
+              <div class="mt-5 text-center">
+                <div class="col-md-12 col-sm-12">
+                    <button class="btn btn-primary profile-button" type="button" (click)="saveUser()">Save Profile</button>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <a href="localhost:4200/users/changePassword">Change password?</a>
+                </div>
+                
+                
+              </div>
+          </div>
+      </div>
+      <div class="col-md-4">
+          <div class="p-3 py-5">
+              <div class="d-flex justify-content-between align-items-center experience"><span>Other information</span></div><br>
+              <div class="col-md-12"><label>Number of points: {{loggedUser.pointsNum}}</label></div> <br>
+              <div class="col-md-12"><label>Category: {{loggedUser.userCategory}}</label></div>
+          </div>
+      </div>
+  </div>
+</div>

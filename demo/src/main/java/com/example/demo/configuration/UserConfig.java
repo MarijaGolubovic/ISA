@@ -1,5 +1,6 @@
 package com.example.demo.configuration;
 
+import com.example.demo.model.Address;
 import com.example.demo.model.User;
 import com.example.demo.model.enumerations.Gender;
 import com.example.demo.model.enumerations.UserStatus;
@@ -18,7 +19,7 @@ public class UserConfig {
     @Bean
     CommandLineRunner commandLineRunner(UserRepository repository){
         return args ->{
-
+        	
         };
     }
 }
