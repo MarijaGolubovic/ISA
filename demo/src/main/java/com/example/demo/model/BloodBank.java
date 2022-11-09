@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +28,7 @@ public class BloodBank {
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "address_id",referencedColumnName = "id")
     private Address address;
+    @JsonIgnore
     @OneToMany(mappedBy = "bloodBank", cascade = CascadeType.ALL)
     private Set<User> administrators = new HashSet<User>();
     @OneToOne(cascade = {CascadeType.ALL})

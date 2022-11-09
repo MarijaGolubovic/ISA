@@ -23,7 +23,7 @@ public class BloodBankConfig {
     CommandLineRunner commandLineRunner1(BloodBankRepository repository){
         return args ->{
 
-            BloodBank bankaKrvi1 = new BloodBank(
+            /*BloodBank bankaKrvi1 = new BloodBank(
                     "Moja Banka Krvi",
                     "Uvek tu u teskim vremenima",
                     9.3,
@@ -31,7 +31,7 @@ public class BloodBankConfig {
                     new HashSet<>(),  new WorkTime(Time.valueOf("08:00:00"), Time.valueOf("16:00:00")));
             User user1 = new User("ilija.ilic@gmail.com", "123", "Ilija", "Ilic", null, "064522255", "1236548956324", Gender.MALE, "menadzer", "",  UserType.ADMIN_CENTER, UserStatus.ACTIVATED, 0,0, bankaKrvi1);
             bankaKrvi1.addAdmin(user1);
-            repository.saveAll(List.of(bankaKrvi1));
+            repository.saveAll(List.of(bankaKrvi1));*/
         };
     }
 

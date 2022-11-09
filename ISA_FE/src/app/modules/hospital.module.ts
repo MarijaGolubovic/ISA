@@ -4,15 +4,18 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule, Routes } from "@angular/router";
 import { MaterialModule } from "src/app/material/material.module";
 import { UsersComponent } from "./users/users.component";
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 
 const routes: Routes = [
   { path: 'users', component: UsersComponent },
+  { path: 'users/edit', component: EditUserComponent }
 ];
 
 @NgModule({
   declarations: [
     UsersComponent,
+    EditUserComponent,
   ],
   imports: [
     CommonModule,

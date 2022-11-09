@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserResponse } from '../model/user.model';
+import { WholeUserResponse, UserResponse } from '../model/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,4 +21,11 @@ export class UserService {
     return this.http.get<UserResponse[]>(this.apiHost + 'api/user/search/'+ name + '/' + surname, {headers: this.headers});
   }
 
+  getLoggedUser(): Observable<WholeUserResponse>{
+    return this.http.get<WholeUserResponse>(this.apiHost + 'api/user/getLoggedUser', {headers: this.headers})
+  }
+
+  saveUser(user: any): Observable<any>{
+    return this.http.put<any>(this.apiHost + 'api/user/saveUser', user, {headers: this.headers})
+  }
 }

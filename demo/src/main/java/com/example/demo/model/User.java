@@ -1,8 +1,10 @@
 package com.example.demo.model;
 
 import com.example.demo.model.enumerations.Gender;
+import com.example.demo.model.enumerations.UserCategory;
 import com.example.demo.model.enumerations.UserStatus;
 import com.example.demo.model.enumerations.UserType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -42,6 +44,10 @@ public class User {
     private UserStatus userStatus;
     private int pointsNum;
     private int strikesNum;
+    @Enumerated(EnumType.STRING)
+    @Column(name="userCategory")
+    private UserCategory userCategory;
+
 
 
     @ManyToOne
@@ -75,7 +81,9 @@ public class User {
         this.pointsNum = pointsNum;
         this.strikesNum = strikesNum;
         this.bloodBank = bloodBank;
-    }
+        this.userCategory = UserCategory.REGULAR;
+        }
+
 
     public User(String email, String password, String name, String surname, Address address, String phoneNumber, String URN, Gender gender, String profession, String infoAboutInstitution, UserType userType, UserStatus userStatus, int pointsNum, int strikesNum, BloodBank bloodBank) {
         this.email = email;
@@ -93,9 +101,19 @@ public class User {
         this.pointsNum = pointsNum;
         this.strikesNum = strikesNum;
         this.bloodBank = bloodBank;
+        this.userCategory = userCategory;
+        this.userCategory = UserCategory.REGULAR;
     }
+    
+    public UserCategory getUserCategory() {
+		return userCategory;
+	}
 
-    public Long getId() {
+	public void setUserCategory(UserCategory userCategory) {
+		this.userCategory = userCategory;
+	}
+
+	public Long getId() {
         return id;
     }
 
