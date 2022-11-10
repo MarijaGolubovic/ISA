@@ -37,6 +37,7 @@ private CenterResponse convertEntityToDto(BloodBank center){
     centerResponse.setName(center.getName());
     centerResponse.setCity(center.getAddress().getCity());
     centerResponse.setStreet(center.getAddress().getStreet());
+    centerResponse.setStreetNumber(center.getAddress().getNumber());
     centerResponse.setGrade(center.getAverageRate());
 
     return centerResponse;

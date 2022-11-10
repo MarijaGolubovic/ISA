@@ -13,7 +13,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class CentersComponent implements OnInit {
 
   public dataSource = new MatTableDataSource<CenterResponse>();
-  public displayedColumns = ['name', 'city', 'street', 'grade'];
+  public displayedColumns = ['name', 'city', 'street', 'streetNumber','grade'];
   public centers: CenterResponse[] = [];
 
   constructor(private centerService: CenterService, private router: Router) { }

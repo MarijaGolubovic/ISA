@@ -12,6 +12,7 @@ public class CenterResponse {
 	private String name;
 	private String city;
 	private String street;
+	private String streetNumber;
 	private double grade;
 	public String getName() {
 		return name;
@@ -37,11 +38,21 @@ public class CenterResponse {
 	public void setGrade(double grade) {
 		this.grade = grade;
 	}
-	public CenterResponse(String name, String city, String street, double grade) {
+	
+	public String getStreetNumber() {
+		return streetNumber;
+	}
+	public void setStreetNumber(String streetNumber) {
+		this.streetNumber = streetNumber;
+	}
+	
+	
+	public CenterResponse(String name, String city, String street, String streetNumber, double grade) {
 		super();
 		this.name = name;
 		this.city = city;
 		this.street = street;
+		this.streetNumber = streetNumber;
 		this.grade = grade;
 	}
 	public CenterResponse() {
