@@ -15,8 +15,7 @@ import java.util.List;
 
 @Configuration
 public class UserConfig {
-
-	 @Bean
+	/* @Bean
 	    CommandLineRunner commandLineRunner(UserRepository repository){
 	        return args ->{
 	            User Nemanja = new User(
@@ -54,4 +53,6 @@ public class UserConfig {
 	            repository.saveAll(List.of(Nemanja,Nikolina));
 	        };
 	    }
-}
+
+*/
+	}

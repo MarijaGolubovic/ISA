@@ -20,10 +20,10 @@ export class CentersComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // (this.centerService.getCentersResponses).subscribe(res => {
-    //   this.centers = res;
-    //   this.dataSource.data = this.centers;
-    // })
+    (this.centerService.getCenterResponses()).subscribe(res => {
+      this.centers = res;
+      this.dataSource.data = this.centers;
+    })
   }
 
 }
