@@ -66,7 +66,7 @@ enum Gender {
     FEMALE = 1
 }
 
-enum UserType{
+export enum UserType{
     REGISTERED,
     UNREGISTERED,
     ADMIN_CENTER,

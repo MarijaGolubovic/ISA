@@ -33,8 +33,8 @@
               </div>
           </div>
       </div>
-      <div class="col-md-4">
-          <div class="p-3 py-5">
+      <div class="col-md-4" *ngIf="!isAdmin">
+          <div class="p-3 py-5" >
               <div class="d-flex justify-content-between align-items-center experience"><span>Other information</span></div><br>
               <div class="col-md-12"><label>Number of points: {{loggedUser.pointsNum}}</label></div> <br>
               <div class="col-md-12"><label>Category: {{loggedUser.userCategory}}</label></div>

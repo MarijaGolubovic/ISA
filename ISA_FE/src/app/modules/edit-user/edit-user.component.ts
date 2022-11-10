@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { WholeUserResponse, UserResponse } from '../model/user.model';
+import { WholeUserResponse, UserResponse, UserType } from '../model/user.model';
 import { UserService } from '../services/user.service';
 import {MatRadioModule} from '@angular/material/radio';
+
 
 @Component({
   selector: 'app-edit-user',
@@ -24,12 +25,16 @@ export class EditUserComponent implements OnInit {
   public numberError: string = ''
   public professionError: string = ''
   public informationError: string = ''
+  public userType: UserType = UserType.REGISTERED
+  public isAdmin: boolean = false;
 
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.userService.getLoggedUser().subscribe(res => {
-      this.loggedUser = res;
+      this.loggedUser = res; 
+      if (this.loggedUser.userType==UserType.ADMIN_CENTER)
+          this.isAdmin=true;    
     })
   }
 
