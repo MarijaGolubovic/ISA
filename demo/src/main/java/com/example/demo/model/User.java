@@ -4,6 +4,7 @@ import com.example.demo.model.enumerations.Gender;
 import com.example.demo.model.enumerations.UserCategory;
 import com.example.demo.model.enumerations.UserStatus;
 import com.example.demo.model.enumerations.UserType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -47,9 +48,23 @@ public class User {
     @Column(name="userCategory")
     private UserCategory userCategory;
 
+
+
+    @ManyToOne
+    @JoinColumn(name = "bloodBank_id")
+    private BloodBank bloodBank;
+
+    public BloodBank getBloodBank() {
+        return bloodBank;
+    }
+
+    public void setBloodBank(BloodBank bloodBank) {
+        this.bloodBank = bloodBank;
+    }
+
     public User() {}
 
-    public User(Long id, String email, String password, String name, String surname, Address address, String phoneNumber, String URN, Gender gender, String profession, String infoAboutInstitution, UserType userType, UserStatus userStatus, int pointsNum, int strikesNum) {
+    public User(Long id, String email, String password, String name, String surname, Address address, String phoneNumber, String URN, Gender gender, String profession, String infoAboutInstitution, UserType userType, UserStatus userStatus, int pointsNum, int strikesNum, BloodBank bloodBank) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -65,10 +80,12 @@ public class User {
         this.userStatus = userStatus;
         this.pointsNum = pointsNum;
         this.strikesNum = strikesNum;
+        this.bloodBank = bloodBank;
         this.userCategory = UserCategory.REGULAR;
         }
 
-    public User(String email, String password, String name, String surname, Address address, String phoneNumber, String URN, Gender gender, String profession, String infoAboutInstitution, UserType userType, UserStatus userStatus, int pointsNum, int strikesNum) {
+
+    public User(String email, String password, String name, String surname, Address address, String phoneNumber, String URN, Gender gender, String profession, String infoAboutInstitution, UserType userType, UserStatus userStatus, int pointsNum, int strikesNum, BloodBank bloodBank) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -83,6 +100,7 @@ public class User {
         this.userStatus = userStatus;
         this.pointsNum = pointsNum;
         this.strikesNum = strikesNum;
+        this.bloodBank = bloodBank;
         this.userCategory = userCategory;
         this.userCategory = UserCategory.REGULAR;
     }

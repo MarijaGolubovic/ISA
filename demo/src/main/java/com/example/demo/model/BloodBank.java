@@ -1,7 +1,10 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table
@@ -22,19 +25,20 @@ public class BloodBank {
     private String name;
     private String description;
     private double averageRate;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "address_id",referencedColumnName = "id")
     private Address address;
-    @Transient
-    private List<User> administrators;
-    @OneToOne
+    @JsonIgnore
+    @OneToMany(mappedBy = "bloodBank", cascade = CascadeType.ALL)
+    private Set<User> administrators = new HashSet<User>();
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "worktime_id",referencedColumnName = "id")
     private WorkTime workTime;
 
     public BloodBank() {
     }
 
-    public BloodBank(Long id, String name, String description, double averageRate, Address address, List<User> administrators, WorkTime workTime) {
+    public BloodBank(Long id, String name, String description, double averageRate, Address address, Set<User> administrators, WorkTime workTime) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -44,7 +48,7 @@ public class BloodBank {
         this.workTime = workTime;
     }
 
-    public BloodBank(String name, String description, double averageRate, Address address, List<User> administrators, WorkTime workTime) {
+    public BloodBank(String name, String description, double averageRate, Address address, Set<User> administrators, WorkTime workTime) {
         this.name = name;
         this.description = description;
         this.averageRate = averageRate;
@@ -93,11 +97,11 @@ public class BloodBank {
         this.address = adress;
     }
 
-    public List<User> getAdministrators() {
+    public Set<User> getAdministrators() {
         return administrators;
     }
 
-    public void setAdministrators(List<User> administrators) {
+    public void setAdministrators(Set<User> administrators) {
         this.administrators = administrators;
     }
 
@@ -109,6 +113,15 @@ public class BloodBank {
         this.workTime = workTime;
     }
 
+    public void addAdmin(User user) {
+        administrators.add(user);
+        user.setBloodBank(this);
+    }
+
+    public void removeAdmin(User user) {
+        administrators.remove(user);
+        user.setBloodBank(null);
+    }
     @Override
     public String toString() {
         return "BloodBank{" +
