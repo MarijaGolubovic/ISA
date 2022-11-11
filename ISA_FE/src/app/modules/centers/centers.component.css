@@ -37,11 +37,6 @@ tr:nth-child(even) {background: #CCC}
    margin-top: 2%;
 }
 
-.clickable:hover {
-    font-weight: bold;
-    cursor: pointer;
-}feature-searchCenters
-
 .add-button {
     margin: 10px 20px 10px 10px;
     color: black;
