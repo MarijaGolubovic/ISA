@@ -17,20 +17,20 @@ public class WorkTime {
             generator = "worktime_sequence"
     )
     private Long id;
-    private Time start;
-    private Time end;
+    private Time startTime;
+    private Time endTime;
 
     public WorkTime() {}
 
     public WorkTime(Time start, Time end) {
-        this.start = start;
-        this.end = end;
+        this.startTime = start;
+        this.endTime = end;
     }
 
     public WorkTime(Long id, Time start, Time end) {
         this.id = id;
-        this.start = start;
-        this.end = end;
+        this.startTime = start;
+        this.endTime = end;
     }
 
     public Long getId() {
@@ -42,27 +42,27 @@ public class WorkTime {
     }
 
     public Time getStart() {
-        return start;
+        return startTime;
     }
 
     public void setStart(Time start) {
-        this.start = start;
+        this.startTime = start;
     }
 
     public Time getEnd() {
-        return end;
+        return endTime;
     }
 
     public void setEnd(Time end) {
-        this.end = end;
+        this.endTime = end;
     }
 
     @Override
     public String toString() {
         return "WorkTime{" +
                 "id=" + id +
-                ", start=" + start +
-                ", end=" + end +
+                ", start=" + startTime +
+                ", end=" + endTime +
                 '}';
     }
 }

@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dto.UserResponse;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,12 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository UserRepository;
+    private final AddressRepository AddressRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository, AddressRepository addressRepository){
         this.UserRepository = userRepository;
+        this.AddressRepository = addressRepository;
     }
 
     public List<User> getAllUsers(){
@@ -45,6 +48,11 @@ public class UserService {
         userResponse.setPhoneNumber(user.getPhoneNumber());
 
         return userResponse;
+    }
+    
+    public void saveUser(User u) {
+    	this.UserRepository.save(u);
+    	this.AddressRepository.save(u.getAddress());
     }
 
 }
