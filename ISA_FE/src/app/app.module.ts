@@ -6,6 +6,7 @@ import { AppComponent } from "./app.component";
 import { MaterialModule } from "./material/material.module";
 import { HospitalModule } from "./modules/hospital.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
+    FormsModule,
     HospitalModule
   ],
   providers: [],

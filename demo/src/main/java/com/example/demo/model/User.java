@@ -26,8 +26,8 @@ public class User {
     private String password;
     private String name;
     private String surname;
-    @OneToOne
-    @JoinColumn(name = "address_id",referencedColumnName = "id")    
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "address_id",referencedColumnName = "id")
     private Address address;
     private String phoneNumber;
     private String URN; //JMBG
@@ -48,9 +48,7 @@ public class User {
     @Column(name="userCategory")
     private UserCategory userCategory;
 
-
-
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "bloodBank_id")
     private BloodBank bloodBank;
 
