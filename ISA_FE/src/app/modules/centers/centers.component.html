@@ -11,6 +11,20 @@
         <div class="table-header">
             <p class="table-title">List of all centers</p>
         </div>
+        <div class="search">
+            <label class="first">Name</label>
+            <input type="text" placeholder="Name" [(ngModel)]="searchName" class="second">
+            <label class="first">City</label>
+            <input type="text" placeholder="City" [(ngModel)]="searchCity" class="second">
+            <button (click)="searchCenters()" class="button">Search</button>
+        </div>
+        <div>
+            <label class="first">From grade</label>
+            <input type="number" placeholder="From grade" [(ngModel)]="searchMinGrade" class="second">
+            <label class="first">To grade</label>
+            <input type="number" placeholder="To grade" [(ngModel)]="searchMaxGrade" class="second">
+            <button (click)="filterCenters()">Filter</button>
+        </div>
         <table mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="name">
                 <a ><th mat-header-cell *matHeaderCellDef class="cell-center" > Name&nbsp; <button class="sort-button" (click)="sortFunctionByName(booleanValueByName)"><i class="fa fa-sort"></i></button></th></a>
@@ -36,5 +50,6 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </div>
+    
 </body>
 </html>

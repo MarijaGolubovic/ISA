@@ -27,7 +27,7 @@ public class User {
     private String name;
     private String surname;
     @OneToOne
-    @JoinColumn(name = "address_id",referencedColumnName = "id")
+    @JoinColumn(name = "address_id",referencedColumnName = "id")    
     private Address address;
     private String phoneNumber;
     private String URN; //JMBG
