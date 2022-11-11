@@ -15,6 +15,10 @@ export class CentersComponent implements OnInit {
   public dataSource = new MatTableDataSource<CenterResponse>();
   public displayedColumns = ['name', 'city', 'street', 'streetNumber','grade'];
   public centers: CenterResponse[] = [];
+  public searchName: string = '';
+  public searchCity: string = '';
+  public searchMinGrade: number = 0;
+  public searchMaxGrade: number = 10
 
   constructor(private centerService: CenterService, private router: Router) { }
 
@@ -26,4 +30,27 @@ export class CentersComponent implements OnInit {
     })
   }
 
+  public searchCenters(){
+    this.dataSource.data = []
+    let searchedCenters: CenterResponse[] = [];
+    for(let center of this.centers){
+      if(center.name.toLocaleLowerCase().includes(this.searchName.toLocaleLowerCase()) && center.city.toLocaleLowerCase().includes(this.searchCity.toLocaleLowerCase())){
+        searchedCenters.push(center);
+      }
+    }
+    this.dataSource.data = searchedCenters;
+  }
+
+  public filterCenters(){
+    let filteredCenters: CenterResponse[] = [];
+    if(this.searchMaxGrade == 0){
+      this.searchMaxGrade = 10
+    }
+    for(let center of this.dataSource.data){
+      if(this.searchMinGrade <= center.grade && this.searchMaxGrade >= center.grade){
+        filteredCenters.push(center);
+      }
+    }
+    this.dataSource.data =filteredCenters;
+  }
 }

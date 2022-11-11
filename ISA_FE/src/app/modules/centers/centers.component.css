@@ -19,8 +19,20 @@ table {
 
 }
 
+.search{
+    margin-right: 0%;
+}
+
 .cell-center {
     text-align: center;
+}
+
+.first{
+    position:absolute;
+}
+.second{
+   position: relative;
+   margin-top: 3%;
 }
 
 .clickable:hover {
