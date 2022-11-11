@@ -15,6 +15,11 @@ export class CentersComponent implements OnInit {
   public dataSource = new MatTableDataSource<CenterResponse>();
   public displayedColumns = ['name', 'city', 'street', 'streetNumber','grade'];
   public centers: CenterResponse[] = [];
+  public booleanValueByName: any = false;
+  public booleanValueByCity: any = false;
+  public booleanValueByStreet: any = false;
+  public booleanValueByStreetNumber: any = false;
+  public booleanValueByGrade: any = false;
 
   constructor(private centerService: CenterService, private router: Router) { }
 
@@ -26,4 +31,181 @@ export class CentersComponent implements OnInit {
     })
   }
 
+  sortFunctionByName(boolean:boolean) {
+    if (boolean == true){
+      this.centers.sort((a, b) => {
+        const nameA = a.name.toUpperCase();
+        const nameB = b.name.toUpperCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+      
+        return 0;
+      });
+      this.dataSource.data = this.centers;
+      this.booleanValueByName = !this.booleanValueByName;
+    }
+    else{
+      this.centers.sort((a, b) => {
+        const nameA = a.name.toUpperCase();
+        const nameB = b.name.toUpperCase(); 
+        if (nameA > nameB) {
+          return -1;
+        }
+        if (nameA < nameB) {
+          return 1;
+        }
+        return 0;
+      });
+      this.dataSource.data = this.centers;
+      this.booleanValueByName = !this.booleanValueByName;
+    }
 }
+
+sortFunctionByCity(boolean:boolean) {
+  if (boolean == true){
+    this.centers.sort((a, b) => {
+      const cityA = a.city.toUpperCase();
+      const cityB = b.city.toUpperCase();
+      if (cityA < cityB) {
+        return -1;
+      }
+      if (cityA > cityB) {
+        return 1;
+      }
+    
+      return 0;
+    });
+    this.dataSource.data = this.centers;
+    this.booleanValueByCity = !this.booleanValueByCity;
+  }
+  else{
+    this.centers.sort((a, b) => {
+      const cityA = a.city.toUpperCase();
+      const cityB = b.city.toUpperCase(); 
+      if (cityA > cityB) {
+        return -1;
+      }
+      if (cityA < cityB) {
+        return 1;
+      }
+      return 0;
+    });
+    this.dataSource.data = this.centers;
+    this.booleanValueByCity = !this.booleanValueByCity;
+  }
+}
+
+sortFunctionByStreet(boolean:boolean) {
+  if (boolean == true){
+    this.centers.sort((a, b) => {
+      const streetA = a.street.toUpperCase();
+      const streetB = b.street.toUpperCase();
+      if (streetA < streetB) {
+        return -1;
+      }
+      if (streetA > streetB) {
+        return 1;
+      }
+    
+      return 0;
+    });
+    this.dataSource.data = this.centers;
+    this.booleanValueByStreet = !this.booleanValueByStreet;
+  }
+  else{
+    this.centers.sort((a, b) => {
+      const streetA = a.street.toUpperCase();
+      const streetB = b.street.toUpperCase(); 
+      if (streetA > streetB) {
+        return -1;
+      }
+      if (streetA < streetB) {
+        return 1;
+      }
+      return 0;
+    });
+    this.dataSource.data = this.centers;
+    this.booleanValueByStreet = !this.booleanValueByStreet;
+  }
+}
+
+
+sortFunctionByStreetNumber(boolean:boolean) {
+  if (boolean == true){
+    this.centers.sort((a, b) => {
+      const streetNumberA = a.streetNumber;
+      const streetNumberB = b.streetNumber;
+      if (streetNumberA < streetNumberB) {
+        return -1;
+      }
+      if (streetNumberA > streetNumberB) {
+        return 1;
+      }
+    
+      return 0;
+    });
+    this.dataSource.data = this.centers;
+    this.booleanValueByStreetNumber = !this.booleanValueByStreetNumber;
+  }
+  else{
+    this.centers.sort((a, b) => {
+      const streetNumberA = a.streetNumber;
+      const streetNumberB = b.streetNumber; 
+      if (streetNumberA > streetNumberB) {
+        return -1;
+      }
+      if (streetNumberA < streetNumberB) {
+        return 1;
+      }
+      return 0;
+    });
+    this.dataSource.data = this.centers;
+    this.booleanValueByStreetNumber = !this.booleanValueByStreetNumber;
+  }
+}
+
+sortFunctionByGrade(boolean:boolean) {
+  if (boolean == true){
+    this.centers.sort((a, b) => {
+      const gradeA = a.grade;
+      const gradeB = b.grade;
+      if (gradeA < gradeB) {
+        return -1;
+      }
+      if (gradeA > gradeB) {
+        return 1;
+      }
+    
+      return 0;
+    });
+    this.dataSource.data = this.centers;
+    this.booleanValueByGrade = !this.booleanValueByGrade;
+  }
+  else{
+    this.centers.sort((a, b) => {
+      const gradeA = a.grade;
+      const gradeB = b.grade; 
+      if (gradeA > gradeB) {
+        return -1;
+      }
+      if (gradeA < gradeB) {
+        return 1;
+      }
+      return 0;
+    });
+    this.dataSource.data = this.centers;
+    this.booleanValueByGrade = !this.booleanValueByGrade;
+  }
+}
+
+
+
+
+}
+
+
+
