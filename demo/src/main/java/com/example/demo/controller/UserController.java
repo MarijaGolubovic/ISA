@@ -48,4 +48,5 @@ public class UserController {
     public void saveUser(@RequestBody User u) {
     	this.userService.saveUser(u);
     }
+
 }

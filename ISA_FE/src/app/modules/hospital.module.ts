@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule, Routes } from "@angular/router";
 import { MaterialModule } from "src/app/material/material.module";
 import { UsersComponent } from "./users/users.component";
-<<<<<<< HEAD
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BloodbankRegistrationComponent } from "./register-bloodbank/register-bloodbank.component";

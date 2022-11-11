@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.UserResponse;
+import com.example.demo.model.BloodBank;
 import com.example.demo.model.User;
+import com.example.demo.repository.BloodBankRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,14 @@ public class UserService {
 
     private final UserRepository UserRepository;
     private final AddressRepository AddressRepository;
+    private final BloodBankRepository BloodBankRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, AddressRepository addressRepository){
+    public UserService(UserRepository userRepository, AddressRepository addressRepository, BloodBankRepository bloodBankRepository){
         this.UserRepository = userRepository;
         this.AddressRepository = addressRepository;
+        this.BloodBankRepository = bloodBankRepository;
+
     }
 
     public List<User> getAllUsers(){
@@ -51,8 +56,11 @@ public class UserService {
     }
     
     public void saveUser(User u) {
+        this.BloodBankRepository.save(u.getBloodBank());
+        this.AddressRepository.save(u.getAddress());
     	this.UserRepository.save(u);
-    	this.AddressRepository.save(u.getAddress());
     }
+
+
 
 }
