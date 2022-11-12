@@ -38,7 +38,7 @@ export class UserRegistrationComponent{
     await this.router.navigateByUrl('/users')
   }
 
-  public registerUser() {
+  public registerUser(){
     this.userService.registerUser(this.user).subscribe(res => {
         this.redirectToUsers();
         return console.log("User is created!");
