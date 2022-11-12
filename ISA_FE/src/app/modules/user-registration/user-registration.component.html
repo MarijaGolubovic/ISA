@@ -1,53 +1,66 @@
-<form action="STAVITI LINK DO BEKA">
+<form (ngSubmit)="registerUser()">
     <div class="container">
         <h1>Register</h1>
         <p>Please fill in this form to create an account.</p>
         <hr>
         <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" id="email" required>
+        <input type="text" placeholder="Enter Email" name="email" id="email" oninput="this.className = ''" [(ngModel)]="user.email" required>
     
         <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+        <input type="password" placeholder="Enter Password" name="psw" id="psw" oninput="this.className = ''" [(ngModel)]="user.password"  required>
     
         <label for="psw-repeat"><b>Repeat Password</b></label>
         <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
         <hr>
 
+        <div [formGroup]="registrationForm">
         <label for="name"><b>Name</b></label>
-        <input type="text" placeholder="Enter Name" name="name" id="name" required>
+        <input type="text" placeholder="Enter Name" name="name" id="name" oninput="this.className = ''" [(ngModel)]="user.name" required formControlName="name">
+        
+        <br>
+        <!-- </div> -->
 
+        <!-- <div [formGroup]="registrationForm"> -->
         <label for="surname"><b>Surname</b></label>
-        <input type="text" placeholder="Enter Surname" name="surname" id="surname" required>
+        <input type="text" placeholder="Enter Surname" name="surname" id="surname" oninput="this.className = ''" [(ngModel)]="user.surname" required formControlName="surname">
+        <span *ngIf="surname && surname.invalid && surname.touched "style="color: red;">
+            Surname is required!
+        </span>
+        </div>
+
 
         <label for="gender"><b>Gender:</b></label>
         <br/><br/>
         <span class="radio-button">
-            <input type="radio" name="gender" value="male"> Male
-            <input type="radio" name="gender" value="female"> Female
+            <input type="radio" name="gender" value="MALE" [(ngModel)]="user.gender" oninput="this.className = ''"> Male
+            <input type="radio" name="gender" value="FEMALE" [(ngModel)]="user.gender"> Female
         </span> <br><br>
 
         <label for="JMBG"><b>JMBG</b></label>
-        <input type="text" placeholder="Enter JMBG" name="JMBG" id="JMBG" required>
+        <input type="text" placeholder="Enter JMBG" name="JMBG" id="JMBG" [(ngModel)]="user.URN" oninput="this.className = ''" required>
 
-        <label for="address"><b>Address</b></label>
-        <input type="text" placeholder="Enter Address" name="address" id="address" required>
+        <label for="address"><b>Street</b></label>
+        <input type="text" placeholder="Enter Street" name="address" id="address" [(ngModel)]="user.address.street" oninput="this.className = ''" required>
+
+        <label for="address"><b>Street number</b></label>
+        <input type="text" placeholder="Enter Street Number" name="streetNumber" id="streetNumber" [(ngModel)]="user.address.number" oninput="this.className = ''" required>
 
         <label for="city"><b>City</b></label>
-        <input type="text" placeholder="Enter City" name="city" id="city" required>
+        <input type="text" placeholder="Enter City" name="city" id="city" [(ngModel)]="user.address.city"  oninput="this.className = ''" required>
 
         <label for="country"><b>Country</b></label>
-        <input type="text" placeholder="Enter Country" name="country" id="country" required>
+        <input type="text" placeholder="Enter Country" name="country" id="country" [(ngModel)]="user.address.country" oninput="this.className = ''" required>
 
-        <label for="phone"><b>Phone</b></label>
-        <input type="tel" placeholder="Enter Phone" name="phone" id="phone" required>
+        <label for="phoneNumber"><b>Phone</b></label>
+        <input type="tel" placeholder="Enter Phone" name="phoneNumber" id="phoneNumber" [(ngModel)]="user.phoneNumber" oninput="this.className = ''" required>
 
         <label for="profession"><b>Profession</b></label>
-        <input type="text" placeholder="Enter Profession" name="profession" id="profession" required>
+        <input type="text" placeholder="Enter Profession" name="profession" id="profession" [(ngModel)]="user.profession" oninput="this.className = ''" required>
 
-        <label for="information"><b>Information</b></label>
-        <input type="text" placeholder="Enter Information about company/school/college/..." name="information" id="information" required>
+        <label for="infoAboutInstitution"><b>Information</b></label>
+        <input type="text" placeholder="Enter Information about company/school/college/..." name="infoAboutInstitution" id="infoAboutInstitution" [(ngModel)]="user.infoAboutInstitution" oninput="this.className = ''" required>
 
-        <button type="submit" class="registerbtn">Register</button>
+        <button class="registerbtn" [disabled]="registrationForm.invalid">Register</button>
       </div>
       
 </form>

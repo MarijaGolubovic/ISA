@@ -48,5 +48,11 @@ public class UserController {
     public void saveUser(@RequestBody User u) {
     	this.userService.saveUser(u);
     }
+    
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(path = "/registerUser", method = RequestMethod.PUT)
+    public void registerUser(@RequestBody User u) {
+    	this.userService.registerUser(u);
+    }
 
 }

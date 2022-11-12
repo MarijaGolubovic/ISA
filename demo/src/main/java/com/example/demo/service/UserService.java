@@ -60,6 +60,11 @@ public class UserService {
         this.AddressRepository.save(u.getAddress());
     	this.UserRepository.save(u);
     }
+    
+    public void registerUser(User u) {
+        this.AddressRepository.save(u.getAddress());
+    	this.UserRepository.save(u);
+    }
 
 
 

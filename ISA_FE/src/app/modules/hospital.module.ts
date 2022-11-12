@@ -30,6 +30,7 @@ const routes: Routes = [
     EditUserComponent,
     AuthorizedUserComponent,
     CentersComponent,
+    UserRegistrationComponent
   ],
   imports: [
     CommonModule,
