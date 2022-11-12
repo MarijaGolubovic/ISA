@@ -153,15 +153,40 @@ export class UserRegistrationComponent{
 
   isAllValid(){
     let allIsValid:boolean = false;
+    let nameValid:boolean = false;
+    let surnameValid:boolean = false;
+    let emailValid:boolean = false;
+    let longPasswordValid:boolean = false;
+    let passwordCorrect:boolean = false;
+    let genderValid:boolean=false;
+    let urnValid:boolean = false;
+    let phoneValid:boolean = false;
+    
     if((this.isValid(this.user.name)))
-      if(this.isValid(this.user.email))
-        if(this.isValidEmail(this.user.email))
-         if(this.isLongPassword(this.user.password))
-          if(this.isPasswordCorrect())
-            if(this.user.gender!=null)
-              if(this.isURNValid())
-                if(this.isPhoneNumberValid())
-                  allIsValid=true;
+        nameValid=true;
+
+    if(this.isValid(this.user.email))
+      surnameValid=true;
+
+    if(this.isValidEmail(this.user.email))
+      emailValid=true;
+
+    if(this.isLongPassword(this.user.password))
+      longPasswordValid=true;
+
+    if(this.isPasswordCorrect())
+      passwordCorrect=true;
+
+    if(this.user.gender !=null)
+      genderValid=true;
+    
+    if(this.isURNValid())
+        genderValid=true;
+    
+    if(this.isPhoneNumberValid())
+      phoneValid=true;
+    
+    allIsValid= nameValid && surnameValid && emailValid && longPasswordValid && passwordCorrect && genderValid && urnValid && phoneValid;
     
     return allIsValid
   }
