@@ -37,11 +37,6 @@ tr:nth-child(even) {background: #CCC}
    margin-top: 2%;
 }
 
-.clickable:hover {
-    font-weight: bold;
-    cursor: pointer;
-}feature-searchCenters
-
 .add-button {
     margin: 10px 20px 10px 10px;
     color: black;
@@ -67,4 +62,24 @@ p {
 
 th{
     user-select: none;
+}
+
+.filtrateTable{
+    width: 60%;
+    background-color: white;
+}
+
+.searchBtn{
+    background-color: rgb(221, 225, 230);
+    border-radius: 5%;
+    border:none ;
+    width: 60px;
+}
+
+input[type=text],input[type=number]{
+    border-color: rgb(206, 206, 238);
+    background-color: rgb(215, 219, 219);
+    border: none;
+    border-radius: 5%;
+    height: 30px;
 }

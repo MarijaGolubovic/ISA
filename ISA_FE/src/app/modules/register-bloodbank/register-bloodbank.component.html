@@ -1,0 +1,27 @@
+
+    <h1>Register blood bank:</h1>
+    <form id="regForm" (ngSubmit)="createBloodBank()">
+        <div>Bloodbank:
+            <p><input placeholder="Name..." oninput="this.className = ''" name="name" [(ngModel)]="bloodBankRequest.name"></p>
+            <p><input placeholder="Description..." oninput="this.className = ''" name="description" [(ngModel)]="bloodBankRequest.description"></p>
+        </div>
+        <div>Address:
+            <p><input placeholder="Country..." oninput="this.className = ''"  name="country" [(ngModel)]="bloodBankRequest.address.country"></p>
+            <p><input placeholder="City..." oninput="this.className = ''" name="city" [(ngModel)]="bloodBankRequest.address.city"></p>
+            <p><input placeholder="Street..." oninput="this.className = ''" name="street" [(ngModel)]="bloodBankRequest.address.street"></p>
+            <p><input placeholder="Number..." oninput="this.className = ''" name="number" [(ngModel)]="bloodBankRequest.address.number"></p>
+        </div>
+        <div >Admin:
+            <p><input placeholder="Name..." oninput="this.className = ''"  name="adminName" [(ngModel)]="user.name"></p>
+            <p><input placeholder="Surname..." oninput="this.className = ''" name="surname" [(ngModel)]="user.surname"></p>
+            <p><input placeholder="E-mail..." oninput="this.className = ''" name="email" [(ngModel)]="user.email"></p>
+            <p><input placeholder="Country..." oninput="this.className = ''" name="adminCountry" [(ngModel)]="user.address.country"></p>
+            <p><input placeholder="City..." oninput="this.className = ''" name="adminCity" [(ngModel)]="user.address.city"></p>
+            <p><input placeholder="Street..." oninput="this.className = ''" name="adminStreet" [(ngModel)]="user.address.street"></p>
+            <p><input placeholder="Number..." oninput="this.className = ''" name="adminNumber" [(ngModel)]="user.address.number"></p>
+            <p><input placeholder="URN..." oninput="this.className = ''" name="urn" [(ngModel)]="user.URN"></p>
+            <p><input placeholder="Gender..." oninput="this.className = ''" name="gender" [(ngModel)]="user.gender"></p>
+            <p><input placeholder="Info about institution..." oninput="this.className = ''" name="info" [(ngModel)]="user.infoAboutInstitution"></p>
+        </div>
+        <button mat-stroked-button >Submit</button>
+    </form>
