@@ -25,7 +25,6 @@ public class QuestionnairuController {
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
-//    @RequestMapping(path = "/save", method = RequestMethod.PUT)
 	@PutMapping
     public void saveQuestionnairu(@RequestBody Questionnaire question) {
     	this.QuestionnairuService.saveQuestionaire(question);

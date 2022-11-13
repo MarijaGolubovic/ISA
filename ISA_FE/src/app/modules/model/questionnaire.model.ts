@@ -1,16 +1,16 @@
 export class QUestionnaireRespons{
-    question1:boolean=false;
-    question2:boolean=false;
-    question3:boolean=false;
-    question4:boolean=false;
-    question5:boolean=false;
-    question6:boolean=false;
-    question7:boolean=false;
-    question8:boolean=false;
-    question9:boolean=false;
-    question10:boolean=false;
-    question11:boolean=false;
-    question12:boolean=false;
+    question1:any=null;
+    question2:any=null;
+    question3:any=null;
+    question4:any=null;
+    question5:any=null;
+    question6:any=null;
+    question7:any=null;
+    question8:any=null;
+    question9:any=null;
+    question10:any=null;
+    question11:any=null;
+    question12:any=null;
 
     public constructor(obj?: any){
         if (obj) {

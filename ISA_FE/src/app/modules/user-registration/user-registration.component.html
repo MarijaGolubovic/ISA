@@ -80,7 +80,7 @@
                     <input type="radio" name="gender" value="MALE" [(ngModel)]="user.gender" oninput="this.className = ''" formControlName="gender"> Male
                     <input type="radio" name="gender" value="FEMALE" [(ngModel)]="user.gender" formControlName="gender"> Female
                 </span>
-                <span *ngIf="gender && gender.invalid && gender.touched "style="color: red;">
+                <span *ngIf="gender && gender.touched && gender.invalid"style="color: red;">
                     Gender is required!
                 </span>
             </div>

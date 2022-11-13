@@ -21,7 +21,7 @@ export class UserRegistrationComponent{
     surname: new FormControl('',[Validators.required]),
     email: new FormControl('',Validators.required),
     psw: new FormControl('',[Validators.required]),
-    gender:new FormControl('',[Validators.required]),
+    gender:new FormControl(null,[Validators.required]),
     URN:new FormControl('',[Validators.required]),
     address: new FormControl('',[Validators.required]),
     streetNumber: new FormControl('',[Validators.required]),
