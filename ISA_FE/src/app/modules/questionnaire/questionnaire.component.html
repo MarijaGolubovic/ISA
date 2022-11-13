@@ -1,6 +1,7 @@
-<br>
-<br>
-<h4 style="text-align: center; color: #04AA6D;">Before making an appointment, please fill out this questionnaire.</h4>
+<br><br>
+<div class="header">
+    <h4 style="text-align: center;">Before making an appointment, please fill out this questionnaire</h4>
+</div>
 <div>
     <form (ngSubmit)="saveQuestionaire()">
         <div>
@@ -10,16 +11,16 @@
             <input type="radio" id="question1" name="question1" value="false" [(ngModel)]="questionnaire.question1" required>&nbsp;
             <label for="question1"> No</label>
         </div>
-        <hr>
-        <div>
+        <div style="background-color: rgb(215, 219, 219); padding-left: 5px;">
+            <hr>
             <h5>Have you been sick in the last 7 days?</h5>
             <input type="radio" id="question2" name="question2" value="true" [(ngModel)]="questionnaire.question2" required>&nbsp;
             <label for="question2"> Yes</label>&nbsp;
             <input type="radio" id="question2" name="question2" value="false" [(ngModel)]="questionnaire.question2" required>&nbsp;
             <label for="question2"> No</label>
+            <hr>
         </div>
 
-        <hr>
         <div>
             <h5>Have you used antibiotics in the last 7 days?</h5>
             <input type="radio" id="question3" name="question3" value="true" [(ngModel)]="questionnaire.question3" required>&nbsp;
@@ -28,16 +29,17 @@
             <label for="question3"> No</label>
         </div>
 
-        <hr>
-        <div>
+        
+        <div style="background-color: rgb(215, 219, 219); padding-left: 5px;">
+            <hr>
             <h5>Are you a smoker?</h5>
             <input type="radio" id="question4" name="question4" value="true" [(ngModel)]="questionnaire.question4" required>&nbsp;
             <label for="question4"> Yes</label>&nbsp;
             <input type="radio" id="question4" name="question4" value="false" [(ngModel)]="questionnaire.question4" required>&nbsp;
             <label for="question4"> No</label>
+            <hr>
         </div>
 
-        <hr>
         <div>
             <h5>Have you consumed alcohol in the last 24 hours?</h5>
             <input type="radio" id="question5" name="question5" value="true" [(ngModel)]="questionnaire.question5" required>&nbsp;
@@ -46,16 +48,16 @@
             <label for="question5"> No</label>
         </div>
 
-        <hr>
-        <div>
+        <div style="background-color: rgb(215, 219, 219); padding-left: 5px;">
+            <hr>
             <h5>Are you prescribed regular therapy?</h5>
             <input type="radio" id="question6" name="question6" value="true" [(ngModel)]="questionnaire.question6" required>&nbsp;
             <label for="question6"> Yes</label>&nbsp;
             <input type="radio" id="question6" name="question6" value="false" [(ngModel)]="questionnaire.question6" required>&nbsp;
             <label for="question6"> No</label>
+            <hr>
         </div>
 
-        <hr>
         <div>
             <h5>Do you have dermatological problems?</h5>
             <input type="radio" id="question7" name="question7" value="true" [(ngModel)]="questionnaire.question7" required>&nbsp;
@@ -64,16 +66,17 @@
             <label for="question7"> No</label>
         </div>
 
-        <hr>
-        <div>
+        
+        <div style="background-color: rgb(215, 219, 219); padding-left: 5px;">
+            <hr>
             <h5>Do you have heart problems?</h5>
             <input type="radio" id="question8" name="question8" value="true" [(ngModel)]="questionnaire.question8" required>&nbsp;
             <label for="question8"> Yes</label>&nbsp;
             <input type="radio" id="question8" name="question8" value="false" [(ngModel)]="questionnaire.question8" required>&nbsp;
             <label for="question8"> No</label>
+            <hr>
         </div>
 
-        <hr>
         <div>
             <h5>Are you taking antidepressants?</h5>
             <input type="radio" id="question9" name="question9" value="true" [(ngModel)]="questionnaire.question9" required>&nbsp;
@@ -82,16 +85,16 @@
             <label for="question9"> No</label>
         </div>
 
-        <hr>
-        <div>
+        <div style="background-color: rgb(215, 219, 219); padding-left: 5px;">
+            <hr>
             <h5>Have you had a tooth extracted in the last 7 days?</h5>
             <input type="radio" id="question10" name="question10" value="true" [(ngModel)]="questionnaire.question10" required>&nbsp;
             <label for="question10"> Yes</label>&nbsp;
             <input type="radio" id="question10" name="question10" value="false" [(ngModel)]="questionnaire.question10" required>&nbsp;
             <label for="question10"> No</label>
+            <hr>
         </div>
 
-        <hr>
         <div>
             <h5>Have you had surgery in the last month?</h5>
             <input type="radio" id="question11" name="question11" value="true" [(ngModel)]="questionnaire.question11" required>&nbsp;
@@ -99,16 +102,19 @@
             <input type="radio" id="question11" name="question11" value="false" [(ngModel)]="questionnaire.question11" required>&nbsp;
             <label for="question11"> No</label>
         </div>
-        <hr>
-        <div>
+
+        
+        <div style="background-color: rgb(215, 219, 219); padding-left: 5px;">
+            <hr>
             <h5>Have you received a vaccine or serum in the last 6 months?</h5>
             <input type="radio" id="question12" name="question12" value="true" [(ngModel)]="questionnaire.question12" required>&nbsp;
             <label for="question12"> Yes</label>&nbsp;
             <input type="radio" id="question12" name="question12" value="false" [(ngModel)]="questionnaire.question12" required>&nbsp;
             <label for="question12"> No</label>
-
-            <button>Submit</button>
+            <hr>
         </div>
+
+        <button>Submit</button>
 
 
     </form>
