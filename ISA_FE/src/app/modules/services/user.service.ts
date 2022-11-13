@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { WholeUserResponse, UserResponse } from '../model/user.model';
+import { WholeUserResponse, UserResponse, WholeUserResponseWithBloodBank, RegistratedUser } from '../model/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +27,9 @@ export class UserService {
 
   saveUser(user: any): Observable<any>{
     return this.http.put<any>(this.apiHost + 'api/user/saveUser', user, {headers: this.headers})
+  }
+
+  registerUser(user:RegistratedUser): Observable<any>{
+    return this.http.put<any>(this.apiHost + 'api/user/registerUser', user, {headers: this.headers})
   }
 }

@@ -1,0 +1,169 @@
+<br><br>
+<div class="header">
+    <h4 style="text-align: center;">Before making an appointment, please fill out this questionnaire</h4>
+</div>
+<div>
+    <form (ngSubmit)="saveQuestionaire()">
+
+        <div [formGroup]="questionnaireForm">
+            <h5>Do you weigh less than 50 kg?<span style="color: red;">&nbsp;*</span></h5>
+            <input type="radio" id="question1" name="question1" value="true" [(ngModel)]="questionnaire.question1" required formControlName="question1">&nbsp;
+            <label for="question1"> Yes</label>&nbsp;
+            <input type="radio" id="question1" name="question1" value="false" [(ngModel)]="questionnaire.question1" required formControlName="question1">&nbsp;
+            <label for="question1"> No</label>
+
+            <span *ngIf="question1 && question1.touched && question1.invalid" style="color: red;">
+                This field is required!
+            </span>
+        </div>
+
+        <div style="background-color: rgb(215, 219, 219); padding-left: 5px;" [formGroup]="questionnaireForm">
+            <hr>
+            <h5>Have you been sick in the last 7 days?<span style="color: red;">&nbsp;*</span></h5>
+            <input type="radio" id="question2" name="question2" value="true" [(ngModel)]="questionnaire.question2" required formControlName="question2">&nbsp;
+            <label for="question2"> Yes</label>&nbsp;
+            <input type="radio" id="question2" name="question2" value="false" [(ngModel)]="questionnaire.question2" required formControlName="question2">&nbsp;
+            <label for="question2"> No</label>
+
+            <span *ngIf="question2 && question2.touched && question2.invalid" style="color: red;">
+                This field is required!
+            </span>
+            <hr>
+        </div>
+
+        <div [formGroup]="questionnaireForm">
+            <h5>Have you used antibiotics in the last 7 days?<span style="color: red;">&nbsp;*</span></h5>
+            <input type="radio" id="question3" name="question3" value="true" [(ngModel)]="questionnaire.question3" required formControlName="question3">&nbsp;
+            <label for="question3"> Yes</label>&nbsp;
+            <input type="radio" id="question3" name="question3" value="false" [(ngModel)]="questionnaire.question3" required formControlName="question3">&nbsp;
+            <label for="question3"> No</label>
+
+            <span *ngIf="question3 && question3.touched && question3.invalid" style="color: red;">
+                This field is required!
+            </span>
+        </div>
+
+        
+        <div style="background-color: rgb(215, 219, 219); padding-left: 5px;" [formGroup]="questionnaireForm">
+            <hr>
+            <h5>Are you a smoker?<span style="color: red;">&nbsp;*</span></h5>
+            <input type="radio" id="question4" name="question4" value="true" [(ngModel)]="questionnaire.question4" required formControlName="question4">&nbsp;
+            <label for="question4"> Yes</label>&nbsp;
+            <input type="radio" id="question4" name="question4" value="false" [(ngModel)]="questionnaire.question4" required formControlName="question4">&nbsp;
+            <label for="question4"> No</label>
+            <span *ngIf="question4 && question4.touched && question4.invalid" style="color: red;">
+                This field is required!
+            </span>
+            <hr>
+        </div>
+
+        <div [formGroup]="questionnaireForm">
+            <h5>Have you consumed alcohol in the last 24 hours?<span style="color: red;">&nbsp;*</span></h5>
+            <input type="radio" id="question5" name="question5" value="true" [(ngModel)]="questionnaire.question5" required formControlName="question5">&nbsp;
+            <label for="question5"> Yes</label>&nbsp;
+            <input type="radio" id="question5" name="question5" value="false" [(ngModel)]="questionnaire.question5" required formControlName="question5">&nbsp;
+            <label for="question5"> No</label>
+
+            <span *ngIf="question5 && question5.touched && question5.invalid" style="color: red;">
+                This field is required!
+            </span>
+        </div>
+
+        <div style="background-color: rgb(215, 219, 219); padding-left: 5px;" [formGroup]="questionnaireForm">
+            <hr>
+            <h5>Are you prescribed regular therapy?<span style="color: red;">&nbsp;*</span></h5>
+            <input type="radio" id="question6" name="question6" value="true" [(ngModel)]="questionnaire.question6" required formControlName="question6">&nbsp;
+            <label for="question6"> Yes</label>&nbsp;
+            <input type="radio" id="question6" name="question6" value="false" [(ngModel)]="questionnaire.question6" required formControlName="question6">&nbsp;
+            <label for="question6"> No</label>
+
+            <span *ngIf="question6 && question6.touched && question6.invalid" style="color: red;">
+                This field is required!
+            </span>
+            <hr>
+        </div>
+
+        <div [formGroup]="questionnaireForm">
+            <h5>Do you have dermatological problems?<span style="color: red;">&nbsp;*</span></h5>
+            <input type="radio" id="question7" name="question7" value="true" [(ngModel)]="questionnaire.question7" required formControlName="question7">&nbsp;
+            <label for="question7"> Yes</label>&nbsp;
+            <input type="radio" id="question7" name="question7" value="false" [(ngModel)]="questionnaire.question7" required formControlName="question7">&nbsp;
+            <label for="question7"> No</label>
+
+            <span *ngIf="question7 && question7.touched && question7.invalid" style="color: red;">
+                This field is required!
+            </span>
+        </div>
+
+        
+        <div style="background-color: rgb(215, 219, 219); padding-left: 5px;" [formGroup]="questionnaireForm">
+            <hr>
+            <h5>Do you have heart problems?<span style="color: red;">&nbsp;*</span></h5>
+            <input type="radio" id="question8" name="question8" value="true" [(ngModel)]="questionnaire.question8" required formControlName="question8">&nbsp;
+            <label for="question8"> Yes</label>&nbsp;
+            <input type="radio" id="question8" name="question8" value="false" [(ngModel)]="questionnaire.question8" required formControlName="question8">&nbsp;
+            <label for="question8"> No</label>
+
+            <span *ngIf="question8 && question8.touched && question8.invalid" style="color: red;">
+                This field is required!
+            </span>
+            <hr>
+        </div>
+
+        <div [formGroup]="questionnaireForm">
+            <h5>Are you taking antidepressants?<span style="color: red;">&nbsp;*</span></h5>
+            <input type="radio" id="question9" name="question9" value="true" [(ngModel)]="questionnaire.question9" required formControlName="question9">&nbsp;
+            <label for="question9"> Yes</label>&nbsp;
+            <input type="radio" id="question9" name="question9" value="false" [(ngModel)]="questionnaire.question9" required formControlName="question9">&nbsp;
+            <label for="question9"> No</label>
+
+            <span *ngIf="question9 && question9.touched && question9.invalid" style="color: red;">
+                This field is required!
+            </span>
+        </div>
+
+        <div style="background-color: rgb(215, 219, 219); padding-left: 5px;" [formGroup]="questionnaireForm">
+            <hr>
+            <h5>Have you had a tooth extracted in the last 7 days?<span style="color: red;">&nbsp;*</span></h5>
+            <input type="radio" id="question10" name="question10" value="true" [(ngModel)]="questionnaire.question10" required formControlName="question10">&nbsp;
+            <label for="question10"> Yes</label>&nbsp;
+            <input type="radio" id="question10" name="question10" value="false" [(ngModel)]="questionnaire.question10" required formControlName="question10">&nbsp;
+            <label for="question10"> No</label>
+
+            <span *ngIf="question10 && question10.touched && question10.invalid" style="color: red;">
+                This field is required!
+            </span>
+            <hr>
+        </div>
+
+        <div [formGroup]="questionnaireForm">
+            <h5>Have you had surgery in the last month?<span style="color: red;">&nbsp;*</span></h5>
+            <input type="radio" id="question11" name="question11" value="true" [(ngModel)]="questionnaire.question11" required formControlName="question11">&nbsp;
+            <label for="question11"> Yes</label>&nbsp;
+            <input type="radio" id="question11" name="question11" value="false" [(ngModel)]="questionnaire.question11" required formControlName="question11">&nbsp;
+            <label for="question11"> No</label>
+
+            <span *ngIf="question11 && question11.touched && question11.invalid" style="color: red;">
+                This field is required!
+            </span>
+        </div>
+
+        
+        <div style="background-color: rgb(215, 219, 219); padding-left: 5px;" [formGroup]="questionnaireForm">
+            <hr>
+            <h5>Have you received a vaccine or serum in the last 6 months?<span style="color: red;">&nbsp;*</span></h5>
+            <input type="radio" id="question12" name="question12" value="true" [(ngModel)]="questionnaire.question12" required formControlName="question12">&nbsp;
+            <label for="question12"> Yes</label>&nbsp;
+            <input type="radio" id="question12" name="question12" value="false" [(ngModel)]="questionnaire.question12" required formControlName="question12">&nbsp;
+            <label for="question12"> No</label>
+
+            <span *ngIf="question12 && question12.touched && question12.invalid" style="color: red;">
+                This field is required!
+            </span>
+            <hr>
+        </div>
+
+        <button [disabled]="questionnaireForm.invalid">Submit</button>
+
+    </form>
+</div>

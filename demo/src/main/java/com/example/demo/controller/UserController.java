@@ -50,9 +50,18 @@ public class UserController {
     	this.userService.saveUser(u);
     }
 
+
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(path = "/centersAdmins/{id}", method = RequestMethod.GET)
     public List<User> getCentersAdmins (@PathVariable Long id) {
         return userService.getCentersAdmins(id);
     }
+
+    
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(path = "/registerUser", method = RequestMethod.PUT)
+    public void registerUser(@RequestBody User u) {
+    	this.userService.registerUser(u);
+    }
+
 }

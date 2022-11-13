@@ -1,5 +1,5 @@
 .container {
-    width: 50%;
+    width: 70%;
     margin: auto;
     margin-top: 20px;
     border-radius: 3px;
@@ -19,13 +19,22 @@ table {
 
 }
 
+.search{
+    margin-right: 0%;
+}
+
 .cell-center {
     text-align: center;
 }
 
-.clickable:hover {
-    font-weight: bold;
-    cursor: pointer;
+tr:nth-child(even) {background: #CCC}
+
+.first{
+    position:absolute;
+}
+.second{
+   position: relative;
+   margin-top: 2%;
 }
 
 .add-button {
@@ -37,9 +46,40 @@ table {
 
 .table-header {
     display: flex;
+    background-color: gray;
 }
 
 p {
     float: left;
     margin-right: auto;
+}
+
+.sort-button{
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+th{
+    user-select: none;
+}
+
+.filtrateTable{
+    width: 60%;
+    background-color: white;
+}
+
+.searchBtn{
+    background-color: rgb(221, 225, 230);
+    border-radius: 5%;
+    border:none ;
+    width: 60px;
+}
+
+input[type=text],input[type=number]{
+    border-color: rgb(206, 206, 238);
+    background-color: rgb(215, 219, 219);
+    border: none;
+    border-radius: 5%;
+    height: 30px;
 }

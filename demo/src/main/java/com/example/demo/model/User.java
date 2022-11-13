@@ -48,9 +48,7 @@ public class User {
     @Column(name="userCategory")
     private UserCategory userCategory;
 
-
-
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "bloodBank_id")
     private BloodBank bloodBank;
 

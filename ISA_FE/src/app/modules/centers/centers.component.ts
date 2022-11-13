@@ -19,6 +19,15 @@ export class CentersComponent implements OnInit {
   public dataSource = new MatTableDataSource<CenterResponse>();
   public displayedColumns = ['name', 'city', 'street', 'streetNumber','grade'];
   public centers: CenterResponse[] = [];
+  public booleanValueByName: any = false;
+  public booleanValueByCity: any = false;
+  public booleanValueByStreet: any = false;
+  public booleanValueByStreetNumber: any = false;
+  public booleanValueByGrade: any = false;
+  public searchName: string = '';
+  public searchCity: string = '';
+  public searchMinGrade: number = 0;
+  public searchMaxGrade: number = 10
 
   constructor(private centerService: CenterService, private router: Router) {
     this.sortedData = this.centers.slice();
@@ -35,34 +44,204 @@ export class CentersComponent implements OnInit {
   }
 
 
-  sortData(sort: Sort) {
-    const data = this.centers.slice();
-    if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
-      return;
+  sortFunctionByName(boolean:boolean) {
+    if (boolean == true){
+      this.centers.sort((a, b) => {
+        const nameA = a.name.toUpperCase();
+        const nameB = b.name.toUpperCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+      
+        return 0;
+      });
+      this.dataSource.data = this.centers;
+      this.booleanValueByName = !this.booleanValueByName;
     }
-
-    this.sortedData = data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-      switch (sort.active) {
-        case 'name':
-          return compare(a.name, b.name, isAsc);
-        // case 'calories':
-        //   return compare(a.calories, b.calories, isAsc);
-        // case 'fat':
-        //   return compare(a.fat, b.fat, isAsc);
-        // case 'carbs':
-        //   return compare(a.carbs, b.carbs, isAsc);
-        // case 'protein':
-        //   return compare(a.protein, b.protein, isAsc);
-        default:
-          return 0;
+    else{
+      this.centers.sort((a, b) => {
+        const nameA = a.name.toUpperCase();
+        const nameB = b.name.toUpperCase(); 
+        if (nameA > nameB) {
+          return -1;
+        }
+        if (nameA < nameB) {
+          return 1;
+        }
+        return 0;
+      });
+      this.dataSource.data = this.centers;
+      this.booleanValueByName = !this.booleanValueByName;
+    }
+  }
+  public searchCenters(){
+    this.dataSource.data = []
+    let searchedCenters: CenterResponse[] = [];
+    for(let center of this.centers){
+      if(center.name.toLocaleLowerCase().includes(this.searchName.toLocaleLowerCase()) && center.city.toLocaleLowerCase().includes(this.searchCity.toLocaleLowerCase())){
+        searchedCenters.push(center);
       }
+    }
+    this.dataSource.data = searchedCenters;
+  }
+
+  public filterCenters(){
+    let filteredCenters: CenterResponse[] = [];
+    if(this.searchMaxGrade == 0){
+      this.searchMaxGrade = 10
+    }
+    for(let center of this.dataSource.data){
+      if(this.searchMinGrade <= center.grade && this.searchMaxGrade >= center.grade){
+        filteredCenters.push(center);
+      }
+    }
+    this.dataSource.data =filteredCenters;
+  }
+
+
+sortFunctionByCity(boolean:boolean) {
+  if (boolean == true){
+    this.centers.sort((a, b) => {
+      const cityA = a.city.toUpperCase();
+      const cityB = b.city.toUpperCase();
+      if (cityA < cityB) {
+        return -1;
+      }
+      if (cityA > cityB) {
+        return 1;
+      }
+    
+      return 0;
     });
+    this.dataSource.data = this.centers;
+    this.booleanValueByCity = !this.booleanValueByCity;
+  }
+  else{
+    this.centers.sort((a, b) => {
+      const cityA = a.city.toUpperCase();
+      const cityB = b.city.toUpperCase(); 
+      if (cityA > cityB) {
+        return -1;
+      }
+      if (cityA < cityB) {
+        return 1;
+      }
+      return 0;
+    });
+    this.dataSource.data = this.centers;
+    this.booleanValueByCity = !this.booleanValueByCity;
   }
 }
 
-function compare(a: number | string, b: number | string, isAsc: boolean) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+sortFunctionByStreet(boolean:boolean) {
+  if (boolean == true){
+    this.centers.sort((a, b) => {
+      const streetA = a.street.toUpperCase();
+      const streetB = b.street.toUpperCase();
+      if (streetA < streetB) {
+        return -1;
+      }
+      if (streetA > streetB) {
+        return 1;
+      }
+    
+      return 0;
+    });
+    this.dataSource.data = this.centers;
+    this.booleanValueByStreet = !this.booleanValueByStreet;
+  }
+  else{
+    this.centers.sort((a, b) => {
+      const streetA = a.street.toUpperCase();
+      const streetB = b.street.toUpperCase(); 
+      if (streetA > streetB) {
+        return -1;
+      }
+      if (streetA < streetB) {
+        return 1;
+      }
+      return 0;
+    });
+    this.dataSource.data = this.centers;
+    this.booleanValueByStreet = !this.booleanValueByStreet;
+  }
 }
+
+
+sortFunctionByStreetNumber(boolean:boolean) {
+  if (boolean == true){
+    this.centers.sort((a, b) => {
+      const streetNumberA = a.streetNumber;
+      const streetNumberB = b.streetNumber;
+      if (streetNumberA < streetNumberB) {
+        return -1;
+      }
+      if (streetNumberA > streetNumberB) {
+        return 1;
+      }
+    
+      return 0;
+    });
+    this.dataSource.data = this.centers;
+    this.booleanValueByStreetNumber = !this.booleanValueByStreetNumber;
+  }
+  else{
+    this.centers.sort((a, b) => {
+      const streetNumberA = a.streetNumber;
+      const streetNumberB = b.streetNumber; 
+      if (streetNumberA > streetNumberB) {
+        return -1;
+      }
+      if (streetNumberA < streetNumberB) {
+        return 1;
+      }
+      return 0;
+    });
+    this.dataSource.data = this.centers;
+    this.booleanValueByStreetNumber = !this.booleanValueByStreetNumber;
+  }
+}
+
+sortFunctionByGrade(boolean:boolean) {
+  if (boolean == true){
+    this.centers.sort((a, b) => {
+      const gradeA = a.grade;
+      const gradeB = b.grade;
+      if (gradeA < gradeB) {
+        return -1;
+      }
+      if (gradeA > gradeB) {
+        return 1;
+      }
+    
+      return 0;
+    });
+    this.dataSource.data = this.centers;
+    this.booleanValueByGrade = !this.booleanValueByGrade;
+  }
+  else{
+    this.centers.sort((a, b) => {
+      const gradeA = a.grade;
+      const gradeB = b.grade; 
+      if (gradeA > gradeB) {
+        return -1;
+      }
+      if (gradeA < gradeB) {
+        return 1;
+      }
+      return 0;
+    });
+    this.dataSource.data = this.centers;
+    this.booleanValueByGrade = !this.booleanValueByGrade;
+  }
+}
+
+
+
+
+}
+
 
