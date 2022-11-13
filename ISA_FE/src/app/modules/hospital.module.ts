@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'autorizedUser', component: AuthorizedUserComponent },
   { path: 'autorizedUser/centers', component: CentersComponent },
   { path: 'autorizedUser/center', component: EditBloodBankComponent },
-  { path: 'users/changePassword', component: ChangeUserPasswordComponent }
+  { path: 'users/changePassword', component: ChangeUserPasswordComponent },
   { path: 'register-bloodbank', component: BloodbankRegistrationComponent},
   { path: 'userRegistration', component: UserRegistrationComponent },
   { path: 'questionnaire', component: QuestionnaireComponent }
@@ -38,7 +38,7 @@ const routes: Routes = [
     AuthorizedUserComponent,
     CentersComponent,
     EditBloodBankComponent,
-    ChangeUserPasswordComponent
+    ChangeUserPasswordComponent,
     UserRegistrationComponent,
     QuestionnaireComponent
   ],

@@ -22,7 +22,7 @@ import { FormsModule } from '@angular/forms';
     MaterialModule,
     HospitalModule,
     ReactiveFormsModule,
-    MatGridListModule
+    MatGridListModule,
     FormsModule,
   ],
   providers: [],
