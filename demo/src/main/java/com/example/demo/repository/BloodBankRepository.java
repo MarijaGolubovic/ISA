@@ -9,6 +9,9 @@ import org.springframework.data.jpa.repository.Query;
 
 @Repository
 public interface BloodBankRepository extends JpaRepository<BloodBank, Long> {
+
+    BloodBank findByName(String name);
+
     @Query("select bb from BloodBank bb where bb.id = (select u from User u where u.id=?1)")
     BloodBank findByUserId(Long idUser);
 }

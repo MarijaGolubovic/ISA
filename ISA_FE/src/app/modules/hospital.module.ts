@@ -22,12 +22,12 @@ const routes: Routes = [
   { path: 'users/edit', component: EditUserComponent },
   { path: 'autorizedUser', component: AuthorizedUserComponent },
   { path: 'autorizedUser/centers', component: CentersComponent },
+  { path: 'register-bloodbank', component: BloodbankRegistrationComponent},
   { path: 'autorizedUser/center', component: EditBloodBankComponent },
   { path: 'users/changePassword', component: ChangeUserPasswordComponent },
   { path: 'register-bloodbank', component: BloodbankRegistrationComponent},
   { path: 'userRegistration', component: UserRegistrationComponent },
   { path: 'questionnaire', component: QuestionnaireComponent }
-
 ];
 
 @NgModule({

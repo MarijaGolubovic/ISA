@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
+    FormsModule,
     HospitalModule,
     ReactiveFormsModule,
     MatGridListModule,

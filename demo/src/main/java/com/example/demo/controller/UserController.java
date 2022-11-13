@@ -40,7 +40,7 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(path = "/getLoggedUser", method = RequestMethod.GET)
     public User getLoggedUser() {
-    	User user = userService.getAllUsers().get(0);
+    	User user = userService.getAllUsers().get(10);
     	return user;
     }
     
@@ -49,6 +49,11 @@ public class UserController {
     public void saveUser(@RequestBody User u) {
     	this.userService.saveUser(u);
     }
+
+    @GetMapping("/{bloodBankName}")
+    @ResponseBody
+    public List<UserResponse> getAllUsersForAdminCenter(@PathVariable String bloodBankName){
+        return userService.getAllUsersForAdminCenter(bloodBankName);
 
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -62,6 +67,7 @@ public class UserController {
     @RequestMapping(path = "/registerUser", method = RequestMethod.PUT)
     public void registerUser(@RequestBody User u) {
     	this.userService.registerUser(u);
+
     }
 
 }

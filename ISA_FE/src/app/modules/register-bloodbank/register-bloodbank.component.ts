@@ -31,9 +31,7 @@ export class BloodbankRegistrationComponent{
     this.user.bloodBank = this.bloodBankRequest;
     this.user.password = 'password';
     this.userService.saveUser(this.user).subscribe(res => {
-      if (res == true){
-        return console.log("Admin is created!");
-      }
+      alert("Successfull!")
     });
   }
 
