@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.EditedUserResponse;
 import com.example.demo.dto.UserResponse;
 import com.example.demo.model.Address;
+import com.example.demo.model.BloodBank;
 import com.example.demo.model.BloodSupply;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
@@ -39,7 +40,7 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(path = "/getLoggedUser", method = RequestMethod.GET)
     public User getLoggedUser() {
-    	User user = userService.getAllUsers().get(0);
+    	User user = userService.getAllUsers().get(10);
     	return user;
     }
     
@@ -48,4 +49,25 @@ public class UserController {
     public void saveUser(@RequestBody User u) {
     	this.userService.saveUser(u);
     }
+
+    @GetMapping("/{bloodBankName}")
+    @ResponseBody
+    public List<UserResponse> getAllUsersForAdminCenter(@PathVariable String bloodBankName){
+        return userService.getAllUsersForAdminCenter(bloodBankName);
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(path = "/centersAdmins/{id}", method = RequestMethod.GET)
+    public List<User> getCentersAdmins (@PathVariable Long id) {
+        return userService.getCentersAdmins(id);
+    }
+
+    
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(path = "/registerUser", method = RequestMethod.PUT)
+    public void registerUser(@RequestBody User u) {
+    	this.userService.registerUser(u);
+
+    }
+
 }

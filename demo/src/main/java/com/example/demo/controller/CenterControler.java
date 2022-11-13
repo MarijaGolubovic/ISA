@@ -2,10 +2,9 @@ package com.example.demo.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.demo.model.BloodBank;
+import com.example.demo.model.User;
+import org.springframework.web.bind.annotation.*;
 import com.example.demo.dto.CenterResponse;
 import com.example.demo.service.CenterService;
 
@@ -23,4 +22,17 @@ public class CenterControler {
     public List<CenterResponse> getAllCenterResponses(){
         return CenterService.getAllCentersResponses();
     }
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(path = "/loggedAdminCenter/{id}", method = RequestMethod.GET)
+	public BloodBank getLoggedUserCenter (@PathVariable Long id) {
+			return CenterService.getLoggedUserCenter(id);
+	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(path = "/loggedAdminCenter/saveCenter", method = RequestMethod.PUT)
+	public void saveCenter(@RequestBody BloodBank bb) {
+		this.CenterService.SaveCenter(bb);
+	}
+
 }

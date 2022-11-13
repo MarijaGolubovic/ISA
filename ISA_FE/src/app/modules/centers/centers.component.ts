@@ -2,8 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CenterService } from 'src/app/modules/services/centers.service';
 import { CenterResponse } from 'src/app/modules/model/center.model';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import {Sort} from '@angular/material/sort';
+
+
+
+
 
 @Component({
   selector: 'app-centers',
@@ -25,15 +29,20 @@ export class CentersComponent implements OnInit {
   public searchMinGrade: number = 0;
   public searchMaxGrade: number = 10
 
-  constructor(private centerService: CenterService, private router: Router) { }
+  constructor(private centerService: CenterService, private router: Router) {
+    this.sortedData = this.centers.slice();
+   }
 
+  sortedData: CenterResponse[];
 
   ngOnInit(): void {
     (this.centerService.getCenterResponses()).subscribe(res => {
       this.centers = res;
       this.dataSource.data = this.centers;
+      this.sortedData = this.centers.slice();
     })
   }
+
 
   sortFunctionByName(boolean:boolean) {
     if (boolean == true){
@@ -234,6 +243,5 @@ sortFunctionByGrade(boolean:boolean) {
 
 
 }
-
 
 

@@ -21,6 +21,7 @@ public CenterService(CenterRepository centerRepository) {
 	this.CenterRepository=centerRepository;
 }
 
+
 public List<BloodBank> getAllUsers(){
     return CenterRepository.findAll();
 }
@@ -42,5 +43,13 @@ private CenterResponse convertEntityToDto(BloodBank center){
 
     return centerResponse;
 }
+
+    public BloodBank getLoggedUserCenter (Long UserId) {
+        return CenterRepository.findByUserId(UserId);
+    }
+
+    public void SaveCenter (BloodBank bb) {
+        this.CenterRepository.save(bb);
+    }
 
 }

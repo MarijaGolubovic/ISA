@@ -1,5 +1,5 @@
 .container {
-    width: 50%;
+    width: 70%;
     margin: auto;
     margin-top: 20px;
     border-radius: 3px;
@@ -19,14 +19,28 @@ table {
 
 }
 
+.search{
+    margin-right: 0%;
+}
+
 .cell-center {
     text-align: center;
+}
+
+tr:nth-child(even) {background: #CCC}
+
+.first{
+    position:absolute;
+}
+.second{
+   position: relative;
+   margin-top: 2%;
 }
 
 .clickable:hover {
     font-weight: bold;
     cursor: pointer;
-}
+}feature-searchCenters
 
 .add-button {
     margin: 10px 20px 10px 10px;
@@ -37,9 +51,20 @@ table {
 
 .table-header {
     display: flex;
+    background-color: gray;
 }
 
 p {
     float: left;
     margin-right: auto;
+}
+
+.sort-button{
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+th{
+    user-select: none;
 }

@@ -1,5 +1,4 @@
 export class Address {
-    id: number = 0;
     country: string = '';
     city: string = '';
     street: string = '';
@@ -7,7 +6,6 @@ export class Address {
 
     public constructor(obj?: any) {
         if (obj) {
-            this.id = obj.id;
             this.country = obj.country;
             this.city = obj.city;
             this.street = obj.street;
