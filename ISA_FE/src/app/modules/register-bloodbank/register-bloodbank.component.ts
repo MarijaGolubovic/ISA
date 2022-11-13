@@ -28,17 +28,10 @@ export class BloodbankRegistrationComponent{
   })
 
   public createBloodBank() {
-    //this.bloodBankService.registerBloodBankWithAdmin(this.bloodBankRequest).subscribe(res => {
-    //  if (res == true){
-    //    return console.log("Blood bank is created!");
-    //  }
-    //});
     this.user.bloodBank = this.bloodBankRequest;
     this.user.password = 'password';
     this.userService.saveUser(this.user).subscribe(res => {
-      if (res == true){
-        return console.log("Admin is created!");
-      }
+      alert("Successfull!")
     });
   }
 

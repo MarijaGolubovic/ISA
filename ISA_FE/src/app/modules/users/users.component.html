@@ -7,27 +7,18 @@
 </head>
 <body>
     <div class="container">
-        <div class="table-header" >
-            <p class="table-title">List of all users</p>
+        <div class="table-header">
+            <p class="table-title">List of all users:</p>
         </div>
-        <mat-label>Search users by name and surname:</mat-label>
-        <div >
 
-            <form [formGroup]="searchForm" (ngSubmit)="searchUsers()">
-                <mat-form-field appearance="fill">
-                <mat-label>Name</mat-label>
-                <input  matInput [(ngModel)]="searchName" formControlName="searchName">
-                </mat-form-field>
-        
-                <mat-form-field appearance="fill">
-                <mat-label>Surname</mat-label>
-                <input  matInput [(ngModel)]="searchSurname" formControlName="searchSurname" >
-                </mat-form-field>
-        
-                <button mat-stroked-button [disabled]="searchForm.invalid">Search</button><br>
-            </form>
-
+        <div class="search">
+            <label class="first">Name</label>
+            <input type="text" placeholder="Name" [(ngModel)]="searchName" class="second">
+            <label class="first">City</label>
+            <input type="text" placeholder="Surname" [(ngModel)]="searchSurname" class="second">
+            <button (click)="searchUsers()" class="button">Search</button>
         </div>
+
         <table mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef class="cell-center"> Name </th>

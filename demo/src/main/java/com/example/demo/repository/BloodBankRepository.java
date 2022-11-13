@@ -10,4 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 @Repository
 public interface BloodBankRepository extends JpaRepository<BloodBank, Long> {
 
+    BloodBank findByName(String name);
+
 }

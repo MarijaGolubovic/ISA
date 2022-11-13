@@ -61,6 +61,14 @@ public class UserService {
     	this.UserRepository.save(u);
     }
 
+    public List<UserResponse> getAllUsersForAdminCenter(String bloodBankName){
+        BloodBank bb = this.BloodBankRepository.findByName(bloodBankName);
+        return this.UserRepository.findByBloodBank(bb.getId())
+                .stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
+
 
 
 }
