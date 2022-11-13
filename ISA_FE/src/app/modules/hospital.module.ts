@@ -13,6 +13,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { AuthorizedUserComponent } from './authorized-user/authorized-user.component';
 import { CentersComponent } from './centers/centers.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 
 const routes: Routes = [
   { path: 'users', component: UsersComponent },
@@ -20,7 +21,9 @@ const routes: Routes = [
   { path: 'autorizedUser', component: AuthorizedUserComponent },
   { path: 'autorizedUser/centers', component: CentersComponent },
   { path: 'register-bloodbank', component: BloodbankRegistrationComponent},
-  { path: 'userRegistration', component: UserRegistrationComponent }
+  { path: 'userRegistration', component: UserRegistrationComponent },
+  { path: 'questionnaire', component: QuestionnaireComponent }
+
 ];
 
 @NgModule({
@@ -30,7 +33,8 @@ const routes: Routes = [
     EditUserComponent,
     AuthorizedUserComponent,
     CentersComponent,
-    UserRegistrationComponent
+    UserRegistrationComponent,
+    QuestionnaireComponent
   ],
   imports: [
     CommonModule,

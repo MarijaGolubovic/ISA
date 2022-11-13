@@ -29,10 +29,6 @@ export class UserService {
     return this.http.put<any>(this.apiHost + 'api/user/saveUser', user, {headers: this.headers})
   }
 
-  // registerUser(user:WholeUserResponseWithBloodBank): Observable<any>{
-  //   return this.http.post<any>(this.apiHost + 'api/user/registerUser', user, {headers: this.headers})
-  // }
-
   registerUser(user:RegistratedUser): Observable<any>{
     return this.http.put<any>(this.apiHost + 'api/user/registerUser', user, {headers: this.headers})
   }
