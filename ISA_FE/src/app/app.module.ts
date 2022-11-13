@@ -6,6 +6,8 @@ import { AppComponent } from "./app.component";
 import { MaterialModule } from "./material/material.module";
 import { HospitalModule } from "./modules/hospital.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from "@angular/forms";
+import {MatGridListModule} from "@angular/material/grid-list";
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -19,7 +21,10 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     MaterialModule,
     FormsModule,
-    HospitalModule
+    HospitalModule,
+    ReactiveFormsModule,
+    MatGridListModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

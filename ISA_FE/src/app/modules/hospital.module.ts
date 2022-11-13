@@ -12,13 +12,22 @@ import { MatSelectModule } from "@angular/material/select";
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { AuthorizedUserComponent } from './authorized-user/authorized-user.component';
 import { CentersComponent } from './centers/centers.component';
+import { EditBloodBankComponent } from "./bloodBank/bloodBank.component";
+import { ChangeUserPasswordComponent } from './change-user-password/change-user-password.component';
+import { UserRegistrationComponent } from './user-registration/user-registration.component';
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 
 const routes: Routes = [
   { path: 'users', component: UsersComponent },
   { path: 'users/edit', component: EditUserComponent },
   { path: 'autorizedUser', component: AuthorizedUserComponent },
   { path: 'autorizedUser/centers', component: CentersComponent },
-  { path: 'register-bloodbank', component: BloodbankRegistrationComponent}
+  { path: 'register-bloodbank', component: BloodbankRegistrationComponent},
+  { path: 'autorizedUser/center', component: EditBloodBankComponent },
+  { path: 'users/changePassword', component: ChangeUserPasswordComponent },
+  { path: 'register-bloodbank', component: BloodbankRegistrationComponent},
+  { path: 'userRegistration', component: UserRegistrationComponent },
+  { path: 'questionnaire', component: QuestionnaireComponent }
 ];
 
 @NgModule({
@@ -27,7 +36,11 @@ const routes: Routes = [
     BloodbankRegistrationComponent,
     EditUserComponent,
     AuthorizedUserComponent,
-    CentersComponent
+    CentersComponent,
+    EditBloodBankComponent,
+    ChangeUserPasswordComponent,
+    UserRegistrationComponent,
+    QuestionnaireComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +53,8 @@ const routes: Routes = [
     BrowserModule,
     MatSelectModule,
     RouterModule.forChild(routes)
-  ],
+
+    ],
   exports: [ RouterModule ]
 })
 export class HospitalModule { }

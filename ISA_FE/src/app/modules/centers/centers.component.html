@@ -7,23 +7,36 @@
     <title>Centers</title>
 </head>
 <body>
-    <div class="container">
+    <div class="container" style="box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);">
         <div class="table-header">
             <p class="table-title">List of all centers</p>
         </div>
-        <div class="search">
-            <label class="first">Name</label>
-            <input type="text" placeholder="Name" [(ngModel)]="searchName" class="second">
-            <label class="first">City</label>
-            <input type="text" placeholder="City" [(ngModel)]="searchCity" class="second">
-            <button (click)="searchCenters()" class="button">Search</button>
+        <div class="filtrateTable">
+            <table>
+                <tr>
+                    <td><label>Name</label></td>
+                    <td><label>City</label></td>
+                </tr>
+                <tr>
+                    <td style="background-color: white;"><input type="text" placeholder="Name" [(ngModel)]="searchName"></td>
+                    <td style="background-color: white;"><input type="text" placeholder="City" [(ngModel)]="searchCity"></td>
+                    <td style="background-color: white;"><button (click)="searchCenters()" class="searchBtn">Search</button></td>
+                </tr>
+            </table>
         </div>
         <div>
-            <label class="first">From grade</label>
-            <input type="number" placeholder="From grade" [(ngModel)]="searchMinGrade" class="second">
-            <label class="first">To grade</label>
-            <input type="number" placeholder="To grade" [(ngModel)]="searchMaxGrade" class="second">
-            <button (click)="filterCenters()">Filter</button>
+            <table class="filtrateTable">
+                <tr>
+                    <td><label>From grade</label></td>
+                    <td><label>To grade</label></td>
+                </tr>
+                <tr>
+                    <td style="background-color: white;"><input type="number" placeholder="From grade" [(ngModel)]="searchMinGrade"></td>
+                    <td style="background-color: white;"><input type="number" placeholder="To grade" [(ngModel)]="searchMaxGrade"></td>
+                    <td style="background-color: white;"><button (click)="filterCenters()" class="searchBtn">Filter</button></td>
+                </tr>
+            </table>
+
         </div>
         <table mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="name">

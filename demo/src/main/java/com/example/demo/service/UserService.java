@@ -58,7 +58,7 @@ public class UserService {
     public void saveUser(User u) {
         this.BloodBankRepository.save(u.getBloodBank());
         this.AddressRepository.save(u.getAddress());
-    	this.UserRepository.save(u);
+    	  this.UserRepository.save(u);
     }
 
     public List<UserResponse> getAllUsersForAdminCenter(String bloodBankName){
@@ -67,6 +67,16 @@ public class UserService {
                 .stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());
+    }
+    
+    public void registerUser(User u) {
+        this.AddressRepository.save(u.getAddress());
+    	this.UserRepository.save(u);
+    }
+
+
+    public List<User> getCentersAdmins (Long idCenter) {
+        return this.UserRepository.findByCenterID(idCenter);
     }
 
 
