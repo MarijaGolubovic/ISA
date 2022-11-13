@@ -67,5 +67,9 @@ public class UserService {
     }
 
 
+    public List<User> getCentersAdmins (Long idCenter) {
+        return this.UserRepository.findByCenterID(idCenter);
+    }
+
 
 }

@@ -26,15 +26,15 @@
                     <button class="btn btn-primary profile-button" type="button" (click)="saveUser()">Save Profile</button>
                 </div>
                 <div class="col-md-12 col-sm-12">
-                    <a href="localhost:4200/users/changePassword">Change password?</a>
+                    <a href="http://localhost:4200/users/changePassword">Change password?</a>
                 </div>
                 
                 
               </div>
           </div>
       </div>
-      <div class="col-md-4">
-          <div class="p-3 py-5">
+      <div class="col-md-4" *ngIf="!isAdmin">
+          <div class="p-3 py-5" >
               <div class="d-flex justify-content-between align-items-center experience"><span>Other information</span></div><br>
               <div class="col-md-12"><label>Number of points: {{loggedUser.pointsNum}}</label></div> <br>
               <div class="col-md-12"><label>Category: {{loggedUser.userCategory}}</label></div>
