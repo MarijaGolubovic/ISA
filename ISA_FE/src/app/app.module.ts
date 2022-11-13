@@ -6,7 +6,8 @@ import { AppComponent } from "./app.component";
 import { MaterialModule } from "./material/material.module";
 import { HospitalModule } from "./modules/hospital.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { ReactiveFormsModule } from "@angular/forms";
+import {MatGridListModule} from "@angular/material/grid-list";
 @NgModule({
   declarations: [
     AppComponent
@@ -17,7 +18,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
-    HospitalModule
+    HospitalModule,
+    ReactiveFormsModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

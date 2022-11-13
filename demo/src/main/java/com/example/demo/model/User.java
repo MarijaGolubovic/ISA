@@ -26,7 +26,7 @@ public class User {
     private String password;
     private String name;
     private String surname;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "address_id",referencedColumnName = "id")
     private Address address;
     private String phoneNumber;

@@ -22,8 +22,8 @@ public class BloodBankConfig {
     @Bean
     CommandLineRunner commandLineRunner1(BloodBankRepository repository){
         return args ->{
-
-            /*BloodBank bankaKrvi1 = new BloodBank(
+            /*
+           BloodBank bankaKrvi1 = new BloodBank(
                     "Moja Banka Krvi",
                     "Uvek tu u teskim vremenima",
                     9.3,
@@ -33,7 +33,7 @@ public class BloodBankConfig {
             bankaKrvi1.addAdmin(user1);
             repository.saveAll(List.of(bankaKrvi1));
             
-            
+
              BloodBank bankaKrvi2 = new BloodBank(
                     "Nova Banka Krvi",
                     "Cuvajmo ono sto je vrijedno",
@@ -43,21 +43,21 @@ public class BloodBankConfig {
             User user1 = new User("nikola.nikolic@gmail.com", "123", "Nikola", "Nikolic", null, "064522321", "1236548906324", Gender.MALE, "menadzer", "",  UserType.ADMIN_CENTER, UserStatus.ACTIVATED, 0,0, bankaKrvi2);
             bankaKrvi2.addAdmin(user1);
             repository.saveAll(List.of(bankaKrvi2));
-            *
-            *
-            *
-            
-        	
+
+
+
         	 BloodBank bankaKrvi3 = new BloodBank(
                      "Narodna banka krvi",
                      "Tecnost koja znaci zivot",
                      8.9,
                      new Address("Srbija", "Beograd", "Narodnog fronta", "15a"),
                      new HashSet<>(),  new WorkTime(Time.valueOf("08:00:00"), Time.valueOf("20:00:00")));
-             User user1 = new User("ana.nedic@gmail.com", "124", "Ana", "Nedic", null, "064522321", "1246548906324", Gender.FEMALE, "menadzer", "",  UserType.ADMIN_CENTER, UserStatus.ACTIVATED, 0,0, bankaKrvi3);
-             bankaKrvi3.addAdmin(user1);
+             User user3 = new User("ana.nedic@gmail.com", "124", "Ana", "Nedic", null, "064522321", "1246548906324", Gender.FEMALE, "menadzer", "",  UserType.ADMIN_CENTER, UserStatus.ACTIVATED, 0,0, bankaKrvi3);
+             User user4=new User("ivana.ivic@gmail.com", "124", "Ivana", "Ivic", null, "064522321", "1246548906324", Gender.FEMALE, "menadzer", "",  UserType.ADMIN_CENTER, UserStatus.ACTIVATED, 0,0, bankaKrvi3);
+             bankaKrvi3.addAdmin(user3);
+            bankaKrvi3.addAdmin(user4);
              repository.saveAll(List.of(bankaKrvi3));
-        	*/
+            */
         };
     }
 

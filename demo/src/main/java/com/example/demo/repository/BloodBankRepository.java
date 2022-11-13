@@ -10,5 +10,6 @@ import java.util.List;
 
 @Repository
 public interface BloodBankRepository extends JpaRepository<BloodBank, Long> {
-
+    @Query("select bb from BloodBank bb where bb.id = (select u from User u where u.id=?1)")
+    BloodBank findByUserId(Long idUser);
 }

@@ -19,14 +19,6 @@ table {
 
 }
 
-.cell-center {
-    text-align: center;
-}
-
-.clickable:hover {
-    font-weight: bold;
-    cursor: pointer;
-}
 
 .add-button {
     margin: 10px 20px 10px 10px;
@@ -35,11 +27,19 @@ table {
     float: right;
 }
 
-.table-header {
-    display: flex;
-}
 
 p {
     float: left;
     margin-right: auto;
 }
+
+
+
+.first{
+    position:absolute;
+}
+.second{
+   position: relative;
+   margin-top: 2%;
+}
+

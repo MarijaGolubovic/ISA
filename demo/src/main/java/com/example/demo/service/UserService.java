@@ -55,4 +55,8 @@ public class UserService {
     	this.AddressRepository.save(u.getAddress());
     }
 
+    public List<User> getCentersAdmins (Long idCenter) {
+        return this.UserRepository.findByCenterID(idCenter);
+    }
+
 }

@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.EditedUserResponse;
 import com.example.demo.dto.UserResponse;
 import com.example.demo.model.Address;
+import com.example.demo.model.BloodBank;
 import com.example.demo.model.BloodSupply;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
@@ -47,5 +48,11 @@ public class UserController {
     @RequestMapping(path = "/saveUser", method = RequestMethod.PUT)
     public void saveUser(@RequestBody User u) {
     	this.userService.saveUser(u);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(path = "/centersAdmins/{id}", method = RequestMethod.GET)
+    public List<User> getCentersAdmins (@PathVariable Long id) {
+        return userService.getCentersAdmins(id);
     }
 }
