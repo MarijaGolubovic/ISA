@@ -1,4 +1,4 @@
-import { UserResponse } from "./user.model";
+import { UserResponse, WholeUserResponse } from "./user.model";
 
 export class BloodBankResponse {
     name: string = '';
@@ -11,11 +11,11 @@ export class BloodBankResponse {
         street: "",
         number: ""
     };
-    administrators: UserResponse[] = [];
+    administrators: WholeUserResponse[] = [];
     workTime = {
         startTime: new Date(),
         endTime: new Date()
-    }
+    };
     
 
 
@@ -26,8 +26,8 @@ export class BloodBankResponse {
             this.averageRate = obj.averageRate;
             this.address = obj.address;  
             this.administrators = obj.administrators;  
-            this.workTime = obj.workTime;        
-            this.id = obj.id;  
+            this.workTime = obj.workTime;     
+            this.id = obj.id;    
         }
     }
 }
