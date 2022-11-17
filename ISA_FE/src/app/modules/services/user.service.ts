@@ -17,12 +17,20 @@ export class UserService {
     return this.http.get<UserResponse[]>(this.apiHost + 'api/user', {headers: this.headers});
   }
 
+  getUserResponsesForAdminCenter(user:WholeUserResponseWithBloodBank): Observable<UserResponse[]> {
+    return this.http.get<UserResponse[]>(this.apiHost + 'api/user/'+ 'ttt', {headers: this.headers});
+  }
+
   searchUsers(name:string,surname:string): Observable<UserResponse[]> {
     return this.http.get<UserResponse[]>(this.apiHost + 'api/user/search/'+ name + '/' + surname, {headers: this.headers});
   }
 
   getLoggedUser(): Observable<WholeUserResponse>{
     return this.http.get<WholeUserResponse>(this.apiHost + 'api/user/getLoggedUser', {headers: this.headers})
+  }
+
+  getLoggedUserWithBloodBank(): Observable<WholeUserResponseWithBloodBank>{
+    return this.http.get<WholeUserResponseWithBloodBank>(this.apiHost + 'api/user/getLoggedUser', {headers: this.headers})
   }
 
   saveUser(user: any): Observable<any>{
@@ -32,4 +40,5 @@ export class UserService {
   registerUser(user:RegistratedUser): Observable<any>{
     return this.http.put<any>(this.apiHost + 'api/user/registerUser', user, {headers: this.headers})
   }
+
 }

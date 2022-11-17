@@ -13,7 +13,13 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query("select u from User u where u.name like %:name% and surname like %:surname%")
     List<User> findByNameAndSurname(String name, String surname);
 
+
+
+    @Query("select u from User u where u.bloodBank.id = (select bb from BloodBank bb where bb.id=?1)")
+    List<User> findByBloodBank(Long id);
+
     @Query("select u from User u where u.bloodBank.id=?1")
     List<User> findByCenterID(Long idCenter);
+
 
 }
