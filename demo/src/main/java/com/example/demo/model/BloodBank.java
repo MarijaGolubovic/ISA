@@ -30,6 +30,7 @@ public class BloodBank {
     @OneToOne
     @JoinColumn(name = "worktime_id",referencedColumnName = "id")
     private WorkTime workTime;
+    private String apiKey;
 
     public BloodBank() {
     }
@@ -42,6 +43,7 @@ public class BloodBank {
         this.address = address;
         this.administrators = administrators;
         this.workTime = workTime;
+        this.apiKey = "";
     }
 
     public BloodBank(String name, String description, double averageRate, Address address, List<User> administrators, WorkTime workTime) {
@@ -51,9 +53,19 @@ public class BloodBank {
         this.address = address;
         this.administrators = administrators;
         this.workTime = workTime;
+        this.apiKey = "";
     }
+    
 
-    public Long getId() {
+    public String getApiKey() {
+		return apiKey;
+	}
+
+	public void setApiKey(String apiKey) {
+		this.apiKey = apiKey;
+	}
+
+	public Long getId() {
         return id;
     }
 
