@@ -1,0 +1,8 @@
+<div>
+    <form (submit)="sendNews()">
+        <input type="text" [(ngModel)]="news.title" placeholder="Title" name="title">
+        <input type="text" [(ngModel)]="news.content" placeholder="Content" name="content">
+        <input type="file" (change)="fileChangeEvent($event)" class="fileInputProfile">
+        <button>Send</button>
+    </form>
+</div>
