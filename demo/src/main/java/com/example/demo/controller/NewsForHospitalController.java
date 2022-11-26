@@ -38,7 +38,7 @@ public class NewsForHospitalController {
 	@PostMapping
     public void sendNews(@RequestBody NewsForHospital news) {
 		news.setApiKey("NkwQR/sa7Rm97+S7/KQxqWl2nZhnWjzLX3dvHOTngEk=");
-		news.setBloodBankName("Vampir");
+		news.setBloodBankName("David Albala");
 		String newsForHospital = new Gson().toJson(news);
     	producer.sendMessage(newsForHospital);
     }
