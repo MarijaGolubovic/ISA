@@ -20,6 +20,7 @@ import { QuestionnaireComponent } from './questionnaire/questionnaire.component'
 import { SendNewsToHospitalComponent } from './send-news-to-hospital/send-news-to-hospital.component';
 import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+import { NgToastModule } from 'ng-angular-popup'
 
 const routes: Routes = [
   { path: 'users', component: UsersComponent },
@@ -63,7 +64,8 @@ const routes: Routes = [
     MatDatepickerModule,
     RouterModule.forChild(routes),
     NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule
+    NgxMatTimepickerModule,
+    NgToastModule
     ],
   exports: [ RouterModule ]
 })

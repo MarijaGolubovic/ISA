@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.time.LocalTime;
 
 @Entity
 @Table
@@ -17,17 +18,17 @@ public class WorkTime {
             generator = "worktime_sequence"
     )
     private Long id;
-    private Time startTime;
-    private Time endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
 
     public WorkTime() {}
 
-    public WorkTime(Time start, Time end) {
+    public WorkTime(LocalTime start, LocalTime end) {
         this.startTime = start;
         this.endTime = end;
     }
 
-    public WorkTime(Long id, Time start, Time end) {
+    public WorkTime(Long id, LocalTime start, LocalTime end) {
         this.id = id;
         this.startTime = start;
         this.endTime = end;
@@ -41,19 +42,19 @@ public class WorkTime {
         this.id = id;
     }
 
-    public Time getStart() {
+    public LocalTime getStart() {
         return startTime;
     }
 
-    public void setStart(Time start) {
+    public void setStart(LocalTime start) {
         this.startTime = start;
     }
 
-    public Time getEnd() {
+    public LocalTime getEnd() {
         return endTime;
     }
 
-    public void setEnd(Time end) {
+    public void setEnd(LocalTime end) {
         this.endTime = end;
     }
 

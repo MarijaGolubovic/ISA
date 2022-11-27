@@ -9,19 +9,22 @@
           <label for="dateofbirth">Choose date</label>
         </div>
         <div>
-          <input type="date">
+          <input type="date" [(ngModel)] = "app.date">
         </div>
         <div>
           <label for="dateofbirth">Choose time</label>
         </div>
         <div>
-          <input type="time">
+          <input type="time" [(ngModel)] = "app.time">
         </div>
         <div>
           <label for="dateofbirth">Duration</label>
         </div>
         <div>
-          <input type="number">
+          <input type="number" [(ngModel)] = "app.duration">
+        </div>
+        <div>
+          <button (click)="scheduleAppointment()">Schedule</button>
         </div>
       </div>
     </div>
