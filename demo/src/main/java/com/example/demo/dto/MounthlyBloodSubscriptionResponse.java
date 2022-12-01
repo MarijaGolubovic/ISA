@@ -8,14 +8,14 @@ public class MounthlyBloodSubscriptionResponse {
 
 	private String messageForManager;
 	private String APIKey;
-	private List<AmountOfBloodTypeResponse> amountsOfBloodTypes;
+	private List<AmountOfBloodTypeResponse> bloodTypeAmountPair;
 	
 	public MounthlyBloodSubscriptionResponse(String messageForManager, String aPIKey,
 			List<AmountOfBloodTypeResponse> amountsOfBloodTypes) {
 		super();
 		this.messageForManager = messageForManager;
 		APIKey = aPIKey;
-		this.amountsOfBloodTypes = amountsOfBloodTypes;
+		this.bloodTypeAmountPair = amountsOfBloodTypes;
 	}
 	public MounthlyBloodSubscriptionResponse() {
 		super();
@@ -34,10 +34,10 @@ public class MounthlyBloodSubscriptionResponse {
 		APIKey = aPIKey;
 	}
 	public List<AmountOfBloodTypeResponse> getAmountsOfBloodTypes() {
-		return amountsOfBloodTypes;
+		return bloodTypeAmountPair;
 	}
 	public void setAmountsOfBloodTypes(List<AmountOfBloodTypeResponse> amountsOfBloodTypes) {
-		this.amountsOfBloodTypes = amountsOfBloodTypes;
+		this.bloodTypeAmountPair = amountsOfBloodTypes;
 	}
 	
 	

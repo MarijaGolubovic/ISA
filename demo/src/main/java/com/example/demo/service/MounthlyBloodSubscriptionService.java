@@ -23,6 +23,7 @@ import com.example.demo.model.BloodSupply;
 import com.example.demo.model.MounthlyBloodSubscription;
 import com.example.demo.model.User;
 import com.example.demo.model.enumerations.AppointmentStatus;
+import com.example.demo.model.enumerations.BloodType2;
 import com.example.demo.publisher.RabbitMQBloodSubscriptionProducer;
 import com.example.demo.repository.AppointmentRepository;
 import com.example.demo.repository.BloodBankRepository;
@@ -65,7 +66,13 @@ public class MounthlyBloodSubscriptionService {
 				
 				MounthlyBloodSubscriptionResponse response = new MounthlyBloodSubscriptionResponse(messageForManager, bs.getAPIKey(), currentStateOfAmounts);
 				
-				String responseForHospital = new Gson().toJson(response);
+				//obrisi ovo 
+				List<AmountOfBloodTypeResponse> list = new ArrayList<>();
+				list.add(new AmountOfBloodTypeResponse(BloodType2.ABneg, 100));
+				MounthlyBloodSubscriptionResponse response1 = new MounthlyBloodSubscriptionResponse(messageForManager, bs.getAPIKey(), list);
+				//obrisi ovo
+				
+				String responseForHospital = new Gson().toJson(response1);
 				
 				producer.sendJsonMessage(responseForHospital);
 			}
