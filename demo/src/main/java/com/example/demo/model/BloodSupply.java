@@ -1,12 +1,13 @@
 package com.example.demo.model;
 
 import com.example.demo.model.enumerations.BloodType;
+import com.example.demo.model.enumerations.BloodType2;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table
+@Table(name="bloodsupply")
 public class BloodSupply {
     @Id
     @SequenceGenerator(
@@ -20,24 +21,23 @@ public class BloodSupply {
     )
     private Long id;
     @Enumerated(EnumType.STRING)
-    @Column(name="bloodType")
-    private BloodType bloodType;
+    private BloodType2 bloodType;
     private Double quantity; //u jedinicama?
-    @OneToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "bb_id",referencedColumnName = "id")
     private BloodBank bloodBank;
 
     public BloodSupply() {
     }
 
-    public BloodSupply(Long id, BloodType bloodType, Double quantity, BloodBank bloodBank) {
+    public BloodSupply(Long id, BloodType2 bloodType, Double quantity, BloodBank bloodBank) {
         this.id = id;
         this.bloodType = bloodType;
         this.quantity = quantity;
         this.bloodBank = bloodBank;
     }
 
-    public BloodSupply(BloodType bloodType, Double quantity, BloodBank bloodBank) {
+    public BloodSupply(BloodType2 bloodType, Double quantity, BloodBank bloodBank) {
         this.bloodType = bloodType;
         this.quantity = quantity;
         this.bloodBank = bloodBank;
@@ -51,11 +51,11 @@ public class BloodSupply {
         this.id = id;
     }
 
-    public BloodType getBloodType() {
+    public BloodType2 getBloodType() {
         return bloodType;
     }
 
-    public void setBloodType(BloodType bloodType) {
+    public void setBloodType(BloodType2 bloodType) {
         this.bloodType = bloodType;
     }
 

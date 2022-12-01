@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -34,34 +35,65 @@ public class BloodBank {
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "worktime_id",referencedColumnName = "id")
     private WorkTime workTime;
+    @JsonIgnore
+    @OneToMany(mappedBy = "bloodBank", cascade = CascadeType.ALL)
+    private List<BloodSupply> bloodSupplies;
     private String apiKey;
 
     public BloodBank() {
     }
 
-    public BloodBank(Long id, String name, String description, double averageRate, Address address, Set<User> administrators, WorkTime workTime) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.averageRate = averageRate;
-        this.address = address;
-        this.administrators = administrators;
-        this.workTime = workTime;
-        this.apiKey = "";
-    }
-
-    public BloodBank(String name, String description, double averageRate, Address address, Set<User> administrators, WorkTime workTime) {
-        this.name = name;
-        this.description = description;
-        this.averageRate = averageRate;
-        this.address = address;
-        this.administrators = administrators;
-        this.workTime = workTime;
-        this.apiKey = "";
-    }
+    
     
 
-    public String getApiKey() {
+    public List<BloodSupply> getBloodSupplies() {
+		return bloodSupplies;
+	}
+
+
+
+
+	public void setBloodSupplies(List<BloodSupply> bloodSupplies) {
+		this.bloodSupplies = bloodSupplies;
+	}
+
+
+
+
+	public BloodBank(String name, String description, double averageRate, Address address, Set<User> administrators,
+			WorkTime workTime, List<BloodSupply> bloodSupplies, String apiKey) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.averageRate = averageRate;
+		this.address = address;
+		this.administrators = administrators;
+		this.workTime = workTime;
+		this.bloodSupplies = bloodSupplies;
+		this.apiKey = apiKey;
+	}
+
+
+
+
+	public BloodBank(Long id, String name, String description, double averageRate, Address address,
+			Set<User> administrators, WorkTime workTime, List<BloodSupply> bloodSupplies, String apiKey) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.averageRate = averageRate;
+		this.address = address;
+		this.administrators = administrators;
+		this.workTime = workTime;
+		this.bloodSupplies = bloodSupplies;
+		this.apiKey = apiKey;
+	}
+
+
+
+
+	public String getApiKey() {
 		return apiKey;
 	}
 
