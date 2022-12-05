@@ -54,7 +54,8 @@ public class UserController {
     @GetMapping("/{bloodBankName}")
     @ResponseBody
     public List<UserResponse> getAllUsersForAdminCenter(@PathVariable String bloodBankName){
-        return userService.getAllUsersForAdminCenter(bloodBankName);
+        User user = getLoggedUser();
+        return userService.getAllUsersForAdminCenter(user);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
