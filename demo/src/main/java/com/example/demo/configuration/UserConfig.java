@@ -18,23 +18,24 @@ public class UserConfig {
 	@Bean
 	    CommandLineRunner commandLineRunner(UserRepository repository){
 	        return args ->{
-	            /*User Nemanja = new User(
+	            /*User Dejan = new User(
 	                    "nemanja.nemanjic@gmail.com",
 	                    "123",
-	                    "Nemanja",
-	                    "Nemanjic",
+	                    "Dejan",
+	                    "Gloginjic",
 	                    null,
 	                    "065/026-549",
 	                    "1234567891235",
 	                    Gender.MALE,
 	                    "nastavnik",
 	                    "",
-	                    UserType.REGISTERED,
+	                    UserType.ADMIN_SISTEM,
 	                    UserStatus.ACTIVATED,
 	                    0,
-	                    0
+	                    0,
+						null
 	            );
-	            User Nikolina = new User(
+	            /*User Nikolina = new User(
 	                    "nikolina.nikolic@gmail.com",
 	                    "123",
 	                    "Nikolina",
@@ -49,8 +50,8 @@ public class UserConfig {
 	                    UserStatus.ACTIVATED,
 	                    0,
 	                    0
-	            );
-	            repository.saveAll(List.of(Nemanja,Nikolina));*/
+	            );*/
+	            //repository.saveAll(List.of(Dejan));
 	        };
 	    }
 
