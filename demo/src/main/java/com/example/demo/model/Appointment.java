@@ -4,6 +4,7 @@ import com.example.demo.model.enumerations.AppointmentStatus;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class Appointment {
     @JoinColumn(name = "bb_id",referencedColumnName = "id")
     private BloodBank bloodBank;
     private Date date;
-    private Time time;
+    private LocalTime time;
     private int duration; //in minutes
     @Transient
     private List<User> medicalStuff;
@@ -36,7 +37,7 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(Long id, BloodBank bloodBank, Date date, Time time, int duration, List<User> medicalStuff, AppointmentStatus status) {
+    public Appointment(Long id, BloodBank bloodBank, Date date, LocalTime time, int duration, List<User> medicalStuff, AppointmentStatus status) {
         this.id = id;
         this.bloodBank = bloodBank;
         this.date = date;
@@ -46,7 +47,7 @@ public class Appointment {
         this.status = status;
     }
 
-    public Appointment(BloodBank bloodBank, Date date, Time time, int duration, List<User> medicalStuff, AppointmentStatus status) {
+    public Appointment(BloodBank bloodBank, Date date, LocalTime time, int duration, List<User> medicalStuff, AppointmentStatus status) {
         this.bloodBank = bloodBank;
         this.date = date;
         this.time = time;
@@ -79,11 +80,11 @@ public class Appointment {
         this.date = date;
     }
 
-    public Time getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 
@@ -122,5 +123,52 @@ public class Appointment {
                 ", medicalStuff=" + medicalStuff +
                 ", status=" + status +
                 '}';
+    }
+    
+    public boolean isAppointmentInWorkTime() {
+    	WorkTime bbWorkTime = this.bloodBank.getWorkTime();
+    	LocalTime startTime = this.time;
+    	LocalTime endTime = this.time.plusMinutes(this.duration);
+    	int compareStartWithStart = startTime.compareTo(bbWorkTime.getStart());
+    	int compareStartWithEnd = startTime.compareTo(bbWorkTime.getEnd());
+    	int compareEndWithStart = endTime.compareTo(bbWorkTime.getStart());
+    	int compareEndWithEnd = endTime.compareTo(bbWorkTime.getEnd());
+    	
+    	if(compareStartWithStart > 0 && compareStartWithEnd < 0 &&
+    			compareEndWithStart > 0 && compareEndWithEnd < 0) 
+    		return true;
+    	else
+    		return false;
+    }
+    
+    public boolean isAppointmentOverlapsWithOtherAppointment(Appointment app) {
+    	LocalTime start1 = this.time;
+    	LocalTime end1 = this.time.plusMinutes(this.duration);
+    	LocalTime start2 = app.getTime();
+    	LocalTime end2 = app.getTime().plusMinutes(app.getDuration());
+    	
+    	int compareEnd1WithStart2 = end1.compareTo(start2);
+    	int compareStar1WithEnd2 = start1.compareTo(end2);
+    	
+    	if(compareEnd1WithStart2 < 0 || compareStar1WithEnd2 > 0) {
+    		return false;
+    	}else {
+    		return true;
+    	}
+    }
+    
+    public boolean isAppointmentInThePast() {
+    	Date currentDate = new Date();
+    	LocalTime currentTime = LocalTime.now();
+    	
+    	int compareCurrentTimeWithTimeOfApp = currentTime.compareTo(this.time);
+    	
+    	if(currentDate.getDate() > this.date.getDate()) {
+    		return true;
+    	}else if(compareCurrentTimeWithTimeOfApp > 0) {
+    		return true;
+    	}else {
+    		return false;
+    	}
     }
 }

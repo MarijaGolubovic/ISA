@@ -2,9 +2,9 @@ import { UserResponse } from "./user.model";
 
 export class BloodBankResponse {
     name: string = '';
-    id:number=0;
     description: string = '';
     averageRate: number = 0;
+    id: number = 0;
     address = {
         country: "",
         city: "",
@@ -22,12 +22,12 @@ export class BloodBankResponse {
     public constructor(obj?: any) {
         if (obj) {
             this.name = obj.name;
-            this.description = obj.description;
+            this.description = obj.descripton;
             this.averageRate = obj.averageRate;
             this.address = obj.address;  
             this.administrators = obj.administrators;  
-            this.workTime = obj.workTime;        
-            this.id = obj.id;  
+            this.workTime = obj.workTime; 
+            this.id = obj.id;       
         }
     }
 }

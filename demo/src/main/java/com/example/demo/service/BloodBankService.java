@@ -1,19 +1,14 @@
 package com.example.demo.service;
-
-import com.example.demo.dto.BloodBankRegistrationRequest;
-import com.example.demo.model.BloodBank;
-import com.example.demo.model.User;
-import com.example.demo.model.WorkTime;
-import com.example.demo.repository.AddressRepository;
-import com.example.demo.repository.BloodBankRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.example.demo.dto.BloodBankRegistrationRequest;
+import com.example.demo.model.BloodBank;
+import com.example.demo.repository.BloodBankRepository;
+import com.example.demo.repository.AddressRepository;
 
 @Service
 public class BloodBankService {
-
     private final BloodBankRepository BloodBankRepository;
     private final AddressRepository AddressRepository;
 
@@ -41,5 +36,10 @@ public class BloodBankService {
         return bloodBank;
     }
 
+    @SuppressWarnings("deprecation")
+	public BloodBank GetById(Long id) {
+		return this.BloodBankRepository.getById(id);
+	}
 
+    
 }

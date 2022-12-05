@@ -34,7 +34,7 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(path = "/getLoggedUser", method = RequestMethod.GET)
     public User getLoggedUser() {
-    	User user = userService.getAllUsers().get(20);
+    	User user = userService.getAllUsers().get(3);
     	return user;
     }
     
@@ -49,6 +49,12 @@ public class UserController {
     public List<UserResponse> getAllUsersForAdminCenter(){
         User admin = getLoggedUser();
         return userService.getAllUsersForAdminCenter(admin);
+    }
+    
+    @GetMapping("/{bloodBankName}")
+    @ResponseBody
+    public List<UserResponse> getAllUsersForAdminCenter(@PathVariable String bloodBankName){
+        return userService.getAllUsersForAdminCenter(bloodBankName);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

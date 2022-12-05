@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="container">
+    <div class="container-f">
+      <div>
+        <div class="title-container">
+          <h1 class="title">Schedule Appointment</h1>
+        </div>
+        <div>
+          <label for="dateofbirth">Choose date</label>
+        </div>
+        <div>
+          <input type="date" [(ngModel)] = "app.date">
+        </div>
+        <div>
+          <label for="dateofbirth">Choose time</label>
+        </div>
+        <div>
+          <input type="time" [(ngModel)] = "app.time">
+        </div>
+        <div>
+          <label for="dateofbirth">Duration</label>
+        </div>
+        <div>
+          <input type="number" [(ngModel)] = "app.duration">
+        </div>
+        <div>
+          <button (click)="scheduleAppointment()">Schedule</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
