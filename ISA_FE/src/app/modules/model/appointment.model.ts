@@ -4,7 +4,6 @@ export class CreateAppointmentDTO {
     time: String = "";
     duration: number = 0;
     status: AppointmentStatus = AppointmentStatus.FREE;
-    medicalStuff: 
     
     public constructor(obj?: any) {
         if (obj) {

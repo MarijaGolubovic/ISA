@@ -1,11 +1,13 @@
 package com.example.demo;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 
 @SpringBootApplication
 @EnableScheduling
@@ -20,9 +22,17 @@ public class IsaApplication {
 	    return new ModelMapper();
 	}
 	
-	@Scheduled(cron = "0 58 8 * * *")
-	public void scheduleFixedDelayTask() {
-	    System.out.println(
-	      "Fixed delay task - " + System.currentTimeMillis() / 1000);
+	/*@Bean
+	public ConnectionFactory connectionFactory() {
+		CachingConnectionFactory connectionFactory =  new CachingConnectionFactory("localhost");
+		return connectionFactory;
+	}*/
+	
+	@Bean
+	ApplicationRunner runner(ConnectionFactory fc) {
+		System.out.println("creating connection");
+		return args -> {
+			fc.createConnection();
+		};
 	}
 }

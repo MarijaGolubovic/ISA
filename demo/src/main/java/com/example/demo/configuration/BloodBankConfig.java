@@ -2,6 +2,7 @@ package com.example.demo.configuration;
 
 import com.example.demo.model.Address;
 import com.example.demo.model.BloodBank;
+import com.example.demo.model.BloodSupply;
 import com.example.demo.model.User;
 import com.example.demo.model.WorkTime;
 import com.example.demo.model.enumerations.Gender;
@@ -30,7 +31,7 @@ public class BloodBankConfig {
                     "Uvek tu u teskim vremenima",
                     9.3,
                     new Address("Srbija", "Novi Sad", "Bulevar oslobodjenja", "2a"),
-                    new HashSet<>(),  new WorkTime(LocalTime.parse("08:00:00"), LocalTime.parse("16:00:00")));
+                    new HashSet<>(),  new WorkTime(LocalTime.parse("08:00:00"), LocalTime.parse("16:00:00")), "x");
             User user1 = new User("ilija.ilic@gmail.com", "123", "Ilija", "Ilic", null, "064522255", "1236548956324", Gender.MALE, "menadzer", "",  UserType.ADMIN_CENTER, UserStatus.ACTIVATED, 0,0, bankaKrvi1);
             bankaKrvi1.addAdmin(user1);
             repository.saveAll(List.of(bankaKrvi1));
@@ -40,7 +41,7 @@ public class BloodBankConfig {
                     "Cuvajmo ono sto je vrijedno",
                     7.3,
                     new Address("Srbija", "Novi Sad", "Bulevar cara Lazara", "12b"),
-                    new HashSet<>(),  new WorkTime(LocalTime.parse("08:00:00"), LocalTime.parse("16:00:00")));
+                    new HashSet<>(),  new WorkTime(LocalTime.parse("08:00:00"), LocalTime.parse("16:00:00")), "x");
             User user2 = new User("nikola.nikolic@gmail.com", "123", "Nikola", "Nikolic", null, "064522321", "1236548906324", Gender.MALE, "menadzer", "",  UserType.ADMIN_CENTER, UserStatus.ACTIVATED, 0,0, bankaKrvi2);
             bankaKrvi2.addAdmin(user2);
             repository.saveAll(List.of(bankaKrvi2));
@@ -50,7 +51,7 @@ public class BloodBankConfig {
                      "Tecnost koja znaci zivot",
                      8.9,
                      new Address("Srbija", "Beograd", "Narodnog fronta", "15a"),
-                     new HashSet<>(),  new WorkTime(LocalTime.parse("08:00:00"), LocalTime.parse("16:00:00")));
+                     new HashSet<>(),  new WorkTime(LocalTime.parse("08:00:00"), LocalTime.parse("16:00:00")), "x");
              User user3 = new User("ana.nedic@gmail.com", "124", "Ana", "Nedic", null, "064522321", "1246548906324", Gender.FEMALE, "menadzer", "",  UserType.ADMIN_CENTER, UserStatus.ACTIVATED, 0,0, bankaKrvi3);
 
              User user4=new User("ivana.ivic@gmail.com", "124", "Ivana", "Ivic", null, "064522321", "1246548906324", Gender.FEMALE, "menadzer", "",  UserType.ADMIN_CENTER, UserStatus.ACTIVATED, 0,0, bankaKrvi3);

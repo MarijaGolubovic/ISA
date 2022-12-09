@@ -61,7 +61,7 @@ public class BloodBank {
 
 
 	public BloodBank(String name, String description, double averageRate, Address address, Set<User> administrators,
-			WorkTime workTime, List<BloodSupply> bloodSupplies, String apiKey) {
+			WorkTime workTime,String apiKey) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -69,7 +69,6 @@ public class BloodBank {
 		this.address = address;
 		this.administrators = administrators;
 		this.workTime = workTime;
-		this.bloodSupplies = bloodSupplies;
 		this.apiKey = apiKey;
 	}
 
@@ -77,7 +76,7 @@ public class BloodBank {
 
 
 	public BloodBank(Long id, String name, String description, double averageRate, Address address,
-			Set<User> administrators, WorkTime workTime, List<BloodSupply> bloodSupplies, String apiKey) {
+			Set<User> administrators, WorkTime workTime, String apiKey) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -86,7 +85,6 @@ public class BloodBank {
 		this.address = address;
 		this.administrators = administrators;
 		this.workTime = workTime;
-		this.bloodSupplies = bloodSupplies;
 		this.apiKey = apiKey;
 	}
 

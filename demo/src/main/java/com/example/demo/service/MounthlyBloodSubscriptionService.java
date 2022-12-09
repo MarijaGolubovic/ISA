@@ -50,8 +50,8 @@ public class MounthlyBloodSubscriptionService {
 		return this.bloodSubRepo.findAll();
 	}
 	
-	@Scheduled(fixedRate = 1000)
-	@Transactional(propagation=Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
+	//@Scheduled(fixedRate = 1000)
+	@Transactional(propagation=Propagation.REQUIRED, noRollbackFor=Exception.class)
 	public void scheduleTaskWithFixedRate() {
 		List<MounthlyBloodSubscription> allBloodSub = findAll();
 		
@@ -66,19 +66,10 @@ public class MounthlyBloodSubscriptionService {
 				
 				MounthlyBloodSubscriptionResponse response = new MounthlyBloodSubscriptionResponse(messageForManager, bs.getAPIKey(), currentStateOfAmounts);
 				
-				//obrisi ovo 
-				List<AmountOfBloodTypeResponse> list = new ArrayList<>();
-				list.add(new AmountOfBloodTypeResponse(BloodType2.ABneg, 100));
-				MounthlyBloodSubscriptionResponse response1 = new MounthlyBloodSubscriptionResponse(messageForManager, bs.getAPIKey(), list);
-				//obrisi ovo
-				
-				String responseForHospital = new Gson().toJson(response1);
+				String responseForHospital = new Gson().toJson(response);
 				
 				producer.sendJsonMessage(responseForHospital);
 			}
-			
-				
-			
 		}
 	}
 	
@@ -96,12 +87,14 @@ public class MounthlyBloodSubscriptionService {
 			}else if(bloodSupply.getQuantity() < aobt.getAmount()) {
 				
 				AmountOfBloodTypeResponse currentAmount = new AmountOfBloodTypeResponse(aobt.getBloodType(), bloodSupply.getQuantity().intValue());
+				this.bloodSupplyRepo.update(0.0, bloodSupply.getId());
 				currentStateOfAmounts.add(currentAmount);
 				
 			}else if(bloodSupply.getQuantity() > aobt.getAmount()) {
 				
 				bloodSupply.setQuantity(bloodSupply.getQuantity() - aobt.getAmount());
-				this.bloodSupplyRepo.save(bloodSupply);
+				this.bloodSupplyRepo.delete(bloodSupply);
+				this.bloodSupplyRepo.save(new BloodSupply(bloodSupply.getBloodType(), bloodSupply.getQuantity(), bloodSupply.getBloodBank()));
 				AmountOfBloodTypeResponse currentAmount = new AmountOfBloodTypeResponse(aobt.getBloodType(), aobt.getAmount());
 				currentStateOfAmounts.add(currentAmount);
 				
@@ -112,7 +105,18 @@ public class MounthlyBloodSubscriptionService {
 	}
 	
 	private String generateMessageForManager(List<AmountOfBloodTypeResponse> currentStateOfAmounts, List<AmountOfBloodType> set) {
-		String message = "Dear," + "\r\n";
+		String message = "Postovani, dostavili smo Vam sledece zalihe: " + "\r\n";
+		
+		for(AmountOfBloodTypeResponse aobt : currentStateOfAmounts) {
+			for(AmountOfBloodType aobt1 : set) {
+				if(aobt.getBloodType().toString().equals(aobt1.getBloodType().toString())) {
+					message += "* Krvna grupa: " + aobt.getBloodType().toString() + ", kolicina: " + aobt.getAmount()
+					+ " jedinica (zahtjevano: " + aobt1.getAmount() + ")" + "\r\n";
+				}
+				
+			}
+			
+		}
 		
 		return message;
 	}
