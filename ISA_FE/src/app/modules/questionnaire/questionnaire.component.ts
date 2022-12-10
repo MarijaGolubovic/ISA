@@ -84,10 +84,14 @@ export class QuestionnaireComponent{
     await this.router.navigateByUrl('/autorizedUser')
   }
 
+  async redirectToScheduleAppointment() : Promise<void>{
+    await this.router.navigateByUrl('/appointment/scheduleNew')
+  }
+
   public saveQuestionaire(){
     this.questionnaireService.saveQuestionaire(this.questionnaire).subscribe(res => {
-        this.redirectToAutorizedUsers();
-        return console.log("Questinaire is save!");
+        this.redirectToScheduleAppointment();
+        //return console.log("Questinaire is save!");
     });
   }
 

@@ -19,4 +19,8 @@ export class AppointmentService {
   saveAppointment(app: any): Observable<any>{
     return this.http.put<any>(this.apiHost + 'api/appointments/create', app, {headers: this.headers})
   }
+
+  scheduleAppointment(app: any): Observable<any>{
+    return this.http.put<any>(this.apiHost + 'api/appointments/schedule', app, {headers: this.headers})
+  }
 }

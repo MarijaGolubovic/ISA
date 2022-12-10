@@ -9,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 public class CenterResponse {
+	private Long id;
 	private String name;
 	private String city;
 	private String street;
@@ -47,13 +48,20 @@ public class CenterResponse {
 	}
 	
 	
-	public CenterResponse(String name, String city, String street, String streetNumber, double grade) {
+	public CenterResponse(Long id, String name, String city, String street, String streetNumber, double grade) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.city = city;
 		this.street = street;
 		this.streetNumber = streetNumber;
 		this.grade = grade;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public CenterResponse() {
 		super();

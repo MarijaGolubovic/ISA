@@ -44,4 +44,12 @@ public class AppointmentController {
 		Appointment app1 = this.appService.saveAppointment(app);
 		return app1;
 	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(path = "/schedule", method = RequestMethod.PUT)
+	public Appointment scheduleAppointment(@RequestBody CreateAppointmentDTO appDTO) {
+		Appointment app = appService.convertCreateAppointmentDTOtoAppointment(appDTO);
+		Appointment app1 = this.appService.scheduleAppointment(app);
+		return app1;
+	}
 }
