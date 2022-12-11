@@ -44,34 +44,35 @@ export class SchedulingNewAppointmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.questionnaireService.checkIfQuestionnaireHasBeenCompletedInLastSixMonths(1).subscribe(res=>{
-      //otkomentarisi kad se uradi logovanje
-      /*if(res === true){
-        alert("You cannot schedule an appointment because you have donated blood in the last 6 months!")
-        this.redirectToAutorizedUsers();
-      }else{
-        this.redirectToQuestionnaire();
-      }*/
-    })
+    
   }
 
   async redirectToAutorizedUsers() : Promise<void>{
     await this.router.navigateByUrl('/autorizedUser')
   }
 
-  async redirectToQuestionnaire() : Promise<void>{
-    await this.router.navigateByUrl('/questionnaire')
+  async redirectToQuestionnaire(centerId: any) : Promise<void>{
+    await this.router.navigateByUrl('/questionnaire?centerid=' + centerId  + '&' + 'date=' + this.dateTime.date + '&' + 'time=' + this.dateTime.startTime)
   }
 
   scheduleAppointment(centerId: any){
-      this.appointment.bloodBankID = centerId;
+    this.questionnaireService.checkIfQuestionnaireHasBeenCompletedInLastSixMonths(1).subscribe(res=>{
+      //otkomentarisi kad se uradi logovanje
+      if(res === true){
+        alert("You cannot schedule an appointment because you have donated blood in the last 6 months!")
+        this.redirectToAutorizedUsers();
+      }else{
+        this.redirectToQuestionnaire(centerId);
+      }
+    })
+      /*this.appointment.bloodBankID = centerId;
       this.appointment.date = this.dateTime.date;
       this.appointment.duration = 15;
       this.appointment.status = AppointmentStatus.BUSY;
       this.appointment.time = this.dateTime.startTime;
       this.appointmentService.scheduleAppointment(this.appointment).subscribe(res =>{
       this.alert.success({detail: 'Success!', summary: "You are successfully schedule appointment!", duration: 5000});
-    })
+    })*/
   }
 
   getAllAvailableCenters(){

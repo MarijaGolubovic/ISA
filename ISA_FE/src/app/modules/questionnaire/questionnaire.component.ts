@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
+import { AppointmentStatus, CreateAppointmentDTO } from '../model/appointment.model';
 import { QUestionnaireRespons } from '../model/questionnaire.model';
+import { AppointmentService } from '../services/appointment.service';
 import { QuestionnaireService } from '../services/questionnaire.service';
 
 
@@ -12,7 +15,11 @@ import { QuestionnaireService } from '../services/questionnaire.service';
 })
 export class QuestionnaireComponent{
 
-  constructor(private questionnaireService: QuestionnaireService, private router: Router) { }
+  appointment: CreateAppointmentDTO = new CreateAppointmentDTO
+  ();
+
+  constructor(private questionnaireService: QuestionnaireService, private router: Router,
+                 private route: ActivatedRoute, private appointmentService: AppointmentService, private alert: NgToastService) { }
 
   public questionnaire=new QUestionnaireRespons();
 
@@ -89,10 +96,25 @@ export class QuestionnaireComponent{
   }
 
   public saveQuestionaire(){
-    this.questionnaireService.saveQuestionaire(this.questionnaire).subscribe(res => {
-        this.redirectToScheduleAppointment();
+    this.route.queryParams
+      .subscribe(params => {
+        this.appointment.bloodBankID = params['centerid'];
+        this.appointment.date = new Date(params['date']);
+        this.appointment.duration = 15;
+        this.appointment.status = AppointmentStatus.BUSY;
+        this.appointment.time = params['time'];
+      }
+    );
+      
+      
+      this.appointmentService.scheduleAppointment(this.appointment).subscribe(res =>{
+        alert("succesful")
+        this.alert.success({detail: 'Success!', summary: "You are successfully schedule appointment!", duration: 5000});
+      });
+      this.questionnaireService.saveQuestionaire(this.questionnaire).subscribe(res => {
+        //this.redirectToScheduleAppointment();
         //return console.log("Questinaire is save!");
-    });
+      });
   }
 
 

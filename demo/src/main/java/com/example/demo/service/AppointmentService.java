@@ -66,7 +66,7 @@ public class AppointmentService {
 	}
 
 	public Appointment scheduleAppointment(Appointment app) {
-		app.setUser(userRepo.getById((long) 1));
+		app.setUser(userRepo.getOne((long) 1));
 		return appRepo.save(app);
 	}
 }

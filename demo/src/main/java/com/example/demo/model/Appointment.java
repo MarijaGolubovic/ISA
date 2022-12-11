@@ -8,6 +8,7 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table
@@ -70,8 +71,8 @@ public class Appointment {
 		return user;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(User optional) {
+		this.user = optional;
 	}
 
 	public void setId(Long id) {
