@@ -38,7 +38,7 @@ public class BloodBankService {
 
     @SuppressWarnings("deprecation")
 	public BloodBank GetById(Long id) {
-		return this.BloodBankRepository.getById(id);
+		return this.BloodBankRepository.getOne(id);
 	}
 
     

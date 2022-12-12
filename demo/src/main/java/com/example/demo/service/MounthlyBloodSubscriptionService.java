@@ -50,7 +50,7 @@ public class MounthlyBloodSubscriptionService {
 		return this.bloodSubRepo.findAll();
 	}
 	
-	//@Scheduled(fixedRate = 1000)
+	@Scheduled(fixedRate = 1000)
 	@Transactional(propagation=Propagation.REQUIRED, noRollbackFor=Exception.class)
 	public void scheduleTaskWithFixedRate() {
 		List<MounthlyBloodSubscription> allBloodSub = findAll();

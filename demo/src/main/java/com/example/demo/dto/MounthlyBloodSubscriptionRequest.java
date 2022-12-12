@@ -1,6 +1,7 @@
 package com.example.demo.dto;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import com.example.demo.model.AmountOfBloodType;
@@ -8,11 +9,11 @@ import com.example.demo.model.AmountOfBloodType;
 public class MounthlyBloodSubscriptionRequest {
 
 	private String APIKey;
-	private LocalDateTime dateAndTimeOfSubscription;
-	private List<AmountOfBloodType> bloodTypeAmountPair;
+	private Date dateAndTimeOfSubscription;
+	private List<AmountOfBloodTypeResponse> bloodTypeAmountPair;
 	
-	public MounthlyBloodSubscriptionRequest(String aPIKey, LocalDateTime dateAndTimeOfSubscription,
-			List<AmountOfBloodType> bloodTypeAmountPair) {
+	public MounthlyBloodSubscriptionRequest(String aPIKey, Date dateAndTimeOfSubscription,
+			List<AmountOfBloodTypeResponse> bloodTypeAmountPair) {
 		super();
 		APIKey = aPIKey;
 		this.dateAndTimeOfSubscription = dateAndTimeOfSubscription;
@@ -29,16 +30,16 @@ public class MounthlyBloodSubscriptionRequest {
 	public void setAPIKey(String aPIKey) {
 		APIKey = aPIKey;
 	}
-	public LocalDateTime getDateAndTimeOfSubscription() {
+	public Date getDateAndTimeOfSubscription() {
 		return dateAndTimeOfSubscription;
 	}
-	public void setDateAndTimeOfSubscription(LocalDateTime dateAndTimeOfSubscription) {
+	public void setDateAndTimeOfSubscription(Date dateAndTimeOfSubscription) {
 		this.dateAndTimeOfSubscription = dateAndTimeOfSubscription;
 	}
-	public List<AmountOfBloodType> getBloodTypeAmountPair() {
+	public List<AmountOfBloodTypeResponse> getBloodTypeAmountPair() {
 		return bloodTypeAmountPair;
 	}
-	public void setBloodTypeAmountPair(List<AmountOfBloodType> bloodTypeAmountPair) {
+	public void setBloodTypeAmountPair(List<AmountOfBloodTypeResponse> bloodTypeAmountPair) {
 		this.bloodTypeAmountPair = bloodTypeAmountPair;
 	}
 	

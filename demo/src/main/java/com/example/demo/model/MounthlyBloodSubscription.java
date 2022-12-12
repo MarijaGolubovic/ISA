@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,16 +38,16 @@ public class MounthlyBloodSubscription {
             generator = "bloodbank_sequence"
     )
 	private Long id;
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "bloodBank_id",referencedColumnName = "id")
 	private BloodBank bloodBank;
 	private String APIKey;
-	private LocalDateTime dateAndTimeOfSubscription;
+	private Date dateAndTimeOfSubscription;
 	@OneToMany(mappedBy = "bloodSub", cascade = CascadeType.ALL)
 	private List<AmountOfBloodType> amountOfBloodTypes = new ArrayList<AmountOfBloodType>();
 	
 	public MounthlyBloodSubscription(Long id, BloodBank bloodBank, String aPIKey,
-			LocalDateTime dateAndTimeOfSubscription, List<AmountOfBloodType> amountOfBloodTypes) {
+			Date dateAndTimeOfSubscription, List<AmountOfBloodType> amountOfBloodTypes) {
 		super();
 		this.id = id;
 		this.bloodBank = bloodBank;
@@ -56,7 +57,7 @@ public class MounthlyBloodSubscription {
 	}
 	
 	public MounthlyBloodSubscription(BloodBank bloodBank, String aPIKey,
-			LocalDateTime dateAndTimeOfSubscription, List<AmountOfBloodType> amountOfBloodTypes) {
+			Date dateAndTimeOfSubscription, List<AmountOfBloodType> amountOfBloodTypes) {
 		super();
 		this.bloodBank = bloodBank;
 		this.APIKey = aPIKey;
@@ -86,10 +87,10 @@ public class MounthlyBloodSubscription {
 	public void setAPIKey(String aPIKey) {
 		APIKey = aPIKey;
 	}
-	public LocalDateTime getDateAndTimeOfSubscription() {
+	public Date getDateAndTimeOfSubscription() {
 		return dateAndTimeOfSubscription;
 	}
-	public void setDateAndTimeOfSubscription(LocalDateTime dateAndTimeOfSubscription) {
+	public void setDateAndTimeOfSubscription(Date dateAndTimeOfSubscription) {
 		this.dateAndTimeOfSubscription = dateAndTimeOfSubscription;
 	}
 

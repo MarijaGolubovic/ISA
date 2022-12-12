@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.example.demo.dto.BloodType;
 import com.example.demo.model.enumerations.BloodType2;
 
 @Entity
@@ -27,18 +28,18 @@ public class AmountOfBloodType {
             generator = "address_sequence"
     )
 	private Long id;
-	private BloodType2 bloodType;
+	private BloodType bloodType;
 	private int amount;
 	@ManyToOne(cascade = CascadeType.ALL)
 	private MounthlyBloodSubscription bloodSub;
 
-	public AmountOfBloodType(Long id, BloodType2 bloodType, int amount) {
+	public AmountOfBloodType(Long id, BloodType bloodType, int amount) {
 		super();
 		this.id = id;
 		this.bloodType = bloodType;
 		this.amount = amount;
 	}
-	public AmountOfBloodType(BloodType2 bloodType, int amount) {
+	public AmountOfBloodType(BloodType bloodType, int amount) {
 		super();
 		this.bloodType = bloodType;
 		this.amount = amount;
@@ -56,10 +57,10 @@ public class AmountOfBloodType {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public BloodType2 getBloodType() {
+	public BloodType getBloodType() {
 		return bloodType;
 	}
-	public void setBloodType(BloodType2 bloodType) {
+	public void setBloodType(BloodType bloodType) {
 		this.bloodType = bloodType;
 	}
 	public int getAmount() {
@@ -67,6 +68,12 @@ public class AmountOfBloodType {
 	}
 	public void setAmount(int amount) {
 		this.amount = amount;
+	}
+	public MounthlyBloodSubscription getBloodSub() {
+		return bloodSub;
+	}
+	public void setBloodSub(MounthlyBloodSubscription bloodSub) {
+		this.bloodSub = bloodSub;
 	}
 	
 	
