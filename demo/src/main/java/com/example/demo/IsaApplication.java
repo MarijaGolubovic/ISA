@@ -9,6 +9,7 @@ import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,52 +30,46 @@ public class IsaApplication {
 	    return new ModelMapper();
 	}
 	
-	static final String topicExchangeName = "";
+	@Value("${rabbitmq.queue.newsFromBloodBank}")
+    private String queue;
 
-	  static final String queueName = "mounthlyBloodSubscription";
+    @Value("${rabbitmq.exchange.name}")
+    private String exchange;
 
-	  @Bean
-	  Queue queue() {
-	    return new Queue(queueName, false);
-	  }
+    @Value("${rabbitmq.routing.key}")
+    private String routingKey;
+    
+    @Bean
+    public Queue queue(){
+        return new Queue(queue);
+    }
+    
+    @Bean
+    public TopicExchange exchange(){
+        return new TopicExchange(exchange);
+    }
 
-	  @Bean
-	  TopicExchange exchange() {
-	    return new TopicExchange(topicExchangeName);
-	  }
+    // binding between queue and exchange using routing key
+    @Bean
+    public Binding binding(){
+        return BindingBuilder
+                .bind(queue())
+                .to(exchange())
+                .with(routingKey);
+    }
 
-	  @Bean
-	  Binding binding(Queue queue, TopicExchange exchange) {
-	    return BindingBuilder.bind(queue).to(exchange).with("mounthlyBloodSubscription");
-	  }
-
-	  @Bean
-	  SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
-	      MessageListenerAdapter listenerAdapter) {
+	@Bean
+	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
 	    SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
 	    container.setConnectionFactory(connectionFactory);
-	    container.setQueueNames(queueName);
+	    container.setQueueNames(queue);
 	    container.setMessageListener(listenerAdapter);
 	    return container;
-	  }
+	}
 
-	  @Bean
-	  MessageListenerAdapter listenerAdapter(Receiver receiver) {
-		  System.out.println("aaa");
-	    return new MessageListenerAdapter(receiver, "receiveMessage");
-	  }
-	
-	/*@Bean
-	public ConnectionFactory connectionFactory() {
-		CachingConnectionFactory connectionFactory =  new CachingConnectionFactory("localhost");
-		return connectionFactory;
-	}*/
-	
-	/*@Bean
-	ApplicationRunner runner(ConnectionFactory fc) {
-		System.out.println("creating connection");
-		return args -> {
-			fc.createConnection();
-		};
-	}*/
+	@Bean
+	MessageListenerAdapter listenerAdapter(Receiver receiver) {
+		System.out.println("aaa");
+		return new MessageListenerAdapter(receiver, "receiveMessage");
+	}
 }

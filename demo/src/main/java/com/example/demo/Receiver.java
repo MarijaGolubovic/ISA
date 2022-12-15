@@ -32,9 +32,14 @@ public class Receiver {
 
   public void receiveMessage(byte[] message) {
 	  String s = new String(message, StandardCharsets.UTF_8);
-	  System.out.println("Received <" + "ASDA" + ">");
+	  System.out.println("Received <" + s + ">");
 	  Gson gson = new Gson(); // Or use new GsonBuilder().create();
 	  MounthlyBloodSubscriptionRequest bloodSubReq = gson.fromJson(s, MounthlyBloodSubscriptionRequest.class);
+	  
+	  if(bloodSubReq.getDateAndTimeOfSubscription() == null) {
+		  return;
+	  }
+	  
 	  BloodBank bb = bbRepo.findByAPIKey(bloodSubReq.getAPIKey());
 	  List<AmountOfBloodType> aobtList = new ArrayList();
 	  

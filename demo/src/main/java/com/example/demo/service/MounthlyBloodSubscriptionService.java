@@ -24,7 +24,7 @@ import com.example.demo.model.MounthlyBloodSubscription;
 import com.example.demo.model.User;
 import com.example.demo.model.enumerations.AppointmentStatus;
 import com.example.demo.model.enumerations.BloodType2;
-import com.example.demo.publisher.RabbitMQBloodSubscriptionProducer;
+import com.example.demo.publisher.RabbitMQProducer;
 import com.example.demo.repository.AppointmentRepository;
 import com.example.demo.repository.BloodBankRepository;
 import com.example.demo.repository.BloodSupplyRepository;
@@ -36,11 +36,11 @@ import com.google.gson.Gson;
 public class MounthlyBloodSubscriptionService {
 	private final MounthlyBloodSubscriptionRepository bloodSubRepo;
 	private final BloodSupplyRepository bloodSupplyRepo;
-	private final RabbitMQBloodSubscriptionProducer producer;
+	private final RabbitMQProducer producer;
 	
 	@Autowired
 	public MounthlyBloodSubscriptionService(MounthlyBloodSubscriptionRepository bloodSubRepo, BloodSupplyRepository bloodSuppltRepo, 
-			RabbitMQBloodSubscriptionProducer producerr) {
+			RabbitMQProducer producerr) {
 		this.bloodSubRepo = bloodSubRepo;
 		this.bloodSupplyRepo = bloodSuppltRepo;
 		this.producer = producerr;
@@ -50,7 +50,7 @@ public class MounthlyBloodSubscriptionService {
 		return this.bloodSubRepo.findAll();
 	}
 	
-	@Scheduled(fixedRate = 1000)
+	@Scheduled(fixedRate = 25000)
 	@Transactional(propagation=Propagation.REQUIRED, noRollbackFor=Exception.class)
 	public void scheduleTaskWithFixedRate() {
 		List<MounthlyBloodSubscription> allBloodSub = findAll();
@@ -68,7 +68,7 @@ public class MounthlyBloodSubscriptionService {
 				
 				String responseForHospital = new Gson().toJson(response);
 				
-				producer.sendJsonMessage(responseForHospital);
+				producer.sendMessage(responseForHospital);
 			}
 		}
 	}
@@ -87,14 +87,14 @@ public class MounthlyBloodSubscriptionService {
 			}else if(bloodSupply.getQuantity() < aobt.getAmount()) {
 				
 				AmountOfBloodTypeResponse currentAmount = new AmountOfBloodTypeResponse(aobt.getBloodType(), bloodSupply.getQuantity().intValue());
-				this.bloodSupplyRepo.update(0.0, bloodSupply.getId());
+				//this.bloodSupplyRepo.update(0.0, bloodSupply.getId());
 				currentStateOfAmounts.add(currentAmount);
 				
 			}else if(bloodSupply.getQuantity() > aobt.getAmount()) {
 				
 				bloodSupply.setQuantity(bloodSupply.getQuantity() - aobt.getAmount());
-				this.bloodSupplyRepo.delete(bloodSupply);
-				this.bloodSupplyRepo.save(new BloodSupply(bloodSupply.getBloodType(), bloodSupply.getQuantity(), bloodSupply.getBloodBank()));
+				//this.bloodSupplyRepo.delete(bloodSupply);
+				//this.bloodSupplyRepo.save(new BloodSupply(bloodSupply.getBloodType(), bloodSupply.getQuantity(), bloodSupply.getBloodBank()));
 				AmountOfBloodTypeResponse currentAmount = new AmountOfBloodTypeResponse(aobt.getBloodType(), aobt.getAmount());
 				currentStateOfAmounts.add(currentAmount);
 				
