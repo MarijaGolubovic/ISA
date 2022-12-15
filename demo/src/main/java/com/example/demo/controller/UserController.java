@@ -30,12 +30,6 @@ public class UserController {
     public List<UserResponse> getAllUserResponses(){
         return userService.getAllUserResponses();
     }
-
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(path = "/search/{name}/{surname}", method = RequestMethod.GET)
-    public List<UserResponse> getAllUsersResponseForNameAndSurname(@PathVariable String name, @PathVariable String surname){
-        return userService.getAllUsersResponseForNameAndSurname(name,surname);
-    }
     
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(path = "/getLoggedUser", method = RequestMethod.GET)
@@ -50,16 +44,23 @@ public class UserController {
     	this.userService.saveUser(u);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/admin")
+    public List<UserResponse> getAllUsersForAdminCenter(){
+        User admin = getLoggedUser();
+        return userService.getAllUsersForAdminCenter(admin);
+    }
+    
     @GetMapping("/{bloodBankName}")
     @ResponseBody
     public List<UserResponse> getAllUsersForAdminCenter(@PathVariable String bloodBankName){
-        return userService.getAllUsersForAdminCenter(bloodBankName);
+        User user = getLoggedUser();
+        return userService.getAllUsersForAdminCenter(user);
     }
-
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(path = "/centersAdmins/{id}", method = RequestMethod.GET)
-    public List<User> getCentersAdmins (@PathVariable Long id) {
+    public List<User> getCentersAdmins(@PathVariable Long id) {
         return userService.getCentersAdmins(id);
     }
 

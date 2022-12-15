@@ -17,8 +17,8 @@ export class UserService {
     return this.http.get<UserResponse[]>(this.apiHost + 'api/user', {headers: this.headers});
   }
 
-  getUserResponsesForAdminCenter(user:WholeUserResponseWithBloodBank): Observable<UserResponse[]> {
-    return this.http.get<UserResponse[]>(this.apiHost + 'api/user/'+ 'ttt', {headers: this.headers});
+  getUserResponsesForAdminCenter(): Observable<UserResponse[]> {
+    return this.http.get<UserResponse[]>(this.apiHost + 'api/user/'+ 'admin', {headers: this.headers});
   }
 
   searchUsers(name:string,surname:string): Observable<UserResponse[]> {

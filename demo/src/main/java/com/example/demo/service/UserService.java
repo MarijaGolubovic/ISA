@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dto.UserResponse;
 import com.example.demo.model.BloodBank;
 import com.example.demo.model.User;
+import com.example.demo.model.enumerations.UserType;
 import com.example.demo.repository.BloodBankRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.AddressRepository;
@@ -61,9 +62,11 @@ public class UserService {
     	  this.UserRepository.save(u);
     }
 
-    public List<UserResponse> getAllUsersForAdminCenter(String bloodBankName){
-        BloodBank bb = this.BloodBankRepository.findByName(bloodBankName);
-        return this.UserRepository.findByBloodBank(bb.getId())
+    public List<UserResponse> getAllUsersForAdminCenter(User admin){
+        if (admin.getUserType() == UserType.ADMIN_SISTEM){
+            return getAllUserResponses();
+        }
+        return this.UserRepository.findByBloodBank(admin.getBloodBank().getId())
                 .stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());

@@ -30,7 +30,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     const that = this;
-    this.userService.getUserResponses().subscribe(res => {
+    this.userService.getUserResponsesForAdminCenter().subscribe(res => {
       this.users = res;
       this.dataSource.data = this.users;
     })
