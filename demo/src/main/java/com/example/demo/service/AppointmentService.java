@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.CreateAppointmentDTO;
+import com.example.demo.dto.FutureAppointmentDTO;
 import com.example.demo.model.Appointment;
 import com.example.demo.model.BloodBank;
 import com.example.demo.model.User;
@@ -68,5 +69,10 @@ public class AppointmentService {
 	public Appointment scheduleAppointment(Appointment app) {
 		app.setUser(userRepo.getOne((long) 1));
 		return appRepo.save(app);
+	}
+
+	public List<FutureAppointmentDTO> getAllFutureAppointmentsForLoggedUser(long l) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

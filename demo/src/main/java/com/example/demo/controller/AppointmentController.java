@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -52,7 +53,7 @@ public class AppointmentController {
 	//ovdje ide id logovanog usera
 	@CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/getAllFutureAppointmentsForLoggedUser")
-    public FutureAppointmentDTO getAllFutureAppointmentsForLoggedUser() {
+    public List<FutureAppointmentDTO> getAllFutureAppointmentsForLoggedUser() {
 		return this.appService.getAllFutureAppointmentsForLoggedUser(1L);
     }
 	
