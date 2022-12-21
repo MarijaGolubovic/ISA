@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.example.demo.model.enumerations.ComplaintStatus;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -26,22 +28,30 @@ public class Complaint {
     private String description;
     private Date date;
 
+    private ComplaintStatus status;
+
+    private String reply;
+
     public Complaint() {
     }
 
-    public Complaint(Long id, BloodBank bloodBank, User user, String description, Date date) {
+    public Complaint(Long id, BloodBank bloodBank, User user, String description, Date date, ComplaintStatus status, String reply) {
         this.id = id;
         this.bloodBank = bloodBank;
         this.user = user;
         this.description = description;
         this.date = date;
+        this.status = status;
+        this.reply = reply;
     }
 
-    public Complaint(BloodBank bloodBank, User user, String description, Date date) {
+    public Complaint(BloodBank bloodBank, User user, String description, Date date, ComplaintStatus status, String reply) {
         this.bloodBank = bloodBank;
         this.user = user;
         this.description = description;
         this.date = date;
+        this.status = status;
+        this.reply = reply;
     }
 
     public Long getId() {
@@ -84,14 +94,21 @@ public class Complaint {
         this.date = date;
     }
 
-    @Override
-    public String toString() {
-        return "Complaint{" +
-                "id=" + id +
-                ", bloodBank=" + bloodBank +
-                ", user=" + user +
-                ", description='" + description + '\'' +
-                ", date=" + date +
-                '}';
+    public ComplaintStatus getStatus() {
+        return status;
     }
+
+    public void setStatus(ComplaintStatus status) {
+        this.status = status;
+    }
+
+    public String getReply() {
+        return reply;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
+    }
+
+
 }

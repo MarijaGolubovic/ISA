@@ -17,6 +17,10 @@ export class UserService {
     return this.http.get<UserResponse[]>(this.apiHost + 'api/user', {headers: this.headers});
   }
 
+  getAdminCenters(): Observable<UserResponse[]> {
+    return this.http.get<UserResponse[]>(this.apiHost + 'api/user/admin-center', {headers: this.headers});
+  }
+
   getUserResponsesForAdminCenter(): Observable<UserResponse[]> {
     return this.http.get<UserResponse[]>(this.apiHost + 'api/user/'+ 'admin', {headers: this.headers});
   }
@@ -39,6 +43,10 @@ export class UserService {
 
   registerUser(user:RegistratedUser): Observable<any>{
     return this.http.put<any>(this.apiHost + 'api/user/registerUser', user, {headers: this.headers})
+  }
+
+  updateUserBB(user:UserResponse, idBB : String): Observable<any>{
+    return this.http.put<any>(this.apiHost + 'api/user/updateBloodBankID/' + idBB, user, {headers: this.headers})
   }
 
 }

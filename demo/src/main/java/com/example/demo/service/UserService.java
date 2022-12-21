@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +32,8 @@ public class UserService {
     public List<User> getAllUsers(){
         return UserRepository.findAll();
     }
+
+    public User getByEmail(String email){return UserRepository.findByEmail(email);}
 
     public List<UserResponse> getAllUserResponses(){
         return UserRepository.findAll()
@@ -57,8 +60,12 @@ public class UserService {
     }
     
     public void saveUser(User u) {
-        this.BloodBankRepository.save(u.getBloodBank());
-        this.AddressRepository.save(u.getAddress());
+        if (u.getAddress() != null){
+            this.AddressRepository.save(u.getAddress());
+        }
+        if (u.getBloodBank() != null){
+            this.BloodBankRepository.save(u.getBloodBank());
+        }
     	  this.UserRepository.save(u);
     }
 
@@ -82,6 +89,17 @@ public class UserService {
         return this.UserRepository.findByCenterID(idCenter);
     }
 
+    public List<UserResponse> getAdminCentersWithoutBB(){
+        return UserRepository.findAdminCentersWithoutBB()
+                .stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
 
+    public void update(UserResponse u, String id){
+        User user = UserRepository.findByEmail(u.getEmail());
+        user.setBloodBank(BloodBankRepository.findByID(Long.valueOf(id)));
+        UserRepository.save(user);
+    }
 
 }

@@ -20,7 +20,12 @@ import { QuestionnaireComponent } from './questionnaire/questionnaire.component'
 import { SendNewsToHospitalComponent } from './send-news-to-hospital/send-news-to-hospital.component';
 import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
-import { NgToastModule } from 'ng-angular-popup'
+import { NgToastModule } from 'ng-angular-popup';
+import { MatTabsModule } from "@angular/material/tabs";
+import { AddAdminCenterComponent } from "./add-admin-center/add-admin-center.component";
+import { ChangeAdminSistemPasswordComponent } from "./change-admin-sistem-password/change-admin-sistem-password.component";
+import { AddCommentComponent } from "./view-complaint/add-comment.component/add-comments.component";
+import { ViewComplaintComponent } from "./view-complaint/view-complaint.component";
 
 const routes: Routes = [
   { path: 'users', component: UsersComponent },
@@ -34,7 +39,11 @@ const routes: Routes = [
   { path: 'userRegistration', component: UserRegistrationComponent },
   { path: 'questionnaire', component: QuestionnaireComponent },
   { path: 'hospital/sendNews', component: SendNewsToHospitalComponent },
-  { path: 'appointment/create', component: CreateAppointmentComponent }
+  { path: 'appointment/create', component: CreateAppointmentComponent },
+  { path: 'complaints', component: ViewComplaintComponent},
+  { path: 'complaints/reply', component: AddCommentComponent},
+  { path: 'add-admin-centar', component: AddAdminCenterComponent},
+  { path: 'admin-sistem/changePassword', component : ChangeAdminSistemPasswordComponent}
 ];
 
 @NgModule({
@@ -50,6 +59,10 @@ const routes: Routes = [
     QuestionnaireComponent,
     SendNewsToHospitalComponent,
     CreateAppointmentComponent,
+    ViewComplaintComponent,
+    AddCommentComponent,
+    AddAdminCenterComponent,
+    ChangeAdminSistemPasswordComponent
   ],
   imports: [
     CommonModule,
@@ -65,7 +78,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
-    NgToastModule
+    NgToastModule,
+    MatTabsModule
     ],
   exports: [ RouterModule ]
 })

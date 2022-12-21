@@ -22,9 +22,9 @@ import java.util.List;
 
 @Configuration
 public class BloodSupplyConfig {
-	@Bean
+	/*@Bean
     CommandLineRunner commandLineRunner4(BloodSupplyRepository repository){
-        return args ->{/*
+        return args ->{
         	
         	BloodBank bankaKrvi1 = new BloodBank(
                     "Moja Banka Krvi",
@@ -44,8 +44,8 @@ public class BloodSupplyConfig {
             BloodSupply bs7 = new BloodSupply(BloodType2.Opos, 1000000.0, bankaKrvi1);
             BloodSupply bs8 = new BloodSupply(BloodType2.Oneg, 1000000.0, bankaKrvi1);
         	
-            repository.saveAll(List.of(bs1, bs2, bs3, bs4, bs5, bs6, bs7, bs8));*/
+            repository.saveAll(List.of(bs1, bs2, bs3, bs4, bs5, bs6, bs7, bs8));
         };
-	}
+	}*/
 
 }

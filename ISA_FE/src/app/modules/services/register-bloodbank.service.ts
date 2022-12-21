@@ -19,5 +19,9 @@ export class BloodbankService {
   registerBloodBankWithAdmin(bloodBank: BloodBankRequest): Observable<any> {
     return this.http.post<any>(this.apiHost + 'api/bloodbank/register', bloodBank, {headers: this.headers});
   }
+  
+  getAll(): Observable<any> {
+    return this.http.get<any>(this.apiHost + 'api/bloodbank', {headers: this.headers});
+  }
 
 }

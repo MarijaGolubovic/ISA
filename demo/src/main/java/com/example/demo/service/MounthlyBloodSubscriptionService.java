@@ -50,7 +50,7 @@ public class MounthlyBloodSubscriptionService {
 		return this.bloodSubRepo.findAll();
 	}
 	
-	@Scheduled(fixedRate = 25000)
+	/*@Scheduled(fixedRate = 25000)
 	@Transactional(propagation=Propagation.REQUIRED, noRollbackFor=Exception.class)
 	public void scheduleTaskWithFixedRate() {
 		List<MounthlyBloodSubscription> allBloodSub = findAll();
@@ -71,7 +71,7 @@ public class MounthlyBloodSubscriptionService {
 				producer.sendMessage(responseForHospital);
 			}
 		}
-	}
+	}*/
 	
 	private List<AmountOfBloodTypeResponse> getCurrentState(MounthlyBloodSubscription bs){
 		
