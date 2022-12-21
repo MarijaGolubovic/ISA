@@ -14,7 +14,11 @@ export class QuestionnaireService{
   constructor(private http: HttpClient) { }
 
     saveQuestionaire(questionnaire:QUestionnaireRespons): Observable<QUestionnaireRespons>{
-    return this.http.put<QUestionnaireRespons>(this.apiHost + 'api/questionnaire', questionnaire, {headers: this.headers})
-  }
+      return this.http.put<QUestionnaireRespons>(this.apiHost + 'api/questionnaire', questionnaire, {headers: this.headers})
+    }
+
+    checkIfQuestionnaireHasBeenCompletedInLastSixMonths(userId: any){
+      return this.http.post<boolean>(this.apiHost + 'api/questionnaire/checkIfQuestionnaireHasBeenCompletedInLastSixMonths', userId, {headers: this.headers})
+    }
 
 }

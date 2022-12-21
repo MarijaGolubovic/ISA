@@ -2,11 +2,15 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import com.example.demo.model.Appointment;
 import com.example.demo.model.BloodBank;
 import com.example.demo.model.User;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.dto.CenterResponse;
+import com.example.demo.dto.CreateAppointmentDTO;
+import com.example.demo.dto.DateTimeDTO;
 import com.example.demo.service.CenterService;
+import com.google.gson.Gson;
 
 @RestController
 @RequestMapping(path="api/centers")
@@ -34,5 +38,11 @@ public class CenterControler {
 	public void saveCenter(@RequestBody BloodBank bb) {
 		this.CenterService.SaveCenter(bb);
 	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/getAllAvailableCenters")
+    public List<CenterResponse> getAllAvailableCenters(@RequestBody DateTimeDTO dateTimeDTO) {
+		return this.CenterService.getAllAvailableCenters(dateTimeDTO);
+    }
 
 }

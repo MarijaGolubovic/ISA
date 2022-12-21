@@ -29,4 +29,8 @@ export class CenterService {
   getCentersAdmins(centerID: number): Observable<WholeUserResponse[]>{
     return this.http.get<WholeUserResponse[]>(this.apiHost + 'api/user/centersAdmins/' + centerID.toString(), {headers: this.headers})
   }
+  
+  getAllAvailableCenters(dateTimeDTO: any): Observable<any>{
+    return this.http.post<CenterResponse[]>(this.apiHost + 'api/centers/getAllAvailableCenters', dateTimeDTO, {headers: this.headers})
+  }
 }

@@ -15,16 +15,19 @@ import com.example.demo.model.enumerations.AppointmentStatus;
 import com.example.demo.repository.AppointmentRepository;
 import com.example.demo.repository.BloodBankRepository;
 import com.example.demo.repository.CenterRepository;
+import com.example.demo.repository.UserRepository;
 
 @Service
 public class AppointmentService {
 	private final AppointmentRepository appRepo;
 	private final CenterRepository bbRepo;
+	private final UserRepository userRepo;
 	
 	@Autowired
-	public AppointmentService(AppointmentRepository repo, CenterRepository bbRepo) {
+	public AppointmentService(AppointmentRepository repo, CenterRepository bbRepo, UserRepository userRepo) {
 		this.appRepo = repo;
 		this.bbRepo = bbRepo;
+		this.userRepo = userRepo;
 	}
 	
 	public String getMessageAboutAvailability(Appointment app) {
@@ -57,8 +60,13 @@ public class AppointmentService {
 	public Appointment convertCreateAppointmentDTOtoAppointment(CreateAppointmentDTO appDTO) {
 		BloodBank bb = bbRepo.getOne(appDTO.getBloodBankID());
         LocalTime time = LocalTime.parse(appDTO.getTime());
-        Appointment app = new Appointment(bb, appDTO.getDate(), time, appDTO.getDuration(), null, appDTO.getStatus());
+        Appointment app = new Appointment(bb, appDTO.getDate(), time, appDTO.getDuration(), null, appDTO.getStatus(), null);
         
         return app;
+	}
+
+	public Appointment scheduleAppointment(Appointment app) {
+		app.setUser(userRepo.getOne((long) 1));
+		return appRepo.save(app);
 	}
 }

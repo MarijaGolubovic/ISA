@@ -55,4 +55,12 @@ public class AppointmentController {
     public FutureAppointmentDTO getAllFutureAppointmentsForLoggedUser() {
 		return this.appService.getAllFutureAppointmentsForLoggedUser(1L);
     }
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(path = "/schedule", method = RequestMethod.PUT)
+	public Appointment scheduleAppointment(@RequestBody CreateAppointmentDTO appDTO) {
+		Appointment app = appService.convertCreateAppointmentDTOtoAppointment(appDTO);
+		Appointment app1 = this.appService.scheduleAppointment(app);
+		return app1;
+	}
 }

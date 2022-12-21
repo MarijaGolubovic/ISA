@@ -1,8 +1,11 @@
 package com.example.demo.model;
 
+import com.example.demo.dto.DateTimeDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -175,5 +178,21 @@ public class BloodBank {
                 ", administrators=" + administrators +
                 ", workTime=" + workTime +
                 '}';
+    }
+    
+    public boolean isDateTimeInWorkTime(DateTimeDTO dateTimeDTO) {
+    	WorkTime bbWorkTime = this.getWorkTime();
+    	LocalTime startTime = LocalTime.parse(dateTimeDTO.getStartTime());
+    	LocalTime endTime = startTime.plusMinutes(15);
+    	int compareStartWithStart = startTime.compareTo(bbWorkTime.getStart());
+    	int compareStartWithEnd = startTime.compareTo(bbWorkTime.getEnd());
+    	int compareEndWithStart = endTime.compareTo(bbWorkTime.getStart());
+    	int compareEndWithEnd = endTime.compareTo(bbWorkTime.getEnd());
+    	
+    	if(compareStartWithStart > 0 && compareStartWithEnd < 0 &&
+    			compareEndWithStart > 0 && compareEndWithEnd < 0) 
+    		return true;
+    	else
+    		return false;
     }
 }

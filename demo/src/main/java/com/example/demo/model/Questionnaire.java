@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -26,6 +28,15 @@ public class Questionnaire {
 	
 	private Long id;
 	private LocalDate timeOfExecution;
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	private boolean question1;
 	private boolean question2;
 	private boolean question3;
@@ -122,7 +133,7 @@ public class Questionnaire {
 	public void setTimeOfExecution(LocalDate timeOfExecution) {
 		this.timeOfExecution = timeOfExecution;
 	}
-	public Questionnaire(Long id, LocalDate timeOfExecution, boolean question1, boolean question2, boolean question3,
+	public Questionnaire(Long id,LocalDate timeOfExecution, boolean question1, boolean question2, boolean question3,
 			boolean question4, boolean question5, boolean question6, boolean question7, boolean question8,
 			boolean question9, boolean question10, boolean question11, boolean question12) {
 		super();
@@ -141,7 +152,9 @@ public class Questionnaire {
 		this.question11 = question11;
 		this.question12 = question12;
 	}
-	
+	public Questionnaire() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	
 	

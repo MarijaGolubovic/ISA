@@ -6,6 +6,8 @@ import com.example.demo.model.enumerations.UserStatus;
 import com.example.demo.model.enumerations.UserType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -47,6 +49,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name="userCategory")
     private UserCategory userCategory;
+    @OneToMany(mappedBy="user")
+    private List<Questionnaire> questionnaires;
 
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "bloodBank_id")
@@ -62,7 +66,7 @@ public class User {
 
     public User() {}
 
-    public User(Long id, String email, String password, String name, String surname, Address address, String phoneNumber, String URN, Gender gender, String profession, String infoAboutInstitution, UserType userType, UserStatus userStatus, int pointsNum, int strikesNum, BloodBank bloodBank) {
+    public User(Long id, String email, String password, String name, String surname, Address address, String phoneNumber, String URN, Gender gender, String profession, String infoAboutInstitution, UserType userType, UserStatus userStatus, int pointsNum, int strikesNum, BloodBank bloodBank, List<Questionnaire> questionnaires) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -80,10 +84,11 @@ public class User {
         this.strikesNum = strikesNum;
         this.bloodBank = bloodBank;
         this.userCategory = UserCategory.REGULAR;
+        this.questionnaires = questionnaires;
         }
 
 
-    public User(String email, String password, String name, String surname, Address address, String phoneNumber, String URN, Gender gender, String profession, String infoAboutInstitution, UserType userType, UserStatus userStatus, int pointsNum, int strikesNum, BloodBank bloodBank) {
+    public User(String email, String password, String name, String surname, Address address, String phoneNumber, String URN, Gender gender, String profession, String infoAboutInstitution, UserType userType, UserStatus userStatus, int pointsNum, int strikesNum, BloodBank bloodBank, List<Questionnaire> questionnaires) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -101,9 +106,19 @@ public class User {
         this.bloodBank = bloodBank;
         this.userCategory = userCategory;
         this.userCategory = UserCategory.REGULAR;
+        this.questionnaires = questionnaires;
     }
     
-    public UserCategory getUserCategory() {
+    
+    public List<Questionnaire> getQuestionnaires() {
+		return questionnaires;
+	}
+
+	public void setQuestionnaires(List<Questionnaire> questionnaires) {
+		this.questionnaires = questionnaires;
+	}
+
+	public UserCategory getUserCategory() {
 		return userCategory;
 	}
 

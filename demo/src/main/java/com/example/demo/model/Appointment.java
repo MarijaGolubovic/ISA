@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.example.demo.dto.DateTimeDTO;
 import com.example.demo.model.enumerations.AppointmentStatus;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table
@@ -25,6 +27,9 @@ public class Appointment {
     @OneToOne
     @JoinColumn(name = "bb_id",referencedColumnName = "id")
     private BloodBank bloodBank;
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    private User user;
     private Date date;
     private LocalTime time;
     private int duration; //in minutes
@@ -37,7 +42,7 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(Long id, BloodBank bloodBank, Date date, LocalTime time, int duration, List<User> medicalStuff, AppointmentStatus status) {
+    public Appointment(Long id, BloodBank bloodBank, Date date, LocalTime time, int duration, List<User> medicalStuff, AppointmentStatus status, User u) {
         this.id = id;
         this.bloodBank = bloodBank;
         this.date = date;
@@ -45,22 +50,32 @@ public class Appointment {
         this.duration = duration;
         this.medicalStuff = medicalStuff;
         this.status = status;
+        this.user = u;
     }
 
-    public Appointment(BloodBank bloodBank, Date date, LocalTime time, int duration, List<User> medicalStuff, AppointmentStatus status) {
+    public Appointment(BloodBank bloodBank, Date date, LocalTime time, int duration, List<User> medicalStuff, AppointmentStatus status, User u) {
         this.bloodBank = bloodBank;
         this.date = date;
         this.time = time;
         this.duration = duration;
         this.medicalStuff = medicalStuff;
         this.status = status;
+        this.user = u;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public User getUser() {
+		return user;
+	}
+
+	public void setUser(User optional) {
+		this.user = optional;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 
@@ -169,6 +184,22 @@ public class Appointment {
     		return true;
     	}else {
     		return false;
+    	}
+    }
+    
+    public boolean isAppointmentOverlapsWithDateTime(DateTimeDTO dateTimeDTO) {
+    	LocalTime start1 = this.time;
+    	LocalTime end1 = this.time.plusMinutes(this.duration);
+    	LocalTime start2 = LocalTime.parse(dateTimeDTO.getStartTime());
+    	LocalTime end2 = start2.plusMinutes(15);
+    	
+    	int compareEnd1WithStart2 = end1.compareTo(start2);
+    	int compareStar1WithEnd2 = start1.compareTo(end2);
+    	
+    	if(compareEnd1WithStart2 < 0 || compareStar1WithEnd2 > 0) {
+    		return false;
+    	}else {
+    		return true;
     	}
     }
 }
