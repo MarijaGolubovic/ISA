@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.BloodBankRegistrationRequest;
 import com.example.demo.dto.CreateAppointmentDTO;
+import com.example.demo.dto.FutureAppointmentDTO;
 import com.example.demo.model.Appointment;
 import com.example.demo.model.BloodBank;
 import com.example.demo.service.AppointmentService;
@@ -44,4 +48,11 @@ public class AppointmentController {
 		Appointment app1 = this.appService.saveAppointment(app);
 		return app1;
 	}
+	
+	//ovdje ide id logovanog usera
+	@CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/getAllFutureAppointmentsForLoggedUser")
+    public FutureAppointmentDTO getAllFutureAppointmentsForLoggedUser() {
+		return this.appService.getAllFutureAppointmentsForLoggedUser(1L);
+    }
 }
