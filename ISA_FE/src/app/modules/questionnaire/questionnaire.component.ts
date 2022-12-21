@@ -91,8 +91,8 @@ export class QuestionnaireComponent{
     await this.router.navigateByUrl('/autorizedUser')
   }
 
-  async redirectToScheduleAppointment() : Promise<void>{
-    await this.router.navigateByUrl('/appointment/scheduleNew')
+  async redirectToFutureAppointments() : Promise<void>{
+    await this.router.navigateByUrl('/usersFutureAppointments')
   }
 
   public saveQuestionaire(){
@@ -112,12 +112,9 @@ export class QuestionnaireComponent{
         this.alert.success({detail: 'Success!', summary: "You are successfully schedule appointment!", duration: 5000});
       });
       this.questionnaireService.saveQuestionaire(this.questionnaire).subscribe(res => {
-        //this.redirectToScheduleAppointment();
+        this.redirectToFutureAppointments();
         //return console.log("Questinaire is save!");
       });
   }
-
-
-  
 
 }

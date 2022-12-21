@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -72,7 +74,19 @@ public class AppointmentService {
 	}
 
 	public List<FutureAppointmentDTO> getAllFutureAppointmentsForLoggedUser(long l) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Appointment> apps = this.appRepo.getByUserId(l);
+		List<FutureAppointmentDTO> retList = new ArrayList<>();
+		
+		for(Appointment a : apps) {
+			if(a.getDate().after(new Date())) {
+				retList.add(convertAppointmentToFutureAppointmentDTO(a));
+			}
+		}
+		
+		return retList;
+	}
+	
+	private FutureAppointmentDTO convertAppointmentToFutureAppointmentDTO(Appointment a) {
+		return new FutureAppointmentDTO(a.getBloodBank().getName(), a.getDate().toString().split(" ")[0], a.getTime().toString());
 	}
 }

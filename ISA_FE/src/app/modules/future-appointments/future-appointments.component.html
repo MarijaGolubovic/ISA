@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css" /> 
+    <title>Centers</title>
+</head>
+<body>
+    <div class="container" style="box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);">
+        <div class="table-header">
+            <p class="table-title">List of future appointment</p>
+        </div>
+        
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="name">
+                <a ><th mat-header-cell *matHeaderCellDef class="cell-center" >Blood bank Name&nbsp;</th></a>
+                <td mat-cell *matCellDef="let app" class="clickable cell-center">{{app.bloodBankName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Date">
+                <th mat-header-cell *matHeaderCellDef class="cell-center"> Date &nbsp;</th>
+                <td mat-cell *matCellDef="let app" class="cell-center">{{app.date}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Time">
+                <th mat-header-cell *matHeaderCellDef class="cell-center"> Time &nbsp;</th>
+                <td mat-cell *matCellDef="let app" class="cell-center">{{app.time}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+    
+</body>
+</html>

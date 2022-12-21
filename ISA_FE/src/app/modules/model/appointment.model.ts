@@ -37,3 +37,17 @@ export class AppointmentDTO {
 export enum AppointmentStatus{
     FREE,BUSY
 }
+
+export class FutureAppointmentDTO {
+    bloodBankName: string = '';
+    date: string = '';
+    time: String = "";
+    
+    public constructor(obj?: any) {
+        if (obj) {
+            this.bloodBankName = obj.bloodBankID;
+            this.date = obj.date;
+            this.time = obj.time;   
+        }
+    }
+}

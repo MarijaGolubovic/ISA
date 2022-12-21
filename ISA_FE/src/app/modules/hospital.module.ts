@@ -22,6 +22,7 @@ import { CreateAppointmentComponent } from './create-appointment/create-appointm
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { NgToastModule } from 'ng-angular-popup'
 import { SchedulingNewAppointmentComponent } from "./scheduling-new-appointment/scheduling-new-appointment.component";
+import { FutureAppointmentsComponent } from './future-appointments/future-appointments.component';
 
 const routes: Routes = [
   { path: 'users', component: UsersComponent },
@@ -36,7 +37,8 @@ const routes: Routes = [
   { path: 'questionnaire', component: QuestionnaireComponent },
   { path: 'hospital/sendNews', component: SendNewsToHospitalComponent },
   { path: 'appointment/create', component: CreateAppointmentComponent },
-  { path: 'appointment/scheduleNew', component: SchedulingNewAppointmentComponent }
+  { path: 'appointment/scheduleNew', component: SchedulingNewAppointmentComponent },
+  { path: 'usersFutureAppointments', component: FutureAppointmentsComponent }
 ];
 
 @NgModule({
@@ -53,6 +55,7 @@ const routes: Routes = [
     SendNewsToHospitalComponent,
     CreateAppointmentComponent,
     SchedulingNewAppointmentComponent,
+    FutureAppointmentsComponent,
   ],
   imports: [
     CommonModule,
