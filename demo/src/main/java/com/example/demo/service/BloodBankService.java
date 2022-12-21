@@ -7,6 +7,9 @@ import com.example.demo.model.BloodBank;
 import com.example.demo.repository.BloodBankRepository;
 import com.example.demo.repository.AddressRepository;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class BloodBankService {
     private final BloodBankRepository BloodBankRepository;
@@ -24,6 +27,10 @@ public class BloodBankService {
             return true;
         }else return false;
     }
+
+    public BloodBank getByName(String name){return BloodBankRepository.findByName(name);}
+
+    public List<BloodBank> getAll(){ return BloodBankRepository.findAll();}
 
     public BloodBank convertDtoToEntity(BloodBankRegistrationRequest bb){
         AddressRepository.save(bb.getAddress());

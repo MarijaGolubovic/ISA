@@ -19,12 +19,14 @@ import com.example.demo.repository.CenterRepository;
 @Service
 public class AppointmentService {
 	private final AppointmentRepository appRepo;
+	private final BloodBankRepository bloodRepo;
 	private final CenterRepository bbRepo;
 	
 	@Autowired
-	public AppointmentService(AppointmentRepository repo, CenterRepository bbRepo) {
+	public AppointmentService(AppointmentRepository repo, CenterRepository bbRepo, BloodBankRepository bloodRepo) {
 		this.appRepo = repo;
 		this.bbRepo = bbRepo;
+		this.bloodRepo = bloodRepo;
 	}
 	
 	public String getMessageAboutAvailability(Appointment app) {
@@ -61,4 +63,14 @@ public class AppointmentService {
         
         return app;
 	}
+
+	public void save(Appointment appointment){
+		bloodRepo.save(appointment.getBloodBank());
+		appRepo.save(appointment);
+	}
+
+	public List<Appointment> findByAdminCenter(String email){
+		return appRepo.findByAdminCenter(email);
+	}
+
 }
