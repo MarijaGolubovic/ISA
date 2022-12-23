@@ -23,6 +23,8 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-mat
 import { NgToastModule } from 'ng-angular-popup'
 import { SchedulingNewAppointmentComponent } from "./scheduling-new-appointment/scheduling-new-appointment.component";
 import { FutureAppointmentsComponent } from './future-appointments/future-appointments.component';
+import { ScheduleModule, RecurrenceEditorModule, DayService, WeekService, WorkWeekService, MonthService, MonthAgendaService} from '@syncfusion/ej2-angular-schedule';
+import { CenterPredefinedAppointmentsComponent } from './center-predefined-appointments/center-predefined-appointments.component';
 
 const routes: Routes = [
   { path: 'users', component: UsersComponent },
@@ -38,7 +40,8 @@ const routes: Routes = [
   { path: 'hospital/sendNews', component: SendNewsToHospitalComponent },
   { path: 'appointment/create', component: CreateAppointmentComponent },
   { path: 'appointment/scheduleNew', component: SchedulingNewAppointmentComponent },
-  { path: 'usersFutureAppointments', component: FutureAppointmentsComponent }
+  { path: 'usersFutureAppointments', component: FutureAppointmentsComponent },
+  { path: 'centerPredefinedAppointments', component: FutureAppointmentsComponent }
 ];
 
 @NgModule({
@@ -56,6 +59,7 @@ const routes: Routes = [
     CreateAppointmentComponent,
     SchedulingNewAppointmentComponent,
     FutureAppointmentsComponent,
+    CenterPredefinedAppointmentsComponent,
   ],
   imports: [
     CommonModule,
@@ -71,8 +75,10 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
-    NgToastModule
+    NgToastModule,
+    ScheduleModule, RecurrenceEditorModule,
     ],
+  providers: [DayService, WeekService, WorkWeekService, MonthService, MonthAgendaService],
   exports: [ RouterModule ]
 })
 export class HospitalModule { }

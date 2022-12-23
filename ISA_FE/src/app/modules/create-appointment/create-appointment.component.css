@@ -6,9 +6,10 @@
     position: center;
     overflow: hidden;
     max-width: 100%;
-    min-height: 580px;
+    min-height: 300px;
+    margin-top: 50px;
     margin: auto;
-    width: 70%;
+    width: 300px;
     padding: 10px;
   }
   .form-container {
@@ -19,6 +20,10 @@
   }
   .title{
     margin: 5px 0;
+    text-align: center;
+  }
+  .time{
+    margin-top: 40px;
   }
   .create-schedule-container {
     left: 0;

@@ -19,18 +19,22 @@ import com.example.demo.repository.AppointmentRepository;
 import com.example.demo.repository.BloodBankRepository;
 import com.example.demo.repository.CenterRepository;
 import com.example.demo.repository.UserRepository;
+import com.example.email.EmailDetails;
+import com.example.email.EmailService;
 
 @Service
 public class AppointmentService {
 	private final AppointmentRepository appRepo;
 	private final CenterRepository bbRepo;
 	private final UserRepository userRepo;
+	private final EmailService emailService;
 	
 	@Autowired
-	public AppointmentService(AppointmentRepository repo, CenterRepository bbRepo, UserRepository userRepo) {
+	public AppointmentService(AppointmentRepository repo, CenterRepository bbRepo, UserRepository userRepo, EmailServiceImpl emailService) {
 		this.appRepo = repo;
 		this.bbRepo = bbRepo;
 		this.userRepo = userRepo;
+		this.emailService = emailService;
 	}
 	
 	public String getMessageAboutAvailability(Appointment app) {
@@ -69,8 +73,18 @@ public class AppointmentService {
 	}
 
 	public Appointment scheduleAppointment(Appointment app) {
-		app.setUser(userRepo.getOne((long) 1));
+		User u = userRepo.getOne((long) 1);
+		app.setUser(u);
+		EmailDetails emailDetails = new EmailDetails(u.getEmail(), generateEmailMessage(app), "Successfuly scheduled appointment", null);
+		emailService.sendSimpleMail(emailDetails);
 		return appRepo.save(app);
+	}
+	
+	private String generateEmailMessage(Appointment app) {
+		String date[] = app.getDate().toString().split(" ");
+		String message = "Hi " + app.getUser().getName() + " " + app.getUser().getSurname() + ". You are successfuly scheduled appointment in our center."
+				+ " You appointment are on " + date[0] + " " + date[1] + " " + date[2] + " " + " at " + app.getTime().toString() + ".";
+		return message;
 	}
 
 	public List<FutureAppointmentDTO> getAllFutureAppointmentsForLoggedUser(long l) {

@@ -178,9 +178,9 @@ public class Appointment {
     	
     	int compareCurrentTimeWithTimeOfApp = currentTime.compareTo(this.time);
     	
-    	if(currentDate.getDate() > this.date.getDate()) {
+    	if(currentDate.after(this.date)) {
     		return true;
-    	}else if(compareCurrentTimeWithTimeOfApp > 0) {
+    	}else if(currentDate.getDate() == this.date.getDate() && compareCurrentTimeWithTimeOfApp > 0) {
     		return true;
     	}else {
     		return false;
@@ -196,7 +196,10 @@ public class Appointment {
     	int compareEnd1WithStart2 = end1.compareTo(start2);
     	int compareStar1WithEnd2 = start1.compareTo(end2);
     	
-    	if(compareEnd1WithStart2 < 0 || compareStar1WithEnd2 > 0) {
+    	if(this.date.compareTo(dateTimeDTO.getDate()) != 0) {
+    		return false;
+    	}
+    	else if(compareEnd1WithStart2 < 0 || compareStar1WithEnd2 > 0) {
     		return false;
     	}else {
     		return true;
