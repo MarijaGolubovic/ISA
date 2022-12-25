@@ -21,9 +21,9 @@ import java.util.List;
 
 @Configuration
 public class BloodBankConfig {
-    @Bean
-    CommandLineRunner commandLineRunner1(BloodBankRepository repository){
-        return args ->{/*
+   //@Bean
+    /*CommandLineRunner commandLineRunner1(BloodBankRepository repository){
+        return args ->{
 
 
             BloodBank bankaKrvi1 = new BloodBank(
@@ -61,10 +61,10 @@ public class BloodBankConfig {
             
 
              bankaKrvi3.addAdmin(user3);
-             repository.saveAll(List.of(bankaKrvi3));*/
+             repository.save(bankaKrvi3);
         	
         };
-    }
+    }*/
 
 
 }

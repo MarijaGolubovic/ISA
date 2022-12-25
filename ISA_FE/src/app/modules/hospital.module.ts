@@ -20,11 +20,20 @@ import { QuestionnaireComponent } from './questionnaire/questionnaire.component'
 import { SendNewsToHospitalComponent } from './send-news-to-hospital/send-news-to-hospital.component';
 import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+<<<<<<< HEAD
 import { NgToastModule } from 'ng-angular-popup'
 import { SchedulingNewAppointmentComponent } from "./scheduling-new-appointment/scheduling-new-appointment.component";
 import { FutureAppointmentsComponent } from './future-appointments/future-appointments.component';
 import { ScheduleModule, RecurrenceEditorModule, DayService, WeekService, WorkWeekService, MonthService, MonthAgendaService} from '@syncfusion/ej2-angular-schedule';
 import { CenterPredefinedAppointmentsComponent } from './center-predefined-appointments/center-predefined-appointments.component';
+=======
+import { NgToastModule } from 'ng-angular-popup';
+import { MatTabsModule } from "@angular/material/tabs";
+import { AddAdminCenterComponent } from "./add-admin-center/add-admin-center.component";
+import { ChangeAdminSistemPasswordComponent } from "./change-admin-sistem-password/change-admin-sistem-password.component";
+import { AddCommentComponent } from "./view-complaint/add-comment.component/add-comments.component";
+import { ViewComplaintComponent } from "./view-complaint/view-complaint.component";
+>>>>>>> cec3694d311d4106a96dcea3b389b700c4b5ec99
 
 const routes: Routes = [
   { path: 'users', component: UsersComponent },
@@ -39,9 +48,16 @@ const routes: Routes = [
   { path: 'questionnaire', component: QuestionnaireComponent },
   { path: 'hospital/sendNews', component: SendNewsToHospitalComponent },
   { path: 'appointment/create', component: CreateAppointmentComponent },
+<<<<<<< HEAD
   { path: 'appointment/scheduleNew', component: SchedulingNewAppointmentComponent },
   { path: 'usersFutureAppointments', component: FutureAppointmentsComponent },
   { path: 'centerPredefinedAppointments', component: FutureAppointmentsComponent }
+=======
+  { path: 'complaints', component: ViewComplaintComponent},
+  { path: 'complaints/reply', component: AddCommentComponent},
+  { path: 'add-admin-centar', component: AddAdminCenterComponent},
+  { path: 'admin-sistem/changePassword', component : ChangeAdminSistemPasswordComponent}
+>>>>>>> cec3694d311d4106a96dcea3b389b700c4b5ec99
 ];
 
 @NgModule({
@@ -57,9 +73,16 @@ const routes: Routes = [
     QuestionnaireComponent,
     SendNewsToHospitalComponent,
     CreateAppointmentComponent,
+<<<<<<< HEAD
     SchedulingNewAppointmentComponent,
     FutureAppointmentsComponent,
     CenterPredefinedAppointmentsComponent,
+=======
+    ViewComplaintComponent,
+    AddCommentComponent,
+    AddAdminCenterComponent,
+    ChangeAdminSistemPasswordComponent
+>>>>>>> cec3694d311d4106a96dcea3b389b700c4b5ec99
   ],
   imports: [
     CommonModule,
@@ -76,7 +99,11 @@ const routes: Routes = [
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
     NgToastModule,
+<<<<<<< HEAD
     ScheduleModule, RecurrenceEditorModule,
+=======
+    MatTabsModule
+>>>>>>> cec3694d311d4106a96dcea3b389b700c4b5ec99
     ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, MonthAgendaService],
   exports: [ RouterModule ]

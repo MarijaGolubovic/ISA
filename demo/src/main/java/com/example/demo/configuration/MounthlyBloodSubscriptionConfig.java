@@ -26,9 +26,9 @@ import com.example.demo.repository.MounthlyBloodSubscriptionRepository;
 
 @Configuration
 public class MounthlyBloodSubscriptionConfig {
-	@Bean
+	/*@Bean
     CommandLineRunner commandLineRunnerBloodSup(MounthlyBloodSubscriptionRepository repository){
-        return args ->{/*
+        return args ->{
 
         	BloodBank bankaKrvi1 = new BloodBank(
                     "Moja Banka Krvi",
@@ -46,9 +46,9 @@ public class MounthlyBloodSubscriptionConfig {
         	MounthlyBloodSubscription bloodSup = new MounthlyBloodSubscription(bankaKrvi1, "x",
         			LocalDateTime.now(), amountOfBloodTypes);
             
-            repository.saveAll(List.of(bloodSup));*/
+            repository.saveAll(List.of(bloodSup));
             
         	
         };
-	}
+	}*/
 }

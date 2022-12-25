@@ -15,10 +15,10 @@ import java.util.List;
 
 @Configuration
 public class UserConfig {
-	@Bean
+	/*@Bean
 	    CommandLineRunner commandLineRunner(UserRepository repository){
 	        return args ->{
-	            /*User Dejan = new User(
+	            User Dejan = new User(
 	                    "nemanja.nemanjic@gmail.com",
 	                    "123",
 	                    "Dejan",
@@ -35,7 +35,7 @@ public class UserConfig {
 	                    0,
 						null
 	            );
-	            /*User Nikolina = new User(
+	            User Nikolina = new User(
 	                    "nikolina.nikolic@gmail.com",
 	                    "123",
 	                    "Nikolina",
@@ -49,11 +49,11 @@ public class UserConfig {
 	                    UserType.ADMIN_CENTER,
 	                    UserStatus.ACTIVATED,
 	                    0,
-	                    0
-	            );*/
-	            //repository.saveAll(List.of(Dejan));
+	                    0,
+						null
+	            );
+				//repository.save(Dejan);
+				//repository.save(Nikolina);
 	        };
-	    }
-
-
+	    }*/
 	}

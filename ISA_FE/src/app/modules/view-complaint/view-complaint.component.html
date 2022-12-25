@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+  <div class="container">
+    <div class="container-f">
+
+      <div class="title-container">
+        <h1 class="title">Complaints from users:</h1>
+      </div>
+
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+            
+            <mat-tab label="New complaints">
+
+                <mat-table mat-table [dataSource]="pendingDataSource">
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef class="cell-center">Date of complaint</th>
+                        <td mat-cell *matCellDef="let complaint" class="cell-center">{{complaint.date | date:"MM/dd/yyyy 'at' h:mma"}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="text">
+                        <th mat-header-cell *matHeaderCellDef class="cell-center"> Text </th>
+                        <td mat-cell *matCellDef="let complaint" class="clickable cell-center">{{complaint.description}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef class="cell-center">Status</th>
+                        <td mat-cell *matCellDef="let complaint" class="cell-center">{{complaint.status}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="user">
+                        <th mat-header-cell *matHeaderCellDef class="cell-center">Username</th>
+                        <td mat-cell *matCellDef="let complaint" class="cell-center">{{complaint.user.name}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="bloodbank">
+                        <th mat-header-cell *matHeaderCellDef class="cell-center">BloodBank Name</th>
+                        <td mat-cell *matCellDef="let complaint" class="cell-center">{{complaint.bloodBank.name}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="reply">
+                        <th mat-header-cell *matHeaderCellDef class="cell-center"></th>
+                        <td mat-cell *matCellDef="let complaint" class="cell-center">
+                            <button class="btn btn-primary" (click)="openDialog(complaint)">Reply</button>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns1; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+                </mat-table>
+            </mat-tab>
+
+            <mat-tab label="All complaints">
+                <table mat-table [dataSource]="dataSource">
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef class="cell-center">Date of complaint</th>
+                        <td mat-cell *matCellDef="let complaint" class="cell-center">{{complaint.date | date:"MM/dd/yyyy 'at' h:mma"}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="text">
+                        <th mat-header-cell *matHeaderCellDef class="cell-center"> Text </th>
+                        <td mat-cell *matCellDef="let complaint" class="clickable cell-center">{{complaint.description}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef class="cell-center">Status</th>
+                        <td mat-cell *matCellDef="let complaint" class="cell-center">{{complaint.status}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="user">
+                        <th mat-header-cell *matHeaderCellDef class="cell-center">Username</th>
+                        <td mat-cell *matCellDef="let complaint" class="cell-center">{{complaint.user.name}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="bloodbank">
+                        <th mat-header-cell *matHeaderCellDef class="cell-center">BloodBank Name</th>
+                        <td mat-cell *matCellDef="let complaint" class="cell-center">{{complaint.bloodBank.name}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="reply">
+                        <th mat-header-cell *matHeaderCellDef class="cell-center">Reply</th>
+                        <td mat-cell *matCellDef="let complaint" class="cell-center">{{complaint.reply}}</td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns1; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+                </table>
+            </mat-tab>
+
+        </mat-tab-group>
+    </div>
+</div>
+</body>
+</html>

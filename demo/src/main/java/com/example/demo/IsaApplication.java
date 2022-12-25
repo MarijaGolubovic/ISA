@@ -66,7 +66,7 @@ public class IsaApplication {
                 .with(routingKey);
     }
 
-	@Bean
+	/*@Bean
 	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
 	    SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
 	    container.setConnectionFactory(connectionFactory);
@@ -79,5 +79,5 @@ public class IsaApplication {
 	MessageListenerAdapter listenerAdapter(Receiver receiver) {
 		System.out.println("aaa");
 		return new MessageListenerAdapter(receiver, "receiveMessage");
-	}
+	}*/
 }

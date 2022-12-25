@@ -25,16 +25,18 @@ import com.example.email.EmailService;
 @Service
 public class AppointmentService {
 	private final AppointmentRepository appRepo;
+	private final BloodBankRepository bloodRepo;
 	private final CenterRepository bbRepo;
 	private final UserRepository userRepo;
 	private final EmailService emailService;
 	
 	@Autowired
-	public AppointmentService(AppointmentRepository repo, CenterRepository bbRepo, UserRepository userRepo, EmailServiceImpl emailService) {
+	public AppointmentService(AppointmentRepository repo, BloodBankRepository bloodRepo, CenterRepository bbRepo, UserRepository userRepo, EmailServiceImpl emailService) {
 		this.appRepo = repo;
 		this.bbRepo = bbRepo;
 		this.userRepo = userRepo;
 		this.emailService = emailService;
+		this.bloodRepo = bloodRepo;
 	}
 	
 	public String getMessageAboutAvailability(Appointment app) {
@@ -71,7 +73,7 @@ public class AppointmentService {
         
         return app;
 	}
-
+	
 	public Appointment scheduleAppointment(Appointment app) {
 		User u = userRepo.getOne((long) 1);
 		app.setUser(u);
@@ -102,5 +104,13 @@ public class AppointmentService {
 	
 	private FutureAppointmentDTO convertAppointmentToFutureAppointmentDTO(Appointment a) {
 		return new FutureAppointmentDTO(a.getBloodBank().getName(), a.getDate().toString().split(" ")[0], a.getTime().toString());
+	}
+	public void save(Appointment appointment){
+		bloodRepo.save(appointment.getBloodBank());
+		appRepo.save(appointment);
+	}
+
+	public List<Appointment> findByAdminCenter(String email){
+		return appRepo.findByAdminCenter(email);
 	}
 }
