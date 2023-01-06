@@ -26,6 +26,7 @@ public class BloodBank {
     private String name;
     private String description;
     private double averageRate;
+    private String email;
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "address_id",referencedColumnName = "id")
     private Address address;
@@ -61,7 +62,7 @@ public class BloodBank {
 
 
 	public BloodBank(String name, String description, double averageRate, Address address, Set<User> administrators,
-			WorkTime workTime,String apiKey) {
+			WorkTime workTime,String apiKey, String email) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -70,6 +71,7 @@ public class BloodBank {
 		this.administrators = administrators;
 		this.workTime = workTime;
 		this.apiKey = apiKey;
+        this.email=email;
 	}
 
 
@@ -88,10 +90,19 @@ public class BloodBank {
 		this.apiKey = apiKey;
 	}
 
+    public BloodBank(Long id) {
+        this.id = id;
+    }
 
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getApiKey() {
+    public String getApiKey() {
 		return apiKey;
 	}
 
@@ -176,4 +187,6 @@ public class BloodBank {
                 ", workTime=" + workTime +
                 '}';
     }
+
+
 }

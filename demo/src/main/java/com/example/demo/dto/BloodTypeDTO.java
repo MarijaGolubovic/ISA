@@ -2,7 +2,7 @@ package com.example.demo.dto;
 
 import com.google.gson.annotations.SerializedName;
 
-public enum BloodType {
+public enum BloodTypeDTO {
 	@SerializedName("0")
 	Aneg(0),
 	@SerializedName("1")
@@ -19,14 +19,14 @@ public enum BloodType {
 	Opos(6),
 	@SerializedName("7")
 	Oneg(7);
-	
+
 	private final int value;
-	
+
     public int getValue() {
         return value;
     }
 
-    private BloodType(int value) {
+    private BloodTypeDTO(int value) {
         this.value = value;
     }
 }
