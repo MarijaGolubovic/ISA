@@ -4,9 +4,7 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 
-import com.example.demo.dto.BloodType;
-
-import java.time.LocalDate;
+import com.example.demo.dto.BloodTypeDTO;
 
 @Entity
 @Table(name="bloodsupply")
@@ -23,7 +21,7 @@ public class BloodSupply {
     )
     private Long id;
     @Enumerated(EnumType.STRING)
-    private BloodType bloodType;
+    private BloodTypeDTO bloodType;
     private Double quantity; //u jedinicama?
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "bb_id",referencedColumnName = "id")
@@ -32,14 +30,14 @@ public class BloodSupply {
     public BloodSupply() {
     }
 
-    public BloodSupply(Long id, BloodType bloodType, Double quantity, BloodBank bloodBank) {
+    public BloodSupply(Long id, BloodTypeDTO bloodType, Double quantity, BloodBank bloodBank) {
         this.id = id;
         this.bloodType = bloodType;
         this.quantity = quantity;
         this.bloodBank = bloodBank;
     }
 
-    public BloodSupply(BloodType bloodType, Double quantity, BloodBank bloodBank) {
+    public BloodSupply(BloodTypeDTO bloodType, Double quantity, BloodBank bloodBank) {
         this.bloodType = bloodType;
         this.quantity = quantity;
         this.bloodBank = bloodBank;
@@ -53,11 +51,11 @@ public class BloodSupply {
         this.id = id;
     }
 
-    public BloodType getBloodType() {
+    public BloodTypeDTO getBloodType() {
         return bloodType;
     }
 
-    public void setBloodType(BloodType bloodType) {
+    public void setBloodType(BloodTypeDTO bloodType) {
         this.bloodType = bloodType;
     }
 

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.BloodTypeDTO;
 import com.example.demo.model.BloodSupply;
 import com.example.demo.model.enumerations.BloodType;
 import com.example.demo.service.BloodSupplyService;
@@ -26,12 +27,12 @@ public class BloodSupplyController {
 
     @GetMapping("/bloodType/{bloodType}")
     @ResponseBody
-    public boolean checkBloodType(@PathVariable BloodType bloodType){
+    public boolean checkBloodType(@PathVariable BloodTypeDTO bloodType){
         return bloodSupplyService.checkBloodType(bloodType);
     }
 
     @RequestMapping(path = "/bloodType/{bloodType}/{quantity}", method = RequestMethod.GET)
-    public boolean checkBloodTypeAndQuantity(@PathVariable BloodType bloodType, @PathVariable int quantity) {
+    public boolean checkBloodTypeAndQuantity(@PathVariable BloodTypeDTO bloodType, @PathVariable int quantity) {
         return bloodSupplyService.checkBloodTypeAndQuantity(bloodType,quantity);
     }
 

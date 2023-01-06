@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.BloodBankRegistrationRequest;
+import com.example.demo.dto.BloodTypeDTO;
 import com.example.demo.model.BloodBank;
 import com.example.demo.model.BloodSupply;
 import com.example.demo.model.enumerations.BloodType;
@@ -30,7 +31,7 @@ public class BloodSupplyService {
         return BloodSupplyRepository.findAll();
     }
 
-    public boolean checkBloodType(BloodType bloodType){
+    public boolean checkBloodType(BloodTypeDTO bloodType){
         BloodSupply bs =  BloodSupplyRepository.findByBloodType(bloodType);
         if (bs == null){
             return false;
@@ -41,7 +42,7 @@ public class BloodSupplyService {
             return false;
     }
 
-    public boolean checkBloodTypeAndQuantity(BloodType bloodType,int quantity){
+    public boolean checkBloodTypeAndQuantity(BloodTypeDTO bloodType,int quantity){
         BloodSupply bs =  BloodSupplyRepository.findByBloodType(bloodType);
         if (bs == null) {
             return false;
@@ -73,6 +74,14 @@ public class BloodSupplyService {
         this.BloodBankRepository.save(bloodSupply.getBloodBank());
         this.AddressRepository.save(bloodSupply.getBloodBank().getAddress());
         this.BloodSupplyRepository.save(bloodSupply);
+    }
+
+    public void reduceForDeliveredQuantity(String bloodBankName, int quantity, BloodTypeDTO bloodType){
+        BloodSupply bloodSupply = BloodSupplyRepository.getByBloodBankNameAndBloodType(bloodBankName,bloodType);
+        double currentQuantity = bloodSupply.getQuantity();
+        bloodSupply.setQuantity(currentQuantity-quantity);
+        this.BloodSupplyRepository.save(bloodSupply);
+
     }
 
 }
