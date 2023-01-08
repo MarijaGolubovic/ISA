@@ -16,11 +16,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.rsocket.RSocketProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import io.grpc.Server;
+import io.grpc.ServerBuilder;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import com.example.demo.service.EmailServiceImpl;
 
@@ -30,8 +36,8 @@ import com.example.demo.service.EmailServiceImpl;
 public class IsaApplication {
 	
 	public static void main(String[] args) {
-		SpringApplication.run(IsaApplication.class, args);
-	}
+        	SpringApplication.run(IsaApplication.class, args);
+    }
 
 	@Bean
 	public ModelMapper modelMapper() {

@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.AmountOfBloodTypeResponse;
-import com.example.demo.dto.BloodType;
 import com.example.demo.dto.MounthlyBloodSubscriptionRequest;
 import com.example.demo.model.AmountOfBloodType;
 import com.example.demo.model.BloodBank;
@@ -15,8 +13,6 @@ import com.example.demo.model.MounthlyBloodSubscription;
 import com.example.demo.repository.BloodBankRepository;
 import com.example.demo.repository.MounthlyBloodSubscriptionRepository;
 import com.google.gson.Gson;
-
-import org.springframework.context.annotation.Bean;
 
 @Component
 public class Receiver {

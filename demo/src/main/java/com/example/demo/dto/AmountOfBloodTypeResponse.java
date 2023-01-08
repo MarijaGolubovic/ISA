@@ -3,9 +3,9 @@ package com.example.demo.dto;
 
 public class AmountOfBloodTypeResponse {
 
-	private BloodType bloodType;
+	private BloodTypeDTO bloodType;
 	private int amount;
-	public AmountOfBloodTypeResponse(BloodType bloodType, int amount) {
+	public AmountOfBloodTypeResponse(BloodTypeDTO bloodType, int amount) {
 		super();
 		this.bloodType = bloodType;
 		this.amount = amount;
@@ -14,10 +14,10 @@ public class AmountOfBloodTypeResponse {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public BloodType getBloodType() {
+	public BloodTypeDTO getBloodType() {
 		return bloodType;
 	}
-	public void setBloodType(BloodType bloodType) {
+	public void setBloodType(BloodTypeDTO bloodType) {
 		this.bloodType = bloodType;
 	}
 	public int getAmount() {
