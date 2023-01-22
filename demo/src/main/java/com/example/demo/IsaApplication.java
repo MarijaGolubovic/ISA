@@ -39,51 +39,34 @@ public class IsaApplication {
         	SpringApplication.run(IsaApplication.class, args);
     }
 
-	@Bean
-	public ModelMapper modelMapper() {
-	    return new ModelMapper();
-	}
-	
-	@Value("${rabbitmq.queue.bloodSubscription}")
-    private String queue;
-
-    @Value("${rabbitmq.exchange.bloodSubscription}")
-    private String exchange;
-
-    @Value("${rabbitmq.routing.bloodSubscription}")
-    private String routingKey;
-    
-    @Bean
-    public Queue queue(){
-        return new Queue(queue);
-    }
-    
-    @Bean
-    public TopicExchange exchange(){
-        return new TopicExchange(exchange);
-    }
-
-    // binding between queue and exchange using routing key
-    @Bean
-    public Binding binding(){
-        return BindingBuilder
-                .bind(queue())
-                .to(exchange())
-                .with(routingKey);
-    }
-
-	@Bean
-	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
-	    SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-	    container.setConnectionFactory(connectionFactory);
-	    container.setQueueNames(queue);
-	    container.setMessageListener(listenerAdapter);
-	    return container;
-	}
-
-	@Bean
-	MessageListenerAdapter listenerAdapter(Receiver receiver) {
-		System.out.println("aaa");
-		return new MessageListenerAdapter(receiver, "receiveMessage");
-	}
+	/*
+	 * @Bean public ModelMapper modelMapper() { return new ModelMapper(); }
+	 * 
+	 * @Value("${rabbitmq.queue.bloodSubscription}") private String queue;
+	 * 
+	 * @Value("${rabbitmq.exchange.bloodSubscription}") private String exchange;
+	 * 
+	 * @Value("${rabbitmq.routing.bloodSubscription}") private String routingKey;
+	 * 
+	 * @Bean public Queue queue(){ return new Queue(queue); }
+	 * 
+	 * @Bean public TopicExchange exchange(){ return new TopicExchange(exchange); }
+	 * 
+	 * // binding between queue and exchange using routing key
+	 * 
+	 * @Bean public Binding binding(){ return BindingBuilder .bind(queue())
+	 * .to(exchange()) .with(routingKey); }
+	 * 
+	 * @Bean SimpleMessageListenerContainer container(ConnectionFactory
+	 * connectionFactory, MessageListenerAdapter listenerAdapter) {
+	 * SimpleMessageListenerContainer container = new
+	 * SimpleMessageListenerContainer();
+	 * container.setConnectionFactory(connectionFactory);
+	 * container.setQueueNames(queue);
+	 * container.setMessageListener(listenerAdapter); return container; }
+	 * 
+	 * @Bean MessageListenerAdapter listenerAdapter(Receiver receiver) {
+	 * System.out.println("aaa"); return new MessageListenerAdapter(receiver,
+	 * "receiveMessage"); }
+	 */
 }
