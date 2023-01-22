@@ -61,4 +61,15 @@ public class QuestionnairuService {
 		}
 		return true;
 	}
+	
+	public Questionnaire getLastQuestionnaire (long userId) {
+		List<Questionnaire> all = this.QuestionnairuRepository.findAllByUserId(userId);
+		Questionnaire mostRecentQuestionnaire = all.get(0);
+		for(Questionnaire q : all) {
+			if(mostRecentQuestionnaire.getTimeOfExecution().compareTo(q.getTimeOfExecution()) < 0) {
+				mostRecentQuestionnaire = q;
+			}
+		}
+		return mostRecentQuestionnaire;
+	}
 }

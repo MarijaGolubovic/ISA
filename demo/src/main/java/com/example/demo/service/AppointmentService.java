@@ -9,8 +9,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.AppointmentUserDTO;
 import com.example.demo.dto.CreateAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentDTO;
+import com.example.demo.dto.QuestionnairuDTO;
 import com.example.demo.model.Appointment;
 import com.example.demo.model.BloodBank;
 import com.example.demo.model.User;
@@ -25,14 +27,16 @@ import com.example.email.EmailService;
 @Service
 public class AppointmentService {
 	private final AppointmentRepository appRepo;
+	private final QuestionnairuService questionnairuService;
 	private final BloodBankRepository bloodRepo;
 	private final CenterRepository bbRepo;
 	private final UserRepository userRepo;
 	private final EmailService emailService;
 	
 	@Autowired
-	public AppointmentService(AppointmentRepository repo, BloodBankRepository bloodRepo, CenterRepository bbRepo, UserRepository userRepo, EmailServiceImpl emailService) {
+	public AppointmentService(AppointmentRepository repo, BloodBankRepository bloodRepo, CenterRepository bbRepo, UserRepository userRepo, EmailServiceImpl emailService, QuestionnairuService questionnairuService) {
 		this.appRepo = repo;
+		this.questionnairuService = questionnairuService;
 		this.bbRepo = bbRepo;
 		this.userRepo = userRepo;
 		this.emailService = emailService;
@@ -112,5 +116,13 @@ public class AppointmentService {
 
 	public List<Appointment> findByAdminCenter(String email){
 		return appRepo.findByAdminCenter(email);
+	}
+	
+	public Appointment getById(Long iD){
+		return appRepo.getById(iD);
+	}
+	
+	public  AppointmentUserDTO convertAppointmentToAppointmentUserDTO(Appointment a) {
+		return new AppointmentUserDTO(a.getId(),a.getDate(), a.getTime(), a.getDuration(), a.getStatus(),a.getUser().getId(), new QuestionnairuDTO(questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion1(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion2(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion3(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion4(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion5(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion6(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion7(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion8(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion9(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion10(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion11(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion12()));
 	}
 }

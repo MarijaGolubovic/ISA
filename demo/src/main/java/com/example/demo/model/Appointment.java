@@ -30,6 +30,10 @@ public class Appointment {
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
+    
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "survey_id",referencedColumnName = "id")
+    private Survey survey;
     private Date date;
     private LocalTime time;
     private int duration; //in minutes
@@ -53,7 +57,21 @@ public class Appointment {
         this.user = u;
     }
 
-    public Appointment(BloodBank bloodBank, Date date, LocalTime time, int duration, List<User> medicalStuff, AppointmentStatus status, User u) {
+    public Appointment(Long id, BloodBank bloodBank, User user, Survey survey, Date date, LocalTime time, int duration,
+			List<User> medicalStuff, AppointmentStatus status) {
+		super();
+		this.id = id;
+		this.bloodBank = bloodBank;
+		this.user = user;
+		this.survey = survey;
+		this.date = date;
+		this.time = time;
+		this.duration = duration;
+		this.medicalStuff = medicalStuff;
+		this.status = status;
+	}
+
+	public Appointment(BloodBank bloodBank, Date date, LocalTime time, int duration, List<User> medicalStuff, AppointmentStatus status, User u) {
         this.bloodBank = bloodBank;
         this.date = date;
         this.time = time;

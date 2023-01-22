@@ -17,6 +17,7 @@ import com.example.demo.dto.BloodBankRegistrationRequest;
 import com.example.demo.dto.CreateAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentDTO;
 import com.example.demo.model.Appointment;
+import com.example.demo.dto.AppointmentUserDTO;
 import com.example.demo.dto.AppoitmentScheduleDto;
 import com.example.demo.service.AppointmentService;
 import com.example.demo.service.BloodBankService;
@@ -83,5 +84,12 @@ public class AppointmentController {
 			list1.add(asd);
 		}
 		return list1;
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/getAppointment/{iD}")
+	public AppointmentUserDTO getAllForAdminCenter(@PathVariable Long iD) {
+		Appointment app= appService.getById(iD);		
+		return appService.convertAppointmentToAppointmentUserDTO(app);
 	}
 }

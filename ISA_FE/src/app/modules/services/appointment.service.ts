@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FutureAppointmentDTO } from '../model/appointment.model';
+import { AppointmentUserDTO, FutureAppointmentDTO } from '../model/appointment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +27,13 @@ export class AppointmentService {
 
   getFutureAppointments(): Observable<FutureAppointmentDTO[]> {
     return this.http.get<FutureAppointmentDTO[]>(this.apiHost + 'api/appointments/getAllFutureAppointmentsForLoggedUser', {headers: this.headers});
+  }
+
+  getFutureAppointmentByID(): Observable<FutureAppointmentDTO[]> {
+    return this.http.get<FutureAppointmentDTO[]>(this.apiHost + 'api/appointments/getAllFutureAppointmentsForLoggedUser', {headers: this.headers});
+  }
+
+  getAppointmentByID(id : number): Observable<AppointmentUserDTO> {
+    return this.http.get<AppointmentUserDTO>(this.apiHost + 'api/appointments/getAppointment/' + id.toString(), {headers: this.headers});
   }
 }
