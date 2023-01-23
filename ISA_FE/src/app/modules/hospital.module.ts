@@ -31,6 +31,8 @@ import { ChangeAdminSistemPasswordComponent } from "./change-admin-sistem-passwo
 import { AddCommentComponent } from "./view-complaint/add-comment.component/add-comments.component";
 import { ViewComplaintComponent } from "./view-complaint/view-complaint.component";
 import { StartAppointmentComponent } from './start-appointment/start-appointment.component';
+import { AllCentersComponent } from './all-centers/all-centers.component';
+import { LoginUserComponent } from './login-user/login-user.component';
 
 const routes: Routes = [
   { path: 'users', component: UsersComponent },
@@ -52,7 +54,9 @@ const routes: Routes = [
   { path: 'complaints/reply', component: AddCommentComponent},
   { path: 'add-admin-centar', component: AddAdminCenterComponent},
   { path: 'admin-sistem/changePassword', component : ChangeAdminSistemPasswordComponent},
-  { path: 'startAppointment', component : StartAppointmentComponent}
+  { path: 'startAppointment', component : StartAppointmentComponent},
+  { path: '', component : AllCentersComponent},
+  { path: 'login', component : LoginUserComponent}
 ]
 
 @NgModule({
@@ -75,7 +79,9 @@ const routes: Routes = [
     AddCommentComponent,
     AddAdminCenterComponent,
     ChangeAdminSistemPasswordComponent,
-    StartAppointmentComponent
+    StartAppointmentComponent,
+    AllCentersComponent,
+    LoginUserComponent
   ],
   imports: [
     CommonModule,
