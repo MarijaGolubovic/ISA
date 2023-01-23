@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Component
 public class RabbitMQProducer {
 
-	@Value("${rabbitmq.exchange.name}")
+	@Value("${rabbitmq.exchange.bloodSubscription}")
     private String exchange;
 
     @Value("${rabbitmq.routing.key}")

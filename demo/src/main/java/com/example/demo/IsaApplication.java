@@ -46,6 +46,9 @@ public class IsaApplication {
 	
 	@Value("${rabbitmq.queue.bloodSubscription}")
     private String queue;
+	
+	@Value("${rabbitmq.queue.newsFromBloodBank}")
+    private String responseBloodSubQueue;
 
     @Value("${rabbitmq.exchange.bloodSubscription}")
     private String exchange;
@@ -53,9 +56,17 @@ public class IsaApplication {
     @Value("${rabbitmq.routing.bloodSubscription}")
     private String routingKey;
     
+    @Value("${rabbitmq.routing.key}")
+    private String routingResponseBloodSubscriptionKey;
+    
     @Bean
     public Queue queue(){
         return new Queue(queue);
+    }
+    
+    @Bean
+    public Queue ResponseBloodSubQueue(){
+        return new Queue(responseBloodSubQueue);
     }
     
     @Bean
@@ -70,6 +81,14 @@ public class IsaApplication {
                 .bind(queue())
                 .to(exchange())
                 .with(routingKey);
+    }
+    
+    @Bean
+    public Binding jsonBinding(){
+        return BindingBuilder
+                .bind(ResponseBloodSubQueue())
+                .to(exchange())
+                .with(routingResponseBloodSubscriptionKey);
     }
 
 	@Bean

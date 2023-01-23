@@ -23,16 +23,17 @@ public class UserConfig {
 	                    "123",
 	                    "Dejan",
 	                    "Gloginjic",
-	                    null,
+	                    new Address("Srbija", "Novi Sad", "Juraja Krizanica", "11A"),
 	                    "065/026-549",
 	                    "1234567891235",
 	                    Gender.MALE,
-	                    "nastavnik",
-	                    "",
+	                    "Programer",
+	                    "Informacije 1",
 	                    UserType.ADMIN_SISTEM,
 	                    UserStatus.ACTIVATED,
 	                    0,
 	                    0,
+						null,
 						null
 	            );
 	            User Nikolina = new User(
@@ -40,20 +41,21 @@ public class UserConfig {
 	                    "123",
 	                    "Nikolina",
 	                    "Nikolic",
-	                    null,
+	                    new Address("Srbija", "Novi Sad", "Juraja Krizanica", "12A"),
 	                    "065/026-549",
 	                    "1234567891235",
 	                    Gender.FEMALE,
-	                    "menadzer",
+	                    "Menadzer",
 	                    "",
 	                    UserType.ADMIN_CENTER,
 	                    UserStatus.ACTIVATED,
 	                    0,
 	                    0,
+						null,
 						null
 	            );
-				//repository.save(Dejan);
-				//repository.save(Nikolina);
+				repository.save(Dejan);
+				repository.save(Nikolina);
 	        };
 	    }*/
 	}
