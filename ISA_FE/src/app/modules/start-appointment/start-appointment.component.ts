@@ -6,6 +6,7 @@ import { QUestionnaireRespons } from '../model/questionnaire.model';
 import { BloodType, Survey } from '../model/Survey.model';
 import { AppointmentService } from '../services/appointment.service';
 import { QuestionnaireService } from '../services/questionnaire.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-start-appointment',
@@ -20,7 +21,7 @@ export class StartAppointmentComponent implements OnInit {
   public survey: Survey = new Survey();
   states: BloodType[] = [0,1,2,3,4,5,6,7];
 
-  constructor(private questionnaireService: QuestionnaireService,private router: Router, private route: ActivatedRoute, private appointmentService: AppointmentService ) { }
+  constructor(private questionnaireService: QuestionnaireService,private router: Router, private route: ActivatedRoute, private appointmentService: AppointmentService, private userService: UserService  ) { }
 
   ngOnInit(): void {
     this.route.queryParams
@@ -72,7 +73,10 @@ public examination() {
 }
 
 public examinationEnd() {
-  alert("The patient examination is complete.");
+  this.appointmentService.updateAppointment(this.survey, this.id).subscribe(res =>{
+    alert("The patient examination is complete.")  
+    });
+
 }
 
 public cancel(){
@@ -81,7 +85,9 @@ public cancel(){
 
 
 public cancelWithStriks() {
-  alert("Examination was canceled because the patient did not show up (+1 negative point).");
+  this.userService.updateUserS(this.appointment.userID).subscribe(res =>{
+    alert("Examination was canceled because the patient did not show up (+1 negative point).");
+    });  
 }
 
 }

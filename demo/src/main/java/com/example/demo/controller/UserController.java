@@ -82,4 +82,14 @@ public class UserController {
     public void update(@RequestBody UserResponse u, @PathVariable String bloodbankId) {
         this.userService.update(u, bloodbankId);
     }
+    
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(path = "/addStrikes/{id}", method = RequestMethod.PUT)
+    public void addStrikes(@PathVariable Long id) {
+    	User user = this.userService.getById(id);
+    	int str = user.getStrikesNum();
+    	str++;
+    	user.setStrikesNum(str);
+        this.userService.updateUser(user);
+    }
 }

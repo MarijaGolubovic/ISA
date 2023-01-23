@@ -48,5 +48,8 @@ export class UserService {
   updateUserBB(user:UserResponse, idBB : String): Observable<any>{
     return this.http.put<any>(this.apiHost + 'api/user/updateBloodBankID/' + idBB, user, {headers: this.headers})
   }
+  updateUserS(id:number): Observable<any>{
+    return this.http.put<any>(this.apiHost + 'api/user/addStrikes/' + id.toString(), {headers: this.headers})
+  }
 
 }

@@ -17,12 +17,7 @@ public class Survey {
             strategy = GenerationType.SEQUENCE,
             generator = "survey_sequence"
     )
-    private Long id;
-    @OneToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
-    private User user;
-    
-  
+    private Long id;      
     private BloodType bloodType; 
     private String generalCondition;
     private Integer systolicBP;
@@ -34,12 +29,6 @@ public class Survey {
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
 	}
 	public BloodType getBloodType() {
 		return bloodType;
@@ -77,11 +66,10 @@ public class Survey {
 	public void setUsedBags(Integer usedBags) {
 		this.usedBags = usedBags;
 	}
-	public Survey(Long id, User user, BloodType bloodType, String generalCondition, Integer systolicBP,
-			Integer diastolicBP, Integer pulse, Integer usedBags) {
+	public Survey(Long id, BloodType bloodType, String generalCondition, Integer systolicBP, Integer diastolicBP,
+			Integer pulse, Integer usedBags) {
 		super();
 		this.id = id;
-		this.user = user;
 		this.bloodType = bloodType;
 		this.generalCondition = generalCondition;
 		this.systolicBP = systolicBP;
@@ -89,6 +77,20 @@ public class Survey {
 		this.pulse = pulse;
 		this.usedBags = usedBags;
 	}
+	public Survey(BloodType bloodType, String generalCondition, Integer systolicBP, Integer diastolicBP, Integer pulse,
+			Integer usedBags) {
+		super();
+		this.bloodType = bloodType;
+		this.generalCondition = generalCondition;
+		this.systolicBP = systolicBP;
+		this.diastolicBP = diastolicBP;
+		this.pulse = pulse;
+		this.usedBags = usedBags;
+	}
+	public Survey() {
+
+	}
+
     
     
     

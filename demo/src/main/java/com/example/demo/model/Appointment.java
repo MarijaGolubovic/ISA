@@ -34,6 +34,8 @@ public class Appointment {
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "survey_id",referencedColumnName = "id")
     private Survey survey;
+    
+    
     private Date date;
     private LocalTime time;
     private int duration; //in minutes
@@ -43,7 +45,15 @@ public class Appointment {
     @Column(name="appstatus")
     private AppointmentStatus status;
 
-    public Appointment() {
+    public Survey getSurvey() {
+		return survey;
+	}
+
+	public void setSurvey(Survey survey) {
+		this.survey = survey;
+	}
+
+	public Appointment() {
     }
 
     public Appointment(Long id, BloodBank bloodBank, Date date, LocalTime time, int duration, List<User> medicalStuff, AppointmentStatus status, User u) {

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.demo.dto.BloodBankRegistrationRequest;
 import com.example.demo.dto.CreateAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentDTO;
+import com.example.demo.dto.SurveyDTO;
 import com.example.demo.model.Appointment;
 import com.example.demo.dto.AppointmentUserDTO;
 import com.example.demo.dto.AppoitmentScheduleDto;
@@ -91,5 +92,14 @@ public class AppointmentController {
 	public AppointmentUserDTO getAllForAdminCenter(@PathVariable Long iD) {
 		Appointment app= appService.getById(iD);		
 		return appService.convertAppointmentToAppointmentUserDTO(app);
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(path = "/addSurvey/{iD}", method = RequestMethod.PUT)
+	public void addSurvey(@RequestBody SurveyDTO surveyDTO,@PathVariable Long iD) {
+		Appointment app= appService.getById(iD);
+		app.setSurvey(appService.convertSurveyDTOToSurvey(surveyDTO)); 
+		appService.update(app);
+		
 	}
 }

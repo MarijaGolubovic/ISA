@@ -101,5 +101,13 @@ public class UserService {
         user.setBloodBank(BloodBankRepository.findByID(Long.valueOf(id)));
         UserRepository.save(user);
     }
+    
+    public void updateUser(User user){
+        UserRepository.save(user);
+    }
+    
+    public User getById(Long id){
+        return UserRepository.getOne(id);
+    }
 
 }

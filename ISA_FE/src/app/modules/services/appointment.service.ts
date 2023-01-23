@@ -36,4 +36,8 @@ export class AppointmentService {
   getAppointmentByID(id : number): Observable<AppointmentUserDTO> {
     return this.http.get<AppointmentUserDTO>(this.apiHost + 'api/appointments/getAppointment/' + id.toString(), {headers: this.headers});
   }
+
+  updateAppointment(app: any, id:number): Observable<any>{
+    return this.http.put<any>(this.apiHost + 'api/appointments/addSurvey/'+ id.toString(), app, {headers: this.headers})
+  }
 }
