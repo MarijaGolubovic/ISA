@@ -38,6 +38,9 @@ public class Appointment {
     @Enumerated(EnumType.STRING)
     @Column(name="appstatus")
     private AppointmentStatus status;
+    
+    @Version
+    private Long version;
 
     public Appointment() {
     }
@@ -63,7 +66,15 @@ public class Appointment {
         this.user = u;
     }
 
-    public Long getId() {
+    public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
+	public Long getId() {
         return id;
     }
 

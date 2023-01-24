@@ -28,6 +28,10 @@ public class UserService {
         this.BloodBankRepository = bloodBankRepository;
 
     }
+    
+    public User getById(Long id) {
+    	return this.UserRepository.getOne(id);
+    }
 
     public List<User> getAllUsers(){
         return UserRepository.findAll();
