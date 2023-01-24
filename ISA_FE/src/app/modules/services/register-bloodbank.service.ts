@@ -10,7 +10,7 @@ import { WholeUserResponse } from '../model/user.model';
 })
 export class BloodbankService {
 
-  apiHost: string = 'http://localhost:8080/';
+  apiHost: string = 'http://localhost:8081/';
 
   headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 

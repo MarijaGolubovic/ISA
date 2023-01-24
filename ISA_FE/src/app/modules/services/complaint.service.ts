@@ -9,7 +9,7 @@ import { WholeUserResponse, UserResponse, WholeUserResponseWithBloodBank, Regist
 })
 export class ComplaintService {
 
-  apiHost: string = 'http://localhost:8080/';
+  apiHost: string = 'http://localhost:8081/';
   headers: HttpHeaders = new HttpHeaders({'Access-Control-Allow-Origin': '*' });
 
   constructor(private http: HttpClient) { }

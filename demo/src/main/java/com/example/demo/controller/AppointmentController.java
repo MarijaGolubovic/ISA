@@ -84,4 +84,11 @@ public class AppointmentController {
 		}
 		return list1;
 	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/demonstrateConcurentAccessToDataBase")
+	public String demonstrateConcurentAccessToDataBase() throws Throwable {
+		this.appService.demonstrateConcurentAccessToDataBase();
+		return "";
+	}
 }

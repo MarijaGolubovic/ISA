@@ -24,4 +24,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long>{
 	@Query("select app from Appointment app where app.user.id = ?1")
 	List<Appointment> getByUserId(long l);
 
+	@Query("select app from Appointment app where app.id = ?1")
+	Appointment getById(long l);
 }

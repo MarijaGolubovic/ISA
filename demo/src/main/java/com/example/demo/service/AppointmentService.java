@@ -5,16 +5,26 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.CreateAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentDTO;
+import com.example.demo.model.Address;
 import com.example.demo.model.Appointment;
 import com.example.demo.model.BloodBank;
 import com.example.demo.model.User;
 import com.example.demo.model.enumerations.AppointmentStatus;
+import com.example.demo.model.enumerations.Gender;
+import com.example.demo.model.enumerations.UserStatus;
+import com.example.demo.model.enumerations.UserType;
 import com.example.demo.repository.AppointmentRepository;
 import com.example.demo.repository.BloodBankRepository;
 import com.example.demo.repository.CenterRepository;
@@ -105,6 +115,8 @@ public class AppointmentService {
 	private FutureAppointmentDTO convertAppointmentToFutureAppointmentDTO(Appointment a) {
 		return new FutureAppointmentDTO(a.getBloodBank().getName(), a.getDate().toString().split(" ")[0], a.getTime().toString());
 	}
+	
+	@Transactional(readOnly = false)
 	public void save(Appointment appointment){
 		bloodRepo.save(appointment.getBloodBank());
 		appRepo.save(appointment);
@@ -112,5 +124,51 @@ public class AppointmentService {
 
 	public List<Appointment> findByAdminCenter(String email){
 		return appRepo.findByAdminCenter(email);
+	}
+	
+	@Transactional(readOnly = false)
+	public Appointment findById(Long id) {
+		return appRepo.getById(id);
+	}
+	
+	public void demonstrateConcurentAccessToDataBase() throws Throwable {
+		User user1 = new User("markomarkovic@gmail.com", "123", "Marko", "Markovic", new Address(), "123456", "1234567899876", Gender.MALE , "Ekonomista", "Informacije 123", UserType.REGISTERED, UserStatus.ACTIVATED , 0, 0, null, null);
+		User user2 = new User("marinamarkovic@gmail.com", "123", "Marina", "Markovic", new Address(), "123456", "1234567892876", Gender.FEMALE , "Pravnik", "Informacije 213", UserType.REGISTERED, UserStatus.ACTIVATED , 0, 0, null, null);
+	
+		ExecutorService executor = Executors.newFixedThreadPool(2);
+		Future<?> future1 = executor.submit(new Runnable() {
+			
+			@Override
+			public void run() {
+		        System.out.println("Startovan Thread 1");
+				Appointment appointmentToUpdate = findById(100L);
+				appointmentToUpdate.setStatus(AppointmentStatus.BUSY);
+				appointmentToUpdate.setUser(user1);
+				try { Thread.sleep(3000); } catch (InterruptedException e) {}
+				save(appointmentToUpdate);
+				
+			}
+		});
+		executor.submit(new Runnable() {
+			
+			@Override
+			public void run() {
+		        System.out.println("Startovan Thread 2");
+				Appointment appointmentToUpdate = findById(100L);
+				appointmentToUpdate.setStatus(AppointmentStatus.BUSY);
+				appointmentToUpdate.setUser(user2);
+				save(appointmentToUpdate);
+			}
+		});
+		
+		try {
+		    future1.get(); 
+		} catch (ExecutionException e) {
+		    System.out.println("Exception from thread " + e.getCause().getClass()); // u pitanju je bas ObjectOptimisticLockingFailureException
+		    throw e.getCause();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		executor.shutdown();
 	}
 }

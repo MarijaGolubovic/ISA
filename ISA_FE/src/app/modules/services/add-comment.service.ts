@@ -8,7 +8,7 @@ import { Complaint } from '../model/complaint';
 })
 export class AddCommentService {
 
-  apiHost: string = 'http://localhost:8080/';
+  apiHost: string = 'http://localhost:8081/';
   headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient) { }

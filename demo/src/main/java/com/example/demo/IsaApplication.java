@@ -39,16 +39,26 @@ public class IsaApplication {
         	SpringApplication.run(IsaApplication.class, args);
     }
 
+
 	/*
 	 * @Bean public ModelMapper modelMapper() { return new ModelMapper(); }
 	 * 
 	 * @Value("${rabbitmq.queue.bloodSubscription}") private String queue;
 	 * 
+	 * @Value("${rabbitmq.queue.newsFromBloodBank}") private String
+	 * responseBloodSubQueue;
+	 * 
 	 * @Value("${rabbitmq.exchange.bloodSubscription}") private String exchange;
 	 * 
 	 * @Value("${rabbitmq.routing.bloodSubscription}") private String routingKey;
 	 * 
+	 * @Value("${rabbitmq.routing.key}") private String
+	 * routingResponseBloodSubscriptionKey;
+	 * 
 	 * @Bean public Queue queue(){ return new Queue(queue); }
+	 * 
+	 * @Bean public Queue ResponseBloodSubQueue(){ return new
+	 * Queue(responseBloodSubQueue); }
 	 * 
 	 * @Bean public TopicExchange exchange(){ return new TopicExchange(exchange); }
 	 * 
@@ -56,6 +66,10 @@ public class IsaApplication {
 	 * 
 	 * @Bean public Binding binding(){ return BindingBuilder .bind(queue())
 	 * .to(exchange()) .with(routingKey); }
+	 * 
+	 * @Bean public Binding jsonBinding(){ return BindingBuilder
+	 * .bind(ResponseBloodSubQueue()) .to(exchange())
+	 * .with(routingResponseBloodSubscriptionKey); }
 	 * 
 	 * @Bean SimpleMessageListenerContainer container(ConnectionFactory
 	 * connectionFactory, MessageListenerAdapter listenerAdapter) {
@@ -69,4 +83,5 @@ public class IsaApplication {
 	 * System.out.println("aaa"); return new MessageListenerAdapter(receiver,
 	 * "receiveMessage"); }
 	 */
+
 }
