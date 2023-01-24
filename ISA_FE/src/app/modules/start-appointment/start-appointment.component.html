@@ -1,0 +1,39 @@
+<p>Start Appointment</p>
+
+<div *ngIf="!this.proceedEx">
+    <p>Patient questionnaire:</p>
+     <h5>Do you weigh less than 50 kg? {{statusToString(this.appointment.questionnaire.question1)}}</h5>   
+     <h5>Have you been sick in the last 7 days? {{statusToString(this.appointment.questionnaire.question2)}}</h5>  
+     <h5>Have you used antibiotics in the last 7 days? {{statusToString(this.appointment.questionnaire.question3)}}</h5>  
+     <h5>Are you a smoker? {{statusToString(this.appointment.questionnaire.question4)}}</h5>  
+     <h5>Have you consumed alcohol in the last 24 hours? {{statusToString(this.appointment.questionnaire.question5)}}</h5>  
+     <h5>Are you prescribed regular therapy? {{statusToString(this.appointment.questionnaire.question6)}}</h5>  
+     <h5>Do you have dermatological problems?  {{statusToString(this.appointment.questionnaire.question7)}}</h5>  
+     <h5>Do you have heart problems?  {{statusToString(this.appointment.questionnaire.question8)}}</h5>  
+     <h5>Are you taking antidepressants?  {{statusToString(this.appointment.questionnaire.question9)}}</h5>  
+     <h5>Have you had a tooth extracted in the last 7 days?  {{statusToString(this.appointment.questionnaire.question10)}}</h5>  
+     <h5>Have you had surgery in the last month?  {{statusToString(this.appointment.questionnaire.question11)}}</h5>  
+     <h5>Have you received a vaccine or serum in the last 6 months?  {{statusToString(this.appointment.questionnaire.question12)}}</h5>  
+
+     <button type="button" (click)="examination()">Proceed examination</button>
+     <button type="button" (click)="cancel()">Cannot be examined</button>
+     <button type="button" (click)="cancelWithStriks()">Patient did not come</button>
+</div>
+
+<div *ngIf="this.proceedEx">
+    <p>Examination</p>
+
+    <div>
+        <label>Choose blood type</label>
+        <select [(ngModel)]="selectedBloodType"  id="bloodTypeSelect">
+          <option>None</option>
+          <option *ngFor="let state of states; let i = index" [ngValue]="state" [id]= "'state' + i">{{bloodTypeToString(state)}}</option>
+        </select>
+    </div>
+    <div><label>General Condition</label><input type="text"  value="" [(ngModel)]="this.survey.generalCondition"></div>
+    <div><label>Systolic Blood Pressure</label><input type="number"  value="" [(ngModel)]="this.survey.systolicBP"></div>
+    <div><label>Diastolic Blood Pressure</label><input type="number"  value="" [(ngModel)]="this.survey.diastolicBP"></div>
+    <div><label>Pulse</label><input type="number"  value="" [(ngModel)]="this.survey.pulse"></div>
+    <div><label>Used Bags</label><input type="number"  value="" [(ngModel)]="this.survey.usedBags"></div>
+    <button type="button" (click)="examinationEnd()">End Examination</button>
+</div>

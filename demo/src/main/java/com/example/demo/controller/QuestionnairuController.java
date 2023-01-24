@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.CreateAppointmentDTO;
 import com.example.demo.model.Appointment;
+import com.example.demo.model.BloodBank;
 import com.example.demo.model.Questionnaire;
 import com.example.demo.model.User;
 import com.example.demo.service.QuestionnairuService;
@@ -39,4 +41,10 @@ public class QuestionnairuController {
     public boolean checkIfQuestionnaireHasBeenCompletedInLastSixMonths(@RequestBody long userId) {
 		return this.QuestionnairuService.checkIfQuestionnaireHasBeenCompletedInLastSixMonths(userId);
     }
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(path = "/getQuestionnairForUser/{id}", method = RequestMethod.GET)
+	public Questionnaire getQuestionnairForUser (@PathVariable Long id) {
+			return QuestionnairuService.getLastQuestionnaire(id);
+	}
 }

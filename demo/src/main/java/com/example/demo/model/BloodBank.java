@@ -43,6 +43,7 @@ public class BloodBank {
     @OneToMany(mappedBy = "bloodBank", cascade = CascadeType.ALL)
     private List<BloodSupply> bloodSupplies;
     private String apiKey;
+    private Integer Bags;
 
     public BloodBank() {
     }
@@ -59,6 +60,20 @@ public class BloodBank {
 
 	public void setBloodSupplies(List<BloodSupply> bloodSupplies) {
 		this.bloodSupplies = bloodSupplies;
+	}
+
+
+
+
+	public Integer getBags() {
+		return Bags;
+	}
+
+
+
+
+	public void setBags(Integer bags) {
+		Bags = bags;
 	}
 
 
@@ -191,7 +206,26 @@ public class BloodBank {
                 '}';
     }
     
-    public boolean isDateTimeInWorkTime(DateTimeDTO dateTimeDTO) {
+    public BloodBank(Long id, String name, String description, double averageRate, String email, Address address,
+			Set<User> administrators, WorkTime workTime, List<BloodSupply> bloodSupplies, String apiKey, Integer bags) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.averageRate = averageRate;
+		this.email = email;
+		this.address = address;
+		this.administrators = administrators;
+		this.workTime = workTime;
+		this.bloodSupplies = bloodSupplies;
+		this.apiKey = apiKey;
+		Bags = bags;
+	}
+
+
+
+
+	public boolean isDateTimeInWorkTime(DateTimeDTO dateTimeDTO) {
     	WorkTime bbWorkTime = this.getWorkTime();
     	LocalTime startTime = LocalTime.parse(dateTimeDTO.getStartTime());
     	LocalTime endTime = startTime.plusMinutes(15);
