@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.dto.AppointmentUserDTO;
 import com.example.demo.dto.CreateAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentDTO;
+import com.example.demo.dto.FutureAppointmentsBBDTO;
 import com.example.demo.model.Address;
 import com.example.demo.dto.QuestionnairuDTO;
 import com.example.demo.dto.SurveyDTO;
@@ -118,6 +119,19 @@ public class AppointmentService {
 		return retList;
 	}
 	
+	public List<FutureAppointmentsBBDTO> getAllFutureAppointmentsBB(long l) {
+		List<Appointment> apps = this.appRepo.getAppointmentsByBloodBankID(l);
+		List<FutureAppointmentsBBDTO> retList = new ArrayList<>();
+		
+		for(Appointment a : apps) {
+			if(a.getDate().after(new Date()) && a.getStatus().equals(AppointmentStatus.BUSY)) {
+				retList.add(new FutureAppointmentsBBDTO(a.getDate().toString().split(" ")[0], a.getTime().toString(), a.getUser().getName(), a.getUser().getSurname(), a.getId(), a.getUser().getId()));
+			}
+		}
+		
+		return retList;
+	}
+	
 	private FutureAppointmentDTO convertAppointmentToFutureAppointmentDTO(Appointment a) {
 		return new FutureAppointmentDTO(a.getBloodBank().getName(), a.getDate().toString().split(" ")[0], a.getTime().toString());
 	}
@@ -194,4 +208,11 @@ public class AppointmentService {
 	public void update(Appointment appointment){
 		appRepo.save(appointment);
 	}
+	
+	public List<Appointment> getDoneAppointmentsByBloodBankID(Long id) {
+		return appRepo.getDoneAppointmentsByBloodBankID(id);
+	}
+	
+
+	
 }

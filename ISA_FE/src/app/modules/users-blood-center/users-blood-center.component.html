@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title>Users</title>
-</head>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css" /> 
+        <title>Users</title>
+    </head>
 <body>
     <div class="container">
         <div class="table-header" >
@@ -21,20 +22,20 @@
 
         <table mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef class="cell-center"> Name </th>
-                <td mat-cell *matCellDef="let user" class="clickable cell-center">{{user.name}}</td>
+                <a ><th mat-header-cell *matHeaderCellDef class="cell-center" > Name&nbsp; <button class="sort-button" (click)="sortFunctionByName(booleanValueByName)"><i class="fa fa-sort"></i></button></th></a>
+                <td mat-cell *matCellDef="let user" class="cell-center">{{user.name}}</td>
             </ng-container>
             <ng-container matColumnDef="surname">
-                <th mat-header-cell *matHeaderCellDef class="cell-center"> Surname </th>
+                <a > <th mat-header-cell *matHeaderCellDef class="cell-center"> Surname&nbsp; <button class="sort-button" (click)="sortFunctionBySurname(booleanValueBySurname)"><i class="fa fa-sort"></i></button> </th></a>
                 <td mat-cell *matCellDef="let user" class="cell-center">{{user.surname}}</td>
             </ng-container>
             <ng-container matColumnDef="email">
-                <th mat-header-cell *matHeaderCellDef class="cell-center"> E-mail</th>
+                <a > <th mat-header-cell *matHeaderCellDef class="cell-center"> E-mail&nbsp; <button class="sort-button" (click)="sortFunctionByEmail(booleanValueByEmail)"><i class="fa fa-sort"></i></button></th></a>
                 <td mat-cell *matCellDef="let user" class="cell-center">{{user.email}}</td>
             </ng-container>
-            <ng-container matColumnDef="phoneNumber">
-                <th mat-header-cell *matHeaderCellDef class="cell-center">Phone number</th>
-                <td mat-cell *matCellDef="let user" class="cell-center">{{user.phoneNumber}}</td>
+            <ng-container matColumnDef="date">
+                <a ><th mat-header-cell *matHeaderCellDef class="cell-center">Date&nbsp; <button class="sort-button" (click)="sortFunctionByDate(booleanValueByDate)"><i class="fa fa-sort"></i></button></th></a>
+                <td mat-cell *matCellDef="let user" class="cell-center">{{user.date | date:"MM/dd/yyyy"}}  {{user.time}}</td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

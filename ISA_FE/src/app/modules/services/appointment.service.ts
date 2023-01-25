@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AppointmentUserDTO, FutureAppointmentDTO } from '../model/appointment.model';
+import { AppointmentUserDTO, FutureAppointmentBBDTO, FutureAppointmentDTO } from '../model/appointment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +39,9 @@ export class AppointmentService {
 
   updateAppointment(app: any, id:number): Observable<any>{
     return this.http.put<any>(this.apiHost + 'api/appointments/addSurvey/'+ id.toString(), app, {headers: this.headers})
+  }
+
+  getFutureAppointmentsBB(): Observable<FutureAppointmentBBDTO[]> {
+    return this.http.get<FutureAppointmentBBDTO[]>(this.apiHost + 'api/appointments/getAllFutureAppointmentsForBB/' + '2', {headers: this.headers});
   }
 }
