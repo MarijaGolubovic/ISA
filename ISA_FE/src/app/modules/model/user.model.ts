@@ -17,6 +17,24 @@ export class UserResponse {
     }
 }
 
+export class UserResponseBloodCenter {
+    name: string = '';
+    surname: string = '';
+    email: string = '';
+    date: Date = new Date();
+    time: String = "";
+
+    public constructor(obj?: any) {
+        if (obj) {
+            this.name = obj.name;
+            this.surname = obj.surname;
+            this.email = obj.email;
+            this.date = obj.date;    
+            this.time = obj.time;       
+        }
+    }
+}
+
 export class WholeUserResponse {
     id: number = 0;
     name: string = '';

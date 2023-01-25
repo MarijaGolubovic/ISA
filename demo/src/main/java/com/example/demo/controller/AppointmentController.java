@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import com.example.demo.dto.BloodBankRegistrationRequest;
 import com.example.demo.dto.CreateAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentDTO;
+import com.example.demo.dto.FutureAppointmentsBBDTO;
 import com.example.demo.dto.SurveyDTO;
 import com.example.demo.model.Appointment;
+import com.example.demo.model.enumerations.AppointmentStatus;
 import com.example.demo.dto.AppointmentUserDTO;
 import com.example.demo.dto.AppoitmentScheduleDto;
 import com.example.demo.service.AppointmentService;
@@ -106,6 +108,13 @@ public class AppointmentController {
 	public void addSurvey(@RequestBody SurveyDTO surveyDTO,@PathVariable Long iD) {
 		Appointment app= appService.getById(iD);
 		app.setSurvey(appService.convertSurveyDTOToSurvey(surveyDTO)); 
+		app.setStatus(AppointmentStatus.DONE);
 		appService.update(app);
 	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/getAllFutureAppointmentsForBB/{iD}")
+    public List<FutureAppointmentsBBDTO> getAllFutureAppointmentsBB(@PathVariable Long iD) {
+		return this.appService.getAllFutureAppointmentsBB(2);
+    }
 }
