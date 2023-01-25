@@ -1,0 +1,68 @@
+<ng-template #customTemplate let-event="event" let-view="view">
+    <span
+      class="event__title"
+      [innerHTML]="event.title | calendarEventTitle : view : event"
+      [attr.aria-hidden]="{} | calendarA11y : 'hideEventTitle'"
+    >
+      </span>
+    </ng-template>
+    
+    <div class="calendar-header">
+      <div class="button-group">
+        <button class="button-group__button" (click)="handlePrevious()">
+         Previous week
+        </button>
+        <button class="button-group__button" (click)="handleCurrent()">
+         Current date
+        </button>
+        <button class="button-group__button" (click)="handleNext()">
+         Next week
+        </button>
+        <button class="button-group__button" (click)="monthShow()">
+          {{viewButton}}
+        </button>
+      </div>
+      <div class="date-range">
+        <span
+        >{{ viewDate | date : "dd.MM.yyyy." }} -
+          {{ viewDateEnd | date : "dd.MM.yyyy." }}</span
+        >
+      </div>
+      <div class="button-group">
+        <button
+          id="schedule"
+          class="button-group__button-app"
+          (click)="openScheduleConsilium()">
+          New consilium
+        </button>
+        <button
+          id="cancel"
+          class="button-group__button-app"
+          (click)="newAppointment()">
+          New appointment
+        </button>
+      </div>
+    </div>
+    
+    <div class="calendar-wrapper" *ngIf="!monthView">
+      <mwl-calendar-week-view
+                              [viewDate]="viewDate"
+                              [daysInWeek]="daysInWeek"
+                              [dayStartHour]="dayStartHour"
+                              [dayEndHour]="dayEndHour"
+                              [hourSegmentHeight]="hourSegmentHeight"
+                              [events]="events"
+                              [eventTitleTemplate]="customTemplate"
+
+      >
+      </mwl-calendar-week-view>
+    </div>
+    <div class="calendar-wrapper-month" *ngIf="monthView">
+      <mwl-calendar-month-view
+        [viewDate]="viewDate"
+        [events]="events"
+        [eventTitleTemplate]="customTemplate"
+
+      ></mwl-calendar-month-view>
+    </div>
+    

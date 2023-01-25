@@ -1,3 +1,6 @@
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Inject, Injectable, Optional } from "@angular/core";
+import { Observable } from "rxjs";
 import { QUestionnaireRespons } from "./questionnaire.model";
 
 export class CreateAppointmentDTO {
@@ -76,3 +79,27 @@ export class FutureAppointmentDTO {
         }
     }
 }
+
+export interface IAppointmentResponse {
+    startTime?: Date;
+    duration?: number;
+    patientName?: string;
+    patientSurname?: string;
+  }
+
+export class AppointmentResponse implements IAppointmentResponse{
+    startTime: Date = new Date();
+    duration: number = 30;
+    patientName?: string;
+    patientSurname?: string;
+  
+    constructor(data?: IAppointmentResponse) {
+      if (data) {
+        for (var property in data) {
+          if (data.hasOwnProperty(property))
+            (<any>this)[property] = (<any>data)[property];
+        }
+      }
+    }
+}
+

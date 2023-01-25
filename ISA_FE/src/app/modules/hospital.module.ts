@@ -34,6 +34,9 @@ import { ViewAllBloodSubscriptionsComponent } from './view-all-blood-subscriptio
 import { StartAppointmentComponent } from './start-appointment/start-appointment.component';
 import { AllCentersComponent } from './all-centers/all-centers.component';
 import { LoginUserComponent } from './login-user/login-user.component';
+import {CalendarModule, CalendarMonthModule, CalendarWeekModule, DateAdapter} from "angular-calendar";
+import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
+import { CalendarComponent } from "./calendar/calendar.component";
 
 
 const routes: Routes = [
@@ -59,7 +62,8 @@ const routes: Routes = [
   { path: 'view-all-blood-subscriptions', component : ViewAllBloodSubscriptionsComponent},
   { path: 'startAppointment', component : StartAppointmentComponent},
   { path: '', component : AllCentersComponent},
-  { path: 'login', component : LoginUserComponent}
+  { path: 'login', component : LoginUserComponent},
+  { path: 'calendar', component : CalendarComponent}
 ]
 
 @NgModule({
@@ -85,7 +89,8 @@ const routes: Routes = [
     ViewAllBloodSubscriptionsComponent,
     StartAppointmentComponent,
     AllCentersComponent,
-    LoginUserComponent
+    LoginUserComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule,
@@ -103,7 +108,13 @@ const routes: Routes = [
     NgxMatTimepickerModule,
     NgToastModule,
     ScheduleModule, RecurrenceEditorModule,
-    MatTabsModule
+    MatTabsModule,
+    CalendarWeekModule,
+    CalendarMonthModule,
+  CalendarModule.forRoot({
+    provide: DateAdapter,
+    useFactory: adapterFactory,
+  }),
     ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, MonthAgendaService],
   exports: [ RouterModule ]

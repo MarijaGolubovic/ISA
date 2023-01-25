@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
  
 // Annotations
 @Data
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
  
 // Class
