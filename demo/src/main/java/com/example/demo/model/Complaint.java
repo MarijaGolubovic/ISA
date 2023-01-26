@@ -27,11 +27,10 @@ public class Complaint {
     private User user;
     private String description;
     private Date date;
-
     private ComplaintStatus status;
-
     private String reply;
-
+    @Version
+    private Integer version;
     public Complaint() {
     }
 

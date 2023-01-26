@@ -104,6 +104,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import com.example.demo.model.*;
+import com.example.demo.model.enumerations.*;
+import com.example.demo.service.ComplaintService;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -111,14 +114,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 
-import com.example.demo.model.Address;
-import com.example.demo.model.Appointment;
-import com.example.demo.model.BloodBank;
-import com.example.demo.model.User;
-import com.example.demo.model.enumerations.AppointmentStatus;
-import com.example.demo.model.enumerations.Gender;
-import com.example.demo.model.enumerations.UserStatus;
-import com.example.demo.model.enumerations.UserType;
 import com.example.demo.service.AppointmentService;
 import com.example.demo.service.BloodBankService;
 import com.example.demo.service.UserService;
@@ -132,6 +127,8 @@ class IsaApplicationTests {
 	private BloodBankService bloodBankService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ComplaintService compService;
 	
 	private User user1;
 	private User user2;
@@ -175,6 +172,40 @@ class IsaApplicationTests {
 			future1.get(); 
 			
 	  });
+	}
+
+	@Test
+	void contextLoads1() {
+		ExecutionException thrown = Assertions.assertThrows(ExecutionException.class, () -> {
+			ExecutorService executor = Executors.newFixedThreadPool(2);
+			Future<?> future2 = executor.submit(new Runnable() {
+
+				@Override
+				public void run() {
+					System.out.println("Startovan Thread 1");
+					Complaint complaintToUpdate = compService.findById(14);
+					complaintToUpdate.setReply("Ispravicemo gresku.");
+					complaintToUpdate.setStatus(ComplaintStatus.REPLIED);
+					try { Thread.sleep(10000); } catch (InterruptedException e) {}
+					compService.save(complaintToUpdate);
+
+				}
+			});
+			executor.submit(new Runnable() {
+
+				@Override
+				public void run() {
+					System.out.println("Startovan Thread 2");
+					Complaint complaintToUpdate = compService.findById(14);
+					complaintToUpdate.setReply("Poboljsacemo, hvala na sugestiji.");
+					complaintToUpdate.setStatus(ComplaintStatus.REPLIED);
+					compService.save(complaintToUpdate);
+				}
+			});
+
+			future2.get();
+
+		});
 	}
 
 }

@@ -205,4 +205,8 @@ export class UsersBloodCenterComponent implements OnInit {
     await this.router.navigateByUrl('/bloodSupply')
   }
 
+  async calendar() : Promise<void>{
+    await this.router.navigateByUrl('/calendar')
+  }
+
 }

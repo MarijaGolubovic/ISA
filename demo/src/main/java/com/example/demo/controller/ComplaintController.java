@@ -7,9 +7,12 @@ import com.example.demo.service.AppointmentService;
 import com.example.demo.service.BloodBankService;
 import com.example.demo.service.ComplaintService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping(path="api/complaints")
@@ -36,8 +39,14 @@ public class ComplaintController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/update")
-    public void register(@RequestBody Complaint c) {
-        complaintService.update(c);
+    public ResponseEntity<Complaint> register(@RequestBody Complaint complaint) throws Exception{
+        Complaint updatedComplaint = null;
+        try{
+            updatedComplaint = complaintService.update(complaint);
+        } catch(NoSuchElementException e) {
+            return new ResponseEntity<Complaint>(HttpStatus.I_AM_A_TEAPOT); // :)
+        }
+        return new ResponseEntity<Complaint>(updatedComplaint, HttpStatus.OK);
     }
 
 }
