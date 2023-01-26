@@ -1,8 +1,10 @@
 package com.example.demo.service;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.dto.AppointmentUserDTO;
+import com.example.demo.dto.CreateAppointmentDTO;
+import com.example.demo.dto.FutureAppointmentDTO;
+import com.example.demo.dto.FutureAppointmentsBBDTO;
 import com.example.demo.model.Address;
 import com.example.demo.model.Appointment;
 import com.example.demo.model.BloodBank;
@@ -31,6 +37,7 @@ import com.example.demo.repository.CenterRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.email.EmailDetails;
 import com.example.email.EmailService;
+import com.google.zxing.WriterException;
 
 @Service
 public class AppointmentService {
@@ -40,15 +47,19 @@ public class AppointmentService {
 	private final CenterRepository bbRepo;
 	private final UserRepository userRepo;
 	private final EmailService emailService;
+	private final QRCodeGenerator qrCodeGenerator;
+	private static final String QR_CODE_IMAGE_PATH = "./src/main/resources/images/QRCode.png";
 	
 	@Autowired
-	public AppointmentService(AppointmentRepository repo, BloodBankRepository bloodRepo, CenterRepository bbRepo, UserRepository userRepo, EmailServiceImpl emailService, QuestionnairuService questionnairuService) {
+	public AppointmentService(AppointmentRepository repo, BloodBankRepository bloodRepo, CenterRepository bbRepo, UserRepository userRepo, EmailServiceImpl emailService, QuestionnairuService questionnairuService, QRCodeGenerator qr) 
+	{
 		this.appRepo = repo;
 		this.questionnairuService = questionnairuService;
 		this.bbRepo = bbRepo;
 		this.userRepo = userRepo;
 		this.emailService = emailService;
 		this.bloodRepo = bloodRepo;
+		this.qrCodeGenerator = qr;
 	}
 	
 	public String getMessageAboutAvailability(Appointment app) {
@@ -89,9 +100,28 @@ public class AppointmentService {
 	public Appointment scheduleAppointment(Appointment app) {
 		User u = userRepo.getOne((long) 1);
 		app.setUser(u);
-		EmailDetails emailDetails = new EmailDetails(u.getEmail(), generateEmailMessage(app), "Successfuly scheduled appointment", null);
-		emailService.sendSimpleMail(emailDetails);
+		String qrCodeData = generateAppointmentDetails(app);
+		try {
+			QRCodeGenerator.generateQRCodeImage(qrCodeData,250,250, QR_CODE_IMAGE_PATH);
+		}catch (WriterException | IOException e) {
+            //e.printStackTrace();
+        }
+		
+		EmailDetails emailDetails = new EmailDetails("dejangloginjic@gmail.com", generateEmailMessage(app), "Successfuly scheduled appointment", QR_CODE_IMAGE_PATH);
+		emailService.sendMailWithAttachment(emailDetails);
 		return appRepo.save(app);
+	}
+	
+	private String generateAppointmentDetails(Appointment app) {
+		String date[] = app.getDate().toString().split(" ");
+		String appDetails = "Appointment details \n"
+				+ "Patient: " + app.getUser().getName() + " " + app.getUser().getSurname() + "\n"
+				+ "Blood bank: " + app.getBloodBank().getName() + "\n"
+				+ "Address: " + app.getBloodBank().getAddress().getCity() + ", " + app.getBloodBank().getAddress().getStreet() + ", " + app.getBloodBank().getAddress().getNumber() + "\n"
+				+ "Date: " + date[0] + ", " + date[1] + ", " + date[2] + "\n"
+				+ "Time: " + app.getTime();
+		
+		return appDetails;
 	}
 	
 	private String generateEmailMessage(Appointment app) {
@@ -113,6 +143,7 @@ public class AppointmentService {
 		
 		return retList;
 	}
+
 	public List<AppointmentResponse> getAllFutureAppointmentResponsesForLoggedUser() {
 		List<Appointment> apps = this.appRepo.findAll();
 		List<AppointmentResponse> retList = new ArrayList<>();
@@ -131,6 +162,22 @@ public class AppointmentService {
 
 		return retList;
 	}
+
+
+	
+	public List<FutureAppointmentsBBDTO> getAllFutureAppointmentsBB(long l) {
+		List<Appointment> apps = this.appRepo.getAppointmentsByBloodBankID(l);
+		List<FutureAppointmentsBBDTO> retList = new ArrayList<>();
+		
+		for(Appointment a : apps) {
+			if(a.getDate().after(new Date()) && a.getStatus().equals(AppointmentStatus.BUSY)) {
+				retList.add(new FutureAppointmentsBBDTO(a.getDate().toString().split(" ")[0], a.getTime().toString(), a.getUser().getName(), a.getUser().getSurname(), a.getId(), a.getUser().getId()));
+			}
+		}
+		
+		return retList;
+	}
+	
 
 	private FutureAppointmentDTO convertAppointmentToFutureAppointmentDTO(Appointment a) {
 		return new FutureAppointmentDTO(a.getBloodBank().getName(), a.getDate().toString().split(" ")[0], a.getTime().toString());
@@ -209,4 +256,11 @@ public class AppointmentService {
 	public void update(Appointment appointment){
 		appRepo.save(appointment);
 	}
+	
+	public List<Appointment> getDoneAppointmentsByBloodBankID(Long id) {
+		return appRepo.getDoneAppointmentsByBloodBankID(id);
+	}
+	
+
+	
 }

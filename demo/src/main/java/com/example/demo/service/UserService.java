@@ -1,15 +1,20 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.UserResponse;
+import com.example.demo.dto.UsersBloodRespons;
+import com.example.demo.model.Appointment;
 import com.example.demo.model.BloodBank;
 import com.example.demo.model.User;
 import com.example.demo.model.enumerations.UserType;
 import com.example.demo.repository.BloodBankRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.AddressRepository;
+import com.example.demo.repository.AppointmentRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,12 +25,14 @@ public class UserService {
     private final UserRepository UserRepository;
     private final AddressRepository AddressRepository;
     private final BloodBankRepository BloodBankRepository;
+    private final AppointmentRepository appRepo;
 
     @Autowired
-    public UserService(UserRepository userRepository, AddressRepository addressRepository, BloodBankRepository bloodBankRepository){
+    public UserService(UserRepository userRepository, AddressRepository addressRepository, BloodBankRepository bloodBankRepository, AppointmentRepository appointmentRepository){
         this.UserRepository = userRepository;
         this.AddressRepository = addressRepository;
         this.BloodBankRepository = bloodBankRepository;
+		this.appRepo = appointmentRepository;
 
     }
 
@@ -109,5 +116,16 @@ public class UserService {
     public User getById(Long id){
         return UserRepository.getOne(id);
     }
+    
+	public List<UsersBloodRespons> getDoneAppointmentsUserByBloodBankID(Long id) {
+		List<Appointment> apps = appRepo.getDoneAppointmentsByBloodBankID(id);
+		List<UsersBloodRespons> users = new ArrayList<UsersBloodRespons>();
+		User user = new User();
+		for (Appointment app : apps) {
+			user = getById(app.getUser().getId());
+			users.add(new UsersBloodRespons(user.getName(), user.getSurname(), user.getEmail(), app.getDate(), app.getTime()));
+		}
+		return users;
+	}
 
 }

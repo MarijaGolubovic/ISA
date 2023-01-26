@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.EditedUserResponse;
 import com.example.demo.dto.UserResponse;
+import com.example.demo.dto.UsersBloodRespons;
 import com.example.demo.model.Address;
 import com.example.demo.model.BloodBank;
 import com.example.demo.model.BloodSupply;
@@ -91,5 +92,11 @@ public class UserController {
     	str++;
     	user.setStrikesNum(str);
         this.userService.updateUser(user);
+    }
+    
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(path = "/usersBlood/{id}", method = RequestMethod.GET)
+    public List<UsersBloodRespons> getDoneAppointmentsUser(@PathVariable Long id) {
+        return userService.getDoneAppointmentsUserByBloodBankID(id);
     }
 }

@@ -80,6 +80,7 @@ export class FutureAppointmentDTO {
     }
 }
 
+
 export interface IAppointmentResponse {
     time?: Date;
     duration?: number;
@@ -128,5 +129,26 @@ export class AppointmentResponse implements IAppointmentResponse{
     return data;
   }
 
+}
+
+
+export class FutureAppointmentBBDTO {
+    name: string = '';
+    surname: string = '';
+    id: number = 0;
+    useriD: number = 0;
+    date: string = '';
+    time: String = "";
+    
+    public constructor(obj?: any) {
+        if (obj) {
+            this.name = obj.name;
+            this.date = obj.date;
+            this.time = obj.time; 
+            this.id = obj.id; 
+            this.useriD = obj.useriD; 
+            this.surname = obj.surname;   
+        }
+    }
 }
 

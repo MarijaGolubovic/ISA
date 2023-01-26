@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { WholeUserResponse, UserResponse, WholeUserResponseWithBloodBank, RegistratedUser } from '../model/user.model';
+import { WholeUserResponse, UserResponse, WholeUserResponseWithBloodBank, RegistratedUser, UserResponseBloodCenter } from '../model/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,10 @@ export class UserService {
 
   getUserResponsesForAdminCenter(): Observable<UserResponse[]> {
     return this.http.get<UserResponse[]>(this.apiHost + 'api/user/'+ 'admin', {headers: this.headers});
+  }
+
+  getDoneAppointmentsUser(): Observable<UserResponseBloodCenter[]> {
+    return this.http.get<UserResponseBloodCenter[]>(this.apiHost + 'api/user/usersBlood/'+ '2', {headers: this.headers});
   }
 
   searchUsers(name:string,surname:string): Observable<UserResponse[]> {

@@ -8,13 +8,13 @@
 <body>
     <div class="container">
         <div class="table-header" >
-            <p class="table-title">List of all users</p>
+            <p class="table-title">List of all users who donated blood</p>
         </div>
 
         <div class="search">
             <label class="first">Name</label>
             <input type="text" placeholder="Name" [(ngModel)]="searchName" class="second">
-            <label class="first">City</label>
+            <label class="first">Surname</label>
             <input type="text" placeholder="Surname" [(ngModel)]="searchSurname" class="second">
             <button (click)="searchUsers()" class="button">Search</button>
         </div>

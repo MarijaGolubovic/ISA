@@ -59,6 +59,10 @@
                 <th mat-header-cell *matHeaderCellDef class="cell-center">Grade &nbsp; <button (click)="sortFunctionByGrade(booleanValueByGrade)" class="sort-button"><i class="fa fa-sort"></i></button></th>
                 <td mat-cell *matCellDef="let centers" class="cell-center">{{centers.grade}}</td>
             </ng-container>
+            <ng-container matColumnDef="grade">
+                <th mat-header-cell *matHeaderCellDef class="cell-center">Grade &nbsp; <button (click)="sortFunctionByGrade(booleanValueByGrade)" class="sort-button"><i class="fa fa-sort"></i></button></th>
+                <td mat-cell *matCellDef="let centers" class="cell-center">{{centers.grade}}</td>
+            </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>

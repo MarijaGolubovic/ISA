@@ -37,6 +37,9 @@ import { LoginUserComponent } from './login-user/login-user.component';
 import {CalendarModule, CalendarMonthModule, CalendarWeekModule, DateAdapter} from "angular-calendar";
 import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
 import { CalendarComponent } from "./calendar/calendar.component";
+import { UsersBloodCenterComponent } from './users-blood-center/users-blood-center.component';
+import { FutureAppointmentsBBComponent } from './future-appointments-bb/future-appointments-bb.component';
+import { BloodSupplyComponent } from './blood-supply/blood-supply.component';
 
 
 const routes: Routes = [
@@ -63,7 +66,10 @@ const routes: Routes = [
   { path: 'startAppointment', component : StartAppointmentComponent},
   { path: '', component : AllCentersComponent},
   { path: 'login', component : LoginUserComponent},
-  { path: 'calendar', component : CalendarComponent}
+  { path: 'calendar', component : CalendarComponent},
+  { path: 'homeAdmin', component : UsersBloodCenterComponent},
+  { path: 'appointmentBB', component : FutureAppointmentsBBComponent},
+  { path: 'bloodSupply', component : BloodSupplyComponent}
 ]
 
 @NgModule({
@@ -90,7 +96,10 @@ const routes: Routes = [
     StartAppointmentComponent,
     AllCentersComponent,
     LoginUserComponent,
-    CalendarComponent
+    CalendarComponent,
+    UsersBloodCenterComponent,
+    FutureAppointmentsBBComponent,
+    BloodSupplyComponent
   ],
   imports: [
     CommonModule,
