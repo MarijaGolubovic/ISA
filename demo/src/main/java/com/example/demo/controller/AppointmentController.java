@@ -60,11 +60,17 @@ public class AppointmentController {
 		return this.appService.getAllFutureAppointmentsForLoggedUser(1L);
     }
 
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/getAll")
+	public List<Appointment> getAll() {
+		return this.appService.getAll();
+	}
+
 	//ovdje ide id logovanog usera
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/getAllFutureAppointmentResponsesForLoggedUser")
 	public List<AppointmentResponse> getAllFutureAppointmentResponsesForLoggedUser() {
-		return this.appService.getAllFutureAppointmentResponsesForLoggedUser(1L);
+		return this.appService.getAllFutureAppointmentResponsesForLoggedUser();
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")

@@ -73,7 +73,18 @@ const colors: Record<string, EventColor> = {
                 private readonly router: Router, private dialog : MatDialog) {
       this.viewDate = new Date();
       this.viewDateEnd = addDays(this.viewDate, 6);
-                }
+      this.dataService.getData().subscribe(data => {
+        // @ts-ignore
+        let apps = this.appointmentCalender.filter(e => {
+           // @ts-ignore
+           if(e.meta.appointment.id != data){
+             return true
+           }
+        });
+        this.events =  [...this.consiliumsCalender, ...apps];
+      });
+    }
+                
     ngOnInit(): void {
       this.getAppointmentsForDoctor()
     }
@@ -85,8 +96,8 @@ const colors: Record<string, EventColor> = {
             return results.map((appointment: AppointmentResponse) => {
               return {
                 title: this.createAppointmentClient(appointment),
-                start: appointment.startTime,
-                end: this.addMinutes(appointment.startTime, appointment.duration),
+                start: appointment.time,
+                end: moment(appointment.time).add(30, 'm').toDate(),
                 color: {...colors['pink']},
                 meta: {
                   appointment,
@@ -120,21 +131,21 @@ const colors: Record<string, EventColor> = {
       this.viewDateEnd = addDays(this.viewDate, 6);
       await new Promise(resolve => setTimeout(resolve, 100));
     }
-    /*onEventClick(event: any): void {
-      console.log(event)
-      this.selectedEvent = event.event;
-      // @ts-ignore
-      if(this.selectedEvent.meta.id === 1)
-        this.showDoctors()
-      // @ts-ignore
-      else {
-        this.selectedEventApp = event.event
-        console.log(this.selectedEventApp)
-        this.showAppointmentDetails();
-      }
-      this.canClickMoreDetails = true
+    onEventClick(event: any): void {
+      // console.log(event)
+      // this.selectedEvent = event.event;
+      // // @ts-ignore
+      // if(this.selectedEvent.meta.id === 1)
+      //   this.showDoctors()
+      // // @ts-ignore
+      // else {
+      //   this.selectedEventApp = event.event
+      //   console.log(this.selectedEventApp)
+      //   this.showAppointmentDetails();
+      // }
+      // this.canClickMoreDetails = true
   
-    }*/
+    }
     async handlePrevious(): Promise<void> {
       this.viewDate = subDays(this.viewDate, 7);
       this.viewDateEnd = addDays(this.viewDate, 6);
@@ -143,10 +154,10 @@ const colors: Record<string, EventColor> = {
     newAppointment() {
       // this.dialog.open(OtherDoctorsPreviewComponent, {
       //   width: '600px',
-      //   height:'500px',
-      //   data: { consilium: this.selectedEvent.meta?.consilium }
-      // });
-      this.router.navigate(['create-schedule'])
+      //    height:'500px',
+      //    data: { consilium: this.selectedEvent.meta?.consilium }
+      //  });
+      // this.router.navigate(['create-schedule'])
     }
 
     monthShow() {
@@ -168,13 +179,13 @@ const colors: Record<string, EventColor> = {
       return (
         'Appointment'+ '\n'+
         'Start time: '+
-        moment(appointment.startTime).format('h:mm A')+
+        moment(appointment.time).format('h:mm A')+
         '\n' +
         'Finish time: '+
-        moment(this.addMinutes(appointment.startTime, appointment.duration)).format('h:mm A')+
+        moment(moment(appointment.time).add(30, 'm').toDate()).format('h:mm A')+
         '\n' +
         'Patient:'+
-        appointment.patientName  + ' ' + appointment.patientSurname
+        appointment.userName  + ' ' + appointment.userSurname
       );
     }
 
@@ -197,3 +208,4 @@ const colors: Record<string, EventColor> = {
       });
     }*/
   }
+  

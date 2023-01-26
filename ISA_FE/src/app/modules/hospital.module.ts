@@ -41,7 +41,7 @@ import { CalendarComponent } from "./calendar/calendar.component";
 
 const routes: Routes = [
   { path: 'users', component: UsersComponent },
-  { path: 'users/edit', component: EditUserComponent },
+  // { path: 'users/edit', component: EditUserComponent },
   { path: 'autorizedUser', component: AuthorizedUserComponent },
   { path: 'autorizedUser/centers', component: CentersComponent },
   { path: 'register-bloodbank', component: BloodbankRegistrationComponent},

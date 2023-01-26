@@ -113,8 +113,8 @@ public class AppointmentService {
 		
 		return retList;
 	}
-	public List<AppointmentResponse> getAllFutureAppointmentResponsesForLoggedUser(long l) {
-		List<Appointment> apps = this.appRepo.getByUserId(l);
+	public List<AppointmentResponse> getAllFutureAppointmentResponsesForLoggedUser() {
+		List<Appointment> apps = this.appRepo.findAll();
 		List<AppointmentResponse> retList = new ArrayList<>();
 
 		for(Appointment a : apps) {
@@ -192,7 +192,8 @@ public class AppointmentService {
 		}
 		executor.shutdown();
 	}
-	
+
+	public List<Appointment> getAll(){return appRepo.findAll();}
 	public Appointment getById(Long iD){
 		return appRepo.getById(iD);
 	}

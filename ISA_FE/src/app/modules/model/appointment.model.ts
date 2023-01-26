@@ -81,17 +81,17 @@ export class FutureAppointmentDTO {
 }
 
 export interface IAppointmentResponse {
-    startTime?: Date;
+    time?: Date;
     duration?: number;
-    patientName?: string;
-    patientSurname?: string;
+    userName?: string;
+    userSurname?: string;
   }
 
 export class AppointmentResponse implements IAppointmentResponse{
-    startTime: Date = new Date();
+    time: Date = new Date();
     duration: number = 30;
-    patientName?: string;
-    patientSurname?: string;
+    userName?: string;
+    userSurname?: string;
   
     constructor(data?: IAppointmentResponse) {
       if (data) {
@@ -101,5 +101,32 @@ export class AppointmentResponse implements IAppointmentResponse{
         }
       }
     }
+
+    
+  init(_data?: any) {
+    if (_data) {
+      this.time = _data["time"];
+      this.duration = _data["duration"];
+      this.userName = _data["userName"];
+      this.userSurname = _data["userSurname"];
+    }
+  }
+
+  static fromJS(data: any): AppointmentResponse {
+    data = typeof data === 'object' ? data : {};
+    let result = new AppointmentResponse();
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === 'object' ? data : {};
+    data["time"] = this.time;
+    data["duration"] = this.duration;
+    data["userName"] = this.time;
+    data["userSurname"] = this.duration;
+    return data;
+  }
+
 }
 
