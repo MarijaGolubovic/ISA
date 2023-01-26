@@ -23,6 +23,7 @@ import com.example.demo.model.BloodSupply;
 import com.example.demo.model.MounthlyBloodSubscription;
 import com.example.demo.model.User;
 import com.example.demo.model.enumerations.AppointmentStatus;
+import com.example.demo.model.enumerations.BloodType;
 import com.example.demo.model.enumerations.BloodType2;
 import com.example.demo.publisher.RabbitMQProducer;
 import com.example.demo.repository.AppointmentRepository;
@@ -82,7 +83,9 @@ public class MounthlyBloodSubscriptionService {
 		List<AmountOfBloodTypeResponse> currentStateOfAmounts = new ArrayList<>();
 		
 		for(AmountOfBloodType aobt : bs.getAmountOfBloodTypes()) {
-			BloodSupply bloodSupply = this.bloodSupplyRepo.getByBloodBankIdAndBloodType(bs.getBloodBank().getId(), aobt.getBloodType());
+			BloodType bt = BloodType.valueOf(aobt.getBloodType().toString());
+			List<BloodSupply> bloodSupplyList = this.bloodSupplyRepo.getBloodSupplyByBBID(bs.getBloodBank().getId());
+			BloodSupply bloodSupply = findBloodSupplyByBloodType(bloodSupplyList, bt);
 			if(bloodSupply == null) {
 				
 				AmountOfBloodTypeResponse currentAmount = new AmountOfBloodTypeResponse(aobt.getBloodType(), 0);
@@ -91,14 +94,14 @@ public class MounthlyBloodSubscriptionService {
 			}else if(bloodSupply.getQuantity() < aobt.getAmount()) {
 				
 				AmountOfBloodTypeResponse currentAmount = new AmountOfBloodTypeResponse(aobt.getBloodType(), bloodSupply.getQuantity().intValue());
-				//this.bloodSupplyRepo.update(0.0, bloodSupply.getId());
+				bloodSupply.setQuantity(0.0);
+				this.bloodSupplyRepo.save(bloodSupply);
 				currentStateOfAmounts.add(currentAmount);
 				
 			}else if(bloodSupply.getQuantity() > aobt.getAmount()) {
 				
 				bloodSupply.setQuantity(bloodSupply.getQuantity() - aobt.getAmount());
-				//this.bloodSupplyRepo.delete(bloodSupply);
-				//this.bloodSupplyRepo.save(new BloodSupply(bloodSupply.getBloodType(), bloodSupply.getQuantity(), bloodSupply.getBloodBank()));
+				this.bloodSupplyRepo.save(bloodSupply);
 				AmountOfBloodTypeResponse currentAmount = new AmountOfBloodTypeResponse(aobt.getBloodType(), aobt.getAmount());
 				currentStateOfAmounts.add(currentAmount);
 				
@@ -106,6 +109,15 @@ public class MounthlyBloodSubscriptionService {
 		}
 		
 		return currentStateOfAmounts;
+	}
+	
+	private BloodSupply findBloodSupplyByBloodType(List<BloodSupply> bsList, BloodType bt) {
+		for(BloodSupply bs : bsList) {
+			if(bs.getBloodType().toString().equals(bt.toString())) {
+				return bs;
+			}
+		}
+		return null;
 	}
 	
 	private String generateMessageForManager(List<AmountOfBloodTypeResponse> currentStateOfAmounts, List<AmountOfBloodType> set) {

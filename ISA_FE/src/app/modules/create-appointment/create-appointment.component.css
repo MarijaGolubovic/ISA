@@ -50,4 +50,8 @@
   [type="date"]::-webkit-calendar-picker-indicator {
     opacity: 0;
   }
+
+  .dateofbirth{
+    width: auto;
+  }
   
