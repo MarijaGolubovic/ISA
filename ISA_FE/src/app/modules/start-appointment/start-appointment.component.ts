@@ -17,7 +17,7 @@ export class StartAppointmentComponent implements OnInit {
   public appointment : AppointmentUserDTO = new AppointmentUserDTO();
   public id: number = 0 ;
   public proceedEx: boolean = false;
-  public selectedBloodType : BloodType | undefined  ; 
+  public selectedBloodType : BloodType =0  ; 
   public survey: Survey = new Survey();
   states: BloodType[] = [0,1,2,3,4,5,6,7];
 
@@ -73,6 +73,7 @@ public examination() {
 }
 
 public examinationEnd() {
+  this.survey.bloodType=this.selectedBloodType;
   this.appointmentService.updateAppointment(this.survey, this.id).subscribe(res =>{
     alert("The patient examination is complete.")  
     });
