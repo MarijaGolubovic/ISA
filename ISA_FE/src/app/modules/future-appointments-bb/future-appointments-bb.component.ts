@@ -21,7 +21,7 @@ export class FutureAppointmentsBBComponent implements OnInit {
     })
   }
 
-  async startApp(id: number){
+  async startApp(id: any) : Promise<void>{
     await this.router.navigateByUrl('/startAppointment?id=' + id )
   }
 

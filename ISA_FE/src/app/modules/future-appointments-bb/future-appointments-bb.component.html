@@ -27,7 +27,7 @@
             </ng-container>
             <ng-container matColumnDef="StartApp">
                 <th mat-header-cell *matHeaderCellDef class="cell-center"> Start Appointment &nbsp;</th>
-                <td mat-cell *matCellDef="let app" class="cell-center"><button (click)="startApp(app.id)">Start</button></td>
+                <td mat-cell *matCellDef="let app" class="cell-center"><button (click)="startApp(app.iD)">Start</button></td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

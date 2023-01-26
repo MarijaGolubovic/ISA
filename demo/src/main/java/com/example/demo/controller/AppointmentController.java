@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.dto.BloodBankRegistrationRequest;
+import com.example.demo.dto.BloodTypeDTO;
 import com.example.demo.dto.CreateAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentsBBDTO;
@@ -24,8 +25,10 @@ import com.example.demo.dto.AppointmentUserDTO;
 import com.example.demo.dto.AppoitmentScheduleDto;
 import com.example.demo.service.AppointmentService;
 import com.example.demo.service.BloodBankService;
+import com.example.demo.service.BloodSupplyService;
 import com.google.gson.Gson;
 
+import java.io.Console;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,11 +40,13 @@ public class AppointmentController {
 
 	private final AppointmentService appService;
 	private final BloodBankService bbService;
+	private final BloodSupplyService bsService;
 	
 	@Autowired
-	public AppointmentController(AppointmentService appservice, BloodBankService bbService) {
+	public AppointmentController(AppointmentService appservice, BloodBankService bbService, BloodSupplyService bsService) {
 		this.appService = appservice;
 		this.bbService = bbService;
+		this.bsService = bsService;
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
@@ -109,6 +114,7 @@ public class AppointmentController {
 		Appointment app= appService.getById(iD);
 		app.setSurvey(appService.convertSurveyDTOToSurvey(surveyDTO)); 
 		app.setStatus(AppointmentStatus.DONE);
+		bsService.addDonatedQuantity(app.getBloodBank().getId(), 1, app.getSurvey().getBloodType());
 		appService.update(app);
 	}
 	

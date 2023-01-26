@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BloodBankResponse } from '../model/bloodBank.model';
+import { BloodSupply } from '../model/bloodSupply.model';
 import {CenterResponse } from '../model/center.model';
 import { WholeUserResponse } from '../model/user.model';
 
@@ -33,4 +34,9 @@ export class CenterService {
   getAllAvailableCenters(dateTimeDTO: any): Observable<any>{
     return this.http.post<CenterResponse[]>(this.apiHost + 'api/centers/getAllAvailableCenters', dateTimeDTO, {headers: this.headers})
   }
+
+  getCentersSupply(centerID: number): Observable<BloodSupply[]>{
+    return this.http.get<BloodSupply[]>(this.apiHost + 'api/blood/supply/' + '2', {headers: this.headers})
+  }
+  
 }

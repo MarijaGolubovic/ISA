@@ -36,6 +36,7 @@ import { AllCentersComponent } from './all-centers/all-centers.component';
 import { LoginUserComponent } from './login-user/login-user.component';
 import { UsersBloodCenterComponent } from './users-blood-center/users-blood-center.component';
 import { FutureAppointmentsBBComponent } from './future-appointments-bb/future-appointments-bb.component';
+import { BloodSupplyComponent } from './blood-supply/blood-supply.component';
 
 
 const routes: Routes = [
@@ -63,7 +64,8 @@ const routes: Routes = [
   { path: '', component : AllCentersComponent},
   { path: 'login', component : LoginUserComponent},
   { path: 'homeAdmin', component : UsersBloodCenterComponent},
-  { path: 'appointmentBB', component : FutureAppointmentsBBComponent}
+  { path: 'appointmentBB', component : FutureAppointmentsBBComponent},
+  { path: 'bloodSupply', component : BloodSupplyComponent}
 ]
 
 @NgModule({
@@ -91,7 +93,8 @@ const routes: Routes = [
     AllCentersComponent,
     LoginUserComponent,
     UsersBloodCenterComponent,
-    FutureAppointmentsBBComponent
+    FutureAppointmentsBBComponent,
+    BloodSupplyComponent
   ],
   imports: [
     CommonModule,

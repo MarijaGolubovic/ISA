@@ -187,4 +187,22 @@ export class UsersBloodCenterComponent implements OnInit {
     }
   }
 
+
+
+  async profil() : Promise<void>{
+    await this.router.navigateByUrl('/users/edit')
+  }
+
+  async appointments() : Promise<void>{
+    await this.router.navigateByUrl('/appointmentBB')
+  }
+
+  async ShedulApp() : Promise<void>{
+    await this.router.navigateByUrl('/appointment/create')
+  }
+
+  async bloodSupply() : Promise<void>{
+    await this.router.navigateByUrl('/bloodSupply')
+  }
+
 }
