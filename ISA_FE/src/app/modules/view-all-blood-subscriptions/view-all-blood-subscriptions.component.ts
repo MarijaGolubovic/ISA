@@ -25,7 +25,7 @@ export class ViewAllBloodSubscriptionsComponent implements OnInit {
   viewSubscription(bs: BloodSubscriptionDTO){
     let bloodSub : string = '';
     for(let aobt of bs.amountOfBloodTypes){
-      bloodSub += aobt.bloodType.toString() + " :" + aobt.amount + " units\n"; 
+      bloodSub += aobt.bloodType.toString() + ": " + aobt.amount + " units\n"; 
     }
     alert(bloodSub);
   }

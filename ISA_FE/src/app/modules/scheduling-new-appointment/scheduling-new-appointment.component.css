@@ -1,66 +1,103 @@
 .container-f {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25),
-    0 10px 10px rgba(0,0,0,0.22);
-    position: center;
-    overflow: hidden;
-    max-width: 100%;
-    min-height: 400px;
-    margin: auto;
-    width: 40%;
-    padding: 10px;
-  }
-  .form-container {
-    position: relative;
-    top: 0;
-    height: 100%;
-    transition: all 0.6s ease-in-out;
-  }
-  .title{
-    margin: 5px 0;
-  }
-  .center-me{
-    position: center;
-  }
-
-  .addDiv{
-    text-align: center;
-    display: flex;
-    align-items: center;
-    vertical-align: middle;
-  }
-
-  .view-blood-subscription-button-div{
-    text-align: center;
-    margin-bottom: 30px;
-  }
-
-  ::ng-deep .mat-select-bloodbank{
-    width:435px; 
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25),
+  0 10px 10px rgba(0,0,0,0.22);
+  position: center;
+  overflow: hidden;
+  max-width: 100%;
+  min-height: auto;
+  margin-top: 50px;
+  margin: auto;
+  width: 300px;
+  padding: 10px;
 }
 
-::ng-deep .mat-select-bloodtype{
-  width:160px; 
-  margin-right: 10px;
+.container-f1 {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25),
+  0 10px 10px rgba(0,0,0,0.22);
+  position: center;
+  overflow: hidden;
+  max-width: 100%;
+  min-height: 300px;
+  margin-top: 50px;
+  margin: auto;
+  width: 600px;
+  padding: 10px;
 }
 
-::ng-deep .mat-select-amount{
-  width:160px; 
-  margin-right: 10px;
+.container1{
+  margin-top: 100px;
 }
 
-::ng-deep .add{
-  width: 90px;
-  vertical-align: top;
+.container{
+  margin-top: 140px;
 }
 
-::ng-deep .view-blood-subscription-button{
-  align-self: center;
-  width: 435px;
+.form-container {
+  position: relative;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+.title{
+  margin: 5px 0;
+  text-align: center;
+}
+.time{
+  margin-top: 40px;
+}
+.create-schedule-container {
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+}
+.center-me{
+  position: center;
+}
+.input-schedule {
+  margin-top: 20px;
+  width: 60%;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+[type="date"] {
+  background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+}
+[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
 }
 
-::ng-deep .submit-button{
-  width: 435px;
+.dateOfAppointment{
   margin-top: 30px;
+  margin-left: 10px;
 }
+
+.timeOfAppointment{
+  margin-top: 70px;
+  margin-left: 10px;
+}
+
+.submitButton{
+  margin-top: 30px;
+  margin-left: 65px;
+  width: 170px;
+  margin-bottom: 15px;
+}
+
+.dateofbirth{
+  width: 130px;
+}
+
+.timeInput{
+  width: 130px;
+}  
+
+.mainContent, .sideContent {float:left; display:inline; width: 49%;}

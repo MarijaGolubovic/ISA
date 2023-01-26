@@ -199,46 +199,6 @@ public class AppointmentService {
 		return appRepo.getById(id);
 	}
 	
-	public void demonstrateConcurentAccessToDataBase() throws Throwable {
-		User user1 = new User("markomarkovic@gmail.com", "123", "Marko", "Markovic", new Address(), "123456", "1234567899876", Gender.MALE , "Ekonomista", "Informacije 123", UserType.REGISTERED, UserStatus.ACTIVATED , 0, 0, null, null);
-		User user2 = new User("marinamarkovic@gmail.com", "123", "Marina", "Markovic", new Address(), "123456", "1234567892876", Gender.FEMALE , "Pravnik", "Informacije 213", UserType.REGISTERED, UserStatus.ACTIVATED , 0, 0, null, null);
-	
-		ExecutorService executor = Executors.newFixedThreadPool(2);
-		Future<?> future1 = executor.submit(new Runnable() {
-			
-			@Override
-			public void run() {
-		        System.out.println("Startovan Thread 1");
-				Appointment appointmentToUpdate = findById(100L);
-				appointmentToUpdate.setStatus(AppointmentStatus.BUSY);
-				appointmentToUpdate.setUser(user1);
-				try { Thread.sleep(3000); } catch (InterruptedException e) {}
-				save(appointmentToUpdate);
-				
-			}
-		});
-		executor.submit(new Runnable() {
-			
-			@Override
-			public void run() {
-		        System.out.println("Startovan Thread 2");
-				Appointment appointmentToUpdate = findById(100L);
-				appointmentToUpdate.setStatus(AppointmentStatus.BUSY);
-				appointmentToUpdate.setUser(user2);
-				save(appointmentToUpdate);
-			}
-		});
-		
-		try {
-		    future1.get(); 
-		} catch (ExecutionException e) {
-		    System.out.println("Exception from thread " + e.getCause().getClass()); // u pitanju je bas ObjectOptimisticLockingFailureException
-		    throw e.getCause();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		executor.shutdown();
-	}
 
 	public List<Appointment> getAll(){return appRepo.findAll();}
 	public Appointment getById(Long iD){

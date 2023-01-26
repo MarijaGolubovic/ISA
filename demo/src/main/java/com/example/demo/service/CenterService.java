@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,6 +52,21 @@ public class CenterService {
 	
 	    return centerResponse;
 	}
+	
+	public boolean isDateInPast(DateTimeDTO dt) {
+		Date currentDate = new Date();
+    	LocalTime currentTime = LocalTime.now();
+    	
+    	int compareCurrentTimeWithTimeOfApp = currentTime.compareTo(LocalTime.parse(dt.getStartTime()));
+    	
+    	if(currentDate.after(dt.getDate())) {
+    		return true;
+    	}else if(currentDate.getDate() == dt.getDate().getDate() && compareCurrentTimeWithTimeOfApp > 0) {
+    		return true;
+    	}else {
+    		return false;
+    	}
+	}
 
     public BloodBank getLoggedUserCenter (Long UserId) {
         return CenterRepository.findByUserId(UserId);
@@ -66,8 +83,11 @@ public class CenterService {
 		
 		for(BloodBank bb : allBanks) {
 			
-			if(!bb.isDateTimeInWorkTime(dateTimeDTO)) 
+			if(isDateInPast(dateTimeDTO))
 				break;
+			
+			if(!bb.isDateTimeInWorkTime(dateTimeDTO)) 
+				continue;
 			
 			List<Appointment> appointments = this.appointmentRepository.getAppointmentsByBloodBankID(bb.getId());
 			boolean flag = false;

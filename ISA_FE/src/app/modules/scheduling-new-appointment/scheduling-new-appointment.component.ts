@@ -83,6 +83,8 @@ export class SchedulingNewAppointmentComponent implements OnInit {
       this.searchedCenters = res;
       if(this.centers.length != 0){
         this.showCenters = true;
+      }else{
+        alert("There are no free centers at the selected time!")
       }
     })
   }

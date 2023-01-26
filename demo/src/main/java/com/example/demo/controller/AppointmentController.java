@@ -109,13 +109,6 @@ public class AppointmentController {
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping("/demonstrateConcurentAccessToDataBase")
-	public String demonstrateConcurentAccessToDataBase() throws Throwable {
-		this.appService.demonstrateConcurentAccessToDataBase();
-		return "";
-	}
-	
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/getAppointment/{iD}")
 	public AppointmentUserDTO getAllForAdminCenter(@PathVariable Long iD) {
 		Appointment app= appService.getById(iD);		

@@ -6,12 +6,17 @@
     position: center;
     overflow: hidden;
     max-width: 100%;
-    min-height: 300px;
+    min-height: 240px;
     margin-top: 50px;
     margin: auto;
     width: 300px;
     padding: 10px;
   }
+
+  .container{
+    margin-top: 140 px;
+  }
+
   .form-container {
     position: relative;
     top: 0;
@@ -52,6 +57,37 @@
   }
 
   .dateofbirth{
-    width: auto;
+    width: 130px;
   }
+
+  .timeInput{
+    width: 130px;
+  }
+
+  .durationInput{
+    width: 130px;
+  }
+
+  .submitButton{
+    margin-top: 30px;
+    margin-left: 65px;
+    width: 170px;
+  }
+
+  .timeOfAppointment{
+    margin-top: 70px;
+    margin-left: 10px;
+  }
+
+  .duration{
+    margin-top: 110px;
+    margin-left: 10px;
+  }
+
+  .dateOfAppointment{
+    margin-top: 30px;
+    margin-left: 10px;
+  }
+
+  #mainContent, #sideContent {float:left; display:inline; width: 49%;}
   
