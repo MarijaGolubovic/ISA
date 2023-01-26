@@ -9,6 +9,7 @@
   
     
     .container-f {
+      
       background-color: #fff;
       border-radius: 10px;
       box-shadow: 0 14px 28px rgba(0,0,0,0.25),
@@ -45,5 +46,48 @@
       align-items: center;
       align-self: center;
       
+    }
+    .mat-table{
+      height: 100%;
+      width: 100%;
+    }
+    .container{
+      margin-top: 3%;
+    }
+
+    .calendar-header .button-group {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    .calendar-header .button-group__button, .calendar-header .button-group__button-app {
+      margin-right: 1rem;
+      padding: 0.7rem 0.7rem;
+      width: 9rem;
+      background-color: #263238;
+      border: 1px solid #3b4d79;
+      font-weight: 600;
+      box-shadow: rgba(0, 0, 0, 0.20) 0 1px 4px;
+      border-radius: 0.5rem;
+      color: #FFFFFF;
+      transition: 0.2s;
+    }
+    .calendar-header .button-group__button-app {
+      width: 10rem;
+    }
+    .calendar-header .button-group__button:hover, .calendar-header .button-group__button-app:hover {
+      transform: scale(1.07);
+      transition: 0.2s;
+      cursor: pointer;
+      background-color: #3b4d79;
+      color: white;
+    }
+    .calendar-header .button-group__button-app:disabled {
+      opacity: 0.3;
+      cursor: default;
+      transform: none;
+      background-color: white;
+      border: 1px solid #3b4d79;
+      color: #3b4d79;
     }
   

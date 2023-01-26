@@ -55,11 +55,11 @@ const colors: Record<string, EventColor> = {
     dayEndHour = 22;
     hourSegmentHeight = 110;
     daysInWeek = 7;
-    view: CalendarView = CalendarView.Week;
+    view: CalendarView = CalendarView.Month;
     viewDateEnd: Date;
     canClickMoreDetails:boolean = false
-    monthView: boolean = false
-    viewButton:string = "Month view"
+    monthView: boolean = true
+    viewButton:string = "Week view"
   
     selectedEventApp: CalendarEvent<{ appointment: AppointmentResponse }> = {
       title: null as any,
