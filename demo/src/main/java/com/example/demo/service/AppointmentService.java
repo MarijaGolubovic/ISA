@@ -13,6 +13,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import com.example.demo.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +23,6 @@ import com.example.demo.dto.CreateAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentsBBDTO;
 import com.example.demo.model.Address;
-import com.example.demo.dto.QuestionnairuDTO;
-import com.example.demo.dto.SurveyDTO;
 import com.example.demo.model.Appointment;
 import com.example.demo.model.BloodBank;
 import com.example.demo.model.Survey;
@@ -144,6 +143,27 @@ public class AppointmentService {
 		
 		return retList;
 	}
+
+	public List<AppointmentResponse> getAllFutureAppointmentResponsesForLoggedUser() {
+		List<Appointment> apps = this.appRepo.findAll();
+		List<AppointmentResponse> retList = new ArrayList<>();
+
+		for(Appointment a : apps) {
+			if(a.getDate().after(new Date())) {
+				AppointmentResponse appointmentResponse = new AppointmentResponse();
+				appointmentResponse.setTime(a.getDate());
+				appointmentResponse.setDuration(a.getDuration());
+				appointmentResponse.setUserName(a.getUser().getName());
+				appointmentResponse.setUserSurname(a.getUser().getSurname());
+
+				retList.add(appointmentResponse);
+			}
+		}
+
+		return retList;
+	}
+
+
 	
 	public List<FutureAppointmentsBBDTO> getAllFutureAppointmentsBB(long l) {
 		List<Appointment> apps = this.appRepo.getAppointmentsByBloodBankID(l);
@@ -158,6 +178,7 @@ public class AppointmentService {
 		return retList;
 	}
 	
+
 	private FutureAppointmentDTO convertAppointmentToFutureAppointmentDTO(Appointment a) {
 		return new FutureAppointmentDTO(a.getBloodBank().getName(), a.getDate().toString().split(" ")[0], a.getTime().toString());
 	}
@@ -218,7 +239,8 @@ public class AppointmentService {
 		}
 		executor.shutdown();
 	}
-	
+
+	public List<Appointment> getAll(){return appRepo.findAll();}
 	public Appointment getById(Long iD){
 		return appRepo.getById(iD);
 	}

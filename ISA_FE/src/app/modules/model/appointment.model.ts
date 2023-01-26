@@ -1,3 +1,6 @@
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Inject, Injectable, Optional } from "@angular/core";
+import { Observable } from "rxjs";
 import { QUestionnaireRespons } from "./questionnaire.model";
 
 export class CreateAppointmentDTO {
@@ -77,6 +80,58 @@ export class FutureAppointmentDTO {
     }
 }
 
+
+export interface IAppointmentResponse {
+    time?: Date;
+    duration?: number;
+    userName?: string;
+    userSurname?: string;
+  }
+
+export class AppointmentResponse implements IAppointmentResponse{
+    time: Date = new Date();
+    duration: number = 30;
+    userName?: string;
+    userSurname?: string;
+  
+    constructor(data?: IAppointmentResponse) {
+      if (data) {
+        for (var property in data) {
+          if (data.hasOwnProperty(property))
+            (<any>this)[property] = (<any>data)[property];
+        }
+      }
+    }
+
+    
+  init(_data?: any) {
+    if (_data) {
+      this.time = _data["time"];
+      this.duration = _data["duration"];
+      this.userName = _data["userName"];
+      this.userSurname = _data["userSurname"];
+    }
+  }
+
+  static fromJS(data: any): AppointmentResponse {
+    data = typeof data === 'object' ? data : {};
+    let result = new AppointmentResponse();
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === 'object' ? data : {};
+    data["time"] = this.time;
+    data["duration"] = this.duration;
+    data["userName"] = this.time;
+    data["userSurname"] = this.duration;
+    return data;
+  }
+
+}
+
+
 export class FutureAppointmentBBDTO {
     name: string = '';
     surname: string = '';
@@ -96,3 +151,4 @@ export class FutureAppointmentBBDTO {
         }
     }
 }
+

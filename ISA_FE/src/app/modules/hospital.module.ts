@@ -34,6 +34,9 @@ import { ViewAllBloodSubscriptionsComponent } from './view-all-blood-subscriptio
 import { StartAppointmentComponent } from './start-appointment/start-appointment.component';
 import { AllCentersComponent } from './all-centers/all-centers.component';
 import { LoginUserComponent } from './login-user/login-user.component';
+import {CalendarModule, CalendarMonthModule, CalendarWeekModule, DateAdapter} from "angular-calendar";
+import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
+import { CalendarComponent } from "./calendar/calendar.component";
 import { UsersBloodCenterComponent } from './users-blood-center/users-blood-center.component';
 import { FutureAppointmentsBBComponent } from './future-appointments-bb/future-appointments-bb.component';
 import { BloodSupplyComponent } from './blood-supply/blood-supply.component';
@@ -41,7 +44,7 @@ import { BloodSupplyComponent } from './blood-supply/blood-supply.component';
 
 const routes: Routes = [
   { path: 'users', component: UsersComponent },
-  { path: 'users/edit', component: EditUserComponent },
+  // { path: 'users/edit', component: EditUserComponent },
   { path: 'autorizedUser', component: AuthorizedUserComponent },
   { path: 'autorizedUser/centers', component: CentersComponent },
   { path: 'register-bloodbank', component: BloodbankRegistrationComponent},
@@ -63,6 +66,7 @@ const routes: Routes = [
   { path: 'startAppointment', component : StartAppointmentComponent},
   { path: '', component : AllCentersComponent},
   { path: 'login', component : LoginUserComponent},
+  { path: 'calendar', component : CalendarComponent},
   { path: 'homeAdmin', component : UsersBloodCenterComponent},
   { path: 'appointmentBB', component : FutureAppointmentsBBComponent},
   { path: 'bloodSupply', component : BloodSupplyComponent}
@@ -92,6 +96,7 @@ const routes: Routes = [
     StartAppointmentComponent,
     AllCentersComponent,
     LoginUserComponent,
+    CalendarComponent,
     UsersBloodCenterComponent,
     FutureAppointmentsBBComponent,
     BloodSupplyComponent
@@ -112,7 +117,13 @@ const routes: Routes = [
     NgxMatTimepickerModule,
     NgToastModule,
     ScheduleModule, RecurrenceEditorModule,
-    MatTabsModule
+    MatTabsModule,
+    CalendarWeekModule,
+    CalendarMonthModule,
+  CalendarModule.forRoot({
+    provide: DateAdapter,
+    useFactory: adapterFactory,
+  }),
     ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, MonthAgendaService],
   exports: [ RouterModule ]

@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.demo.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-
+import com.example.demo.model.Appointment;
 import com.example.demo.dto.BloodBankRegistrationRequest;
 import com.example.demo.dto.BloodTypeDTO;
 import com.example.demo.dto.CreateAppointmentDTO;
@@ -71,6 +72,19 @@ public class AppointmentController {
     public List<FutureAppointmentDTO> getAllFutureAppointmentsForLoggedUser() {
 		return this.appService.getAllFutureAppointmentsForLoggedUser(1L);
     }
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/getAll")
+	public List<Appointment> getAll() {
+		return this.appService.getAll();
+	}
+
+	//ovdje ide id logovanog usera
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/getAllFutureAppointmentResponsesForLoggedUser")
+	public List<AppointmentResponse> getAllFutureAppointmentResponsesForLoggedUser() {
+		return this.appService.getAllFutureAppointmentResponsesForLoggedUser();
+	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(path = "/schedule", method = RequestMethod.PUT)
