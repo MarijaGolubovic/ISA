@@ -182,7 +182,7 @@ const colors: Record<string, EventColor> = {
         moment(appointment.time).format('h:mm A')+
         '\n' +
         'Finish time: '+
-        moment(moment(appointment.time).add(30, 'm').toDate()).format('h:mm A')+
+        moment(moment(appointment.time).add(appointment.duration, 'm').toDate()).format('h:mm A')+
         '\n' +
         'Patient:'+
         appointment.userName  + ' ' + appointment.userSurname

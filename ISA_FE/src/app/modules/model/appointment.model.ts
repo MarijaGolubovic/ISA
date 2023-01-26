@@ -89,6 +89,7 @@ export interface IAppointmentResponse {
   }
 
 export class AppointmentResponse implements IAppointmentResponse{
+    datum : Date = new Date()
     time: Date = new Date();
     duration: number = 30;
     userName?: string;

@@ -120,7 +120,7 @@ import com.example.demo.service.UserService;
 
 @SpringBootTest
 class IsaApplicationTests {
-	
+
 	@Autowired
 	private AppointmentService appService;
 	@Autowired
@@ -129,49 +129,49 @@ class IsaApplicationTests {
 	private UserService userService;
 	@Autowired
 	private ComplaintService compService;
-	
+
 	private User user1;
 	private User user2;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		user1 = new User("markomarkovic@gmail.com", "123", "Marko", "Markovic", new Address(), "123456", "1234567899876", Gender.MALE , "Ekonomista", "Informacije 123", UserType.REGISTERED, UserStatus.ACTIVATED , 0, 0, null, null);
 		user2 = new User("marinamarkovic@gmail.com", "123", "Marina", "Markovic", new Address(), "123456", "1234567892876", Gender.FEMALE , "Pravnik", "Informacije 213", UserType.REGISTERED, UserStatus.ACTIVATED , 0, 0, null, null);
 	}
-	
+
 
 	@Test
 	void contextLoads() {
 		ExecutionException thrown = Assertions.assertThrows(ExecutionException.class, () -> {
 			ExecutorService executor = Executors.newFixedThreadPool(2);
 			Future<?> future1 = executor.submit(new Runnable() {
-				
+
 				@Override
 				public void run() {
-			        System.out.println("Startovan Thread 1");
+					System.out.println("Startovan Thread 1");
 					Appointment appointmentToUpdate = appService.findById(30L);
 					appointmentToUpdate.setStatus(AppointmentStatus.BUSY);
 					appointmentToUpdate.setUser(user1);
 					try { Thread.sleep(3000); } catch (InterruptedException e) {}
 					appService.save(appointmentToUpdate);
-					
+
 				}
 			});
 			executor.submit(new Runnable() {
-				
+
 				@Override
 				public void run() {
-			        System.out.println("Startovan Thread 2");
+					System.out.println("Startovan Thread 2");
 					Appointment appointmentToUpdate = appService.findById(30L);
 					appointmentToUpdate.setStatus(AppointmentStatus.BUSY);
 					appointmentToUpdate.setUser(user2);
 					appService.save(appointmentToUpdate);
 				}
 			});
-			    
-			future1.get(); 
-			
-	  });
+
+			future1.get();
+
+		});
 	}
 
 	@Test
