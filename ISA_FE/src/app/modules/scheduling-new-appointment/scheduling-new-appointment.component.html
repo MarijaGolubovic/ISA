@@ -1,0 +1,97 @@
+<div class="container" *ngIf="showCenters === false">
+    <div class="container">
+      <div class="container-f">
+            <div class="title-container">
+                <h1 class="title">Schedule appointment</h1>
+            </div>
+
+                <div class="dateOfAppointment" *ngIf="showCenters === false">
+                    <div class="mainContent">
+                        <label for="dateofbirth">Choose date</label>
+                    </div>
+                    <div class="sideContent">
+                        <input type="date" class="dateofbirth" [(ngModel)] = "dateTime.date">
+                    </div>
+                </div>
+                <div class="timeOfAppointment" *ngIf="showCenters === false">
+                    <div class="mainContent">
+                        <label for="dateofbirth">Choose time</label>
+                    </div>
+                    <div class="sideContent">
+                        <input type="time" class="timeInput" [(ngModel)] = "dateTime.startTime">
+                    </div>
+                </div>
+                <div *ngIf="showCenters === false">
+                    <button (click)="getAllAvailableCenters()" class="submitButton">Schedule</button>
+                </div>
+      </div>
+    </div>
+  </div>
+  <div class="container1" *ngIf="showCenters === true">
+    <div class="container2">
+      <div class="container-f1">
+        <div class="container2" style="box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);">
+            <div class="table-header">
+                <p class="table-title">List of all available centers</p>
+            </div>
+            <div class="filtrateTable">
+                <table>
+                    <tr>
+                        <td><label>Name</label></td>
+                        <td><label>City</label></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white;"><input type="text" placeholder="Name" [(ngModel)]="searchName"></td>
+                        <td style="background-color: white;"><input type="text" placeholder="City" [(ngModel)]="searchCity"></td>
+                        <td style="background-color: white;"><button (click)="searchCenters()" class="searchBtn">Search</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table class="filtrateTable">
+                    <tr>
+                        <td><label>From grade</label></td>
+                        <td><label>To grade</label></td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white;"><input type="number" placeholder="From grade" [(ngModel)]="searchMinGrade"></td>
+                        <td style="background-color: white;"><input type="number" placeholder="To grade" [(ngModel)]="searchMaxGrade"></td>
+                        <td style="background-color: white;"><button (click)="filterCenters()" class="searchBtn">Filter</button></td>
+                    </tr>
+                </table>
+    
+            </div>
+            <table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="name">
+                    <a ><th mat-header-cell *matHeaderCellDef class="cell-center" > Name&nbsp; <button class="sort-button" (click)="sortFunctionByName(booleanValueByName)"><i class="fa fa-sort"></i></button></th></a>
+                    <td mat-cell *matCellDef="let centers" class="clickable cell-center">{{centers.name}}</td>
+                </ng-container>
+                <ng-container matColumnDef="city">
+                    <th mat-header-cell *matHeaderCellDef class="cell-center"> City &nbsp; <button class="sort-button" (click)="sortFunctionByCity(booleanValueByCity)"><i class="fa fa-sort"></i></button></th>
+                    <td mat-cell *matCellDef="let centers" class="cell-center">{{centers.city}}</td>
+                </ng-container>
+                <ng-container matColumnDef="street">
+                    <th mat-header-cell *matHeaderCellDef class="cell-center"> Street &nbsp; <button class="sort-button" (click)="sortFunctionByStreet(booleanValueByStreet)"><i class="fa fa-sort"></i></button></th>
+                    <td mat-cell *matCellDef="let centers" class="cell-center">{{centers.street}}</td>
+                </ng-container>
+                <ng-container matColumnDef="streetNumber">
+                    <th mat-header-cell *matHeaderCellDef class="cell-center"> Street number &nbsp; <button class="sort-button" (click)="sortFunctionByStreetNumber(booleanValueByStreetNumber)"><i class="fa fa-sort"></i></button></th>
+                    <td mat-cell *matCellDef="let centers" class="cell-center">{{centers.streetNumber}}</td>
+                </ng-container>
+                <ng-container matColumnDef="grade">
+                    <th mat-header-cell *matHeaderCellDef class="cell-center">Grade &nbsp; <button (click)="sortFunctionByGrade(booleanValueByGrade)" class="sort-button"><i class="fa fa-sort"></i></button></th>
+                    <td mat-cell *matCellDef="let centers" class="cell-center">{{centers.grade}}</td>
+                </ng-container>
+                <ng-container matColumnDef="schedule">
+                    <th mat-header-cell *matHeaderCellDef class="cell-center">Schedule &nbsp; <button (click)="sortFunctionByGrade(booleanValueByGrade)" class="sort-button"><i class="fa fa-sort"></i></button></th>
+                    <td mat-cell *matCellDef="let centers" class="cell-center"><button (click)="scheduleAppointment(centers.id)">Schedule</button></td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  

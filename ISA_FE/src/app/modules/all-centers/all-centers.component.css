@@ -1,0 +1,85 @@
+.container {
+    width: 70%;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 3px;
+    border: #DCD6CC 1px solid;
+    background-color: white;
+}
+
+table {
+    width: 100%;
+}
+
+.table-title {
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-left: 20px;
+    font-size: 20px;
+
+}
+
+.search{
+    margin-right: 0%;
+}
+
+.cell-center {
+    text-align: center;
+}
+
+tr:nth-child(even) {background: #CCC}
+
+.first{
+    position:absolute;
+}
+.second{
+   position: relative;
+   margin-top: 2%;
+}
+
+.add-button {
+    margin: 10px 20px 10px 10px;
+    color: black;
+    background-color: #edece5;
+    float: right;
+}
+
+.table-header {
+    display: flex;
+    background-color: gray;
+}
+
+p {
+    float: left;
+    margin-right: auto;
+}
+
+.sort-button{
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+th{
+    user-select: none;
+}
+
+.filtrateTable{
+    width: 60%;
+    background-color: white;
+}
+
+.searchBtn{
+    background-color: rgb(221, 225, 230);
+    border-radius: 5%;
+    border:none ;
+    width: 60px;
+}
+
+input[type=text],input[type=number]{
+    border-color: rgb(206, 206, 238);
+    background-color: rgb(215, 219, 219);
+    border: none;
+    border-radius: 5%;
+    height: 30px;
+}

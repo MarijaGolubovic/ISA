@@ -1,0 +1,92 @@
+    <h1>Register blood bank:</h1>
+    <form id="regForm" (ngSubmit)="createBloodBank()"  [formGroup]="registrationForm">
+        <div>Bloodbank:
+            <p><input placeholder="Name..." oninput="this.className = ''" name="name" [(ngModel)]="bloodBankRequest.name" formControlName="name"></p>
+            <span *ngIf="name && name.invalid && name.touched" style="color: red;">
+                Name is required!
+            </span>
+            <span *ngIf="!isValid(bloodBankRequest.name) && name && name.touched  && !name.invalid" style="color: red;">
+                The name must start with a capital letter and must have 2 or more letters!
+            </span>
+            <p><input placeholder="Description..." oninput="this.className = ''" name="description" [(ngModel)]="bloodBankRequest.description" formControlName="description"></p>
+            <span *ngIf="description && description.invalid && description.touched" style="color: red;">
+                Description is required!
+            </span>
+        </div>
+        <div>Address:
+            <p><input placeholder="Country..." oninput="this.className = ''"  name="country" [(ngModel)]="bloodBankRequest.address.country" formControlName="country"></p>
+            <span *ngIf="country && country.invalid && country.touched "style="color: red;">
+                Country is required!
+            </span>
+            <p><input placeholder="City..." oninput="this.className = ''" name="city" [(ngModel)]="bloodBankRequest.address.city" formControlName="city"></p>
+            <span *ngIf="city && city.invalid && city.touched "style="color: red;">
+                City is required!
+            </span>
+            <p><input placeholder="Street..." oninput="this.className = ''" name="street" [(ngModel)]="bloodBankRequest.address.street" formControlName="street"></p>
+            <span *ngIf="street && street.invalid && street.touched "style="color: red;">
+                Street is required!
+            </span>
+            <p><input placeholder="Number..." oninput="this.className = ''" name="number" [(ngModel)]="bloodBankRequest.address.number" formControlName="number"></p>
+            <span *ngIf="number&& number.invalid && number.touched "style="color: red;">
+                Number is required!
+            </span>
+        </div>
+        <div >Admin:
+            <p><input placeholder="Name..." oninput="this.className = ''"  name="adminName" [(ngModel)]="user.name" formControlName="nameAdmin"></p>
+            <span *ngIf="nameAdmin && nameAdmin.invalid && nameAdmin.touched" style="color: red;">
+                Name is required!
+            </span>
+            <span *ngIf="!isValid(user.name) && nameAdmin && nameAdmin.touched  && !nameAdmin.invalid" style="color: red;">
+                The name must start with a capital letter and must have 2 or more letters!
+            </span>
+            <p><input placeholder="Surname..." oninput="this.className = ''" name="surname" [(ngModel)]="user.surname" formControlName="surname"></p>
+            <span *ngIf="surname && surname.invalid && surname.touched "style="color: red;">
+                Surname is required!
+            </span>
+
+            <span *ngIf="!isValid(user.surname) && surname && surname.touched  && !surname.invalid" style="color: red;">
+                The surname must start with a capital letter and must have two or more letters!
+            </span>
+            <p><input placeholder="E-mail..." oninput="this.className = ''" name="email" [(ngModel)]="user.email" formControlName="email"></p>
+            <span *ngIf="email && email.invalid && email.touched" style="color: red;">
+                Email is required!
+            </span>
+            <br>
+            <span *ngIf="!isValidEmail(user.email) && email && email.touched  && !email.invalid" style="color: red;">
+                Email must have specific form something@mailserver.topdomain!
+            </span>
+            <p><input placeholder="Country..." oninput="this.className = ''" name="adminCountry" [(ngModel)]="user.address.country" formControlName="countryAdmin"></p>
+            <span *ngIf="countryAdmin && countryAdmin.invalid && countryAdmin.touched "style="color: red;">
+                Country is required!
+            </span>
+            <p><input placeholder="City..." oninput="this.className = ''" name="adminCity" [(ngModel)]="user.address.city" formControlName="cityAdmin"></p>
+            <span *ngIf="cityAdmin && cityAdmin.invalid && cityAdmin.touched "style="color: red;">
+                City is required!
+            </span>
+            <p><input placeholder="Street..." oninput="this.className = ''" name="adminStreet" [(ngModel)]="user.address.street" formControlName="streetNumber"></p>
+            <span *ngIf="streetNumber && streetNumber.invalid && streetNumber.touched "style="color: red;">
+                Street is required!
+            </span>
+            <p><input placeholder="Number..." oninput="this.className = ''" name="adminNumber" [(ngModel)]="user.address.number" formControlName="address"></p>
+            <span *ngIf="address && address.invalid && address.touched "style="color: red;">
+                Number is required!
+            </span>
+            <p><input placeholder="URN..." oninput="this.className = ''" name="urn" [(ngModel)]="user.URN" formControlName="URN"></p>
+            <span *ngIf="URN && URN.invalid && URN.touched "style="color: red;">
+                URN is required!
+            </span>
+            <span *ngIf="!isURNValid() && URN && URN.touched  && !URN.invalid" style="color: red;">
+                URN must have 13 digits!
+            </span>
+            <p><input placeholder="Gender..." oninput="this.className = ''" name="gender" [(ngModel)]="user.gender" formControlName="gender"></p>
+            <span *ngIf="gender && gender.touched && gender.invalid"style="color: red;">
+                Gender is required!
+            </span>
+            <p><input placeholder="Info about institution..." oninput="this.className = ''" name="info" [(ngModel)]="user.infoAboutInstitution" formControlName="infoAboutInstitution"></p>
+            <span *ngIf="infoAboutInstitution && infoAboutInstitution.invalid && infoAboutInstitution.touched "style="color: red;">
+                Info about institution is required!
+            </span>
+        </div>
+        <button mat-stroked-button [disabled]="registrationForm.invalid">Submit</button>
+
+    </form>

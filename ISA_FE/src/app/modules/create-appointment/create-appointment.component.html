@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="container">
+    <div class="container-f">
+      <div>
+        <div class="title-container">
+          <h1 class="title">Create Appointment</h1>
+        </div>
+        <div class="dateOfAppointment">
+          <div id="mainContent">
+            <label for="dateofbirth">Choose date:</label>
+          </div>
+          <div id="sideContent">
+            <input type="date" name="dateofbirth" class="dateofbirth" id="dateofbirth" [(ngModel)] = "app.date">
+          </div>
+        </div>
+        <div class="timeOfAppointment">
+          <div id="mainContent">
+            <label for="dateofbirth" class="time">Choose time:</label>
+          </div>
+          <div id="sideContent">
+            <input type="time" class="timeInput" [(ngModel)] = "app.time">
+          </div>
+        </div>
+        <div class="duration">
+          <div id="mainContent">
+            <label for="dateofbirth">Duration:</label>
+          </div>
+          <div id="sideContent">
+            <input type="number" class="durationInput" [(ngModel)] = "app.duration">
+          </div>
+        </div>
+        <div>
+          <button class="submitButton" (click)="scheduleAppointment()">Schedule</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

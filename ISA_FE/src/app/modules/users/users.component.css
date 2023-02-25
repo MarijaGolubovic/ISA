@@ -1,0 +1,70 @@
+.container {
+    width: 70%;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 3px;
+    border: #DCD6CC 1px solid;
+    background-color: white;
+}
+
+table {
+    width: 100%;
+}
+
+.table-title {
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-left: 20px;
+    font-size: 20px;
+
+}
+
+.search{
+    margin-right: 0%;
+}
+
+.cell-center {
+    text-align: center;
+}
+
+tr:nth-child(even) {background: #CCC}
+
+.first{
+    position:absolute;
+}
+.second{
+   position: relative;
+   margin-top: 2%;
+}
+
+.clickable:hover {
+    font-weight: bold;
+    cursor: pointer;
+}feature-searchCenters
+
+.add-button {
+    margin: 10px 20px 10px 10px;
+    color: black;
+    background-color: #edece5;
+    float: right;
+}
+
+.table-header {
+    display: flex;
+    background-color: gray;
+}
+
+p {
+    float: left;
+    margin-right: auto;
+}
+
+.sort-button{
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+th{
+    user-select: none;
+}
