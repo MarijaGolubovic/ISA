@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router'; // Dodajte Router
+import { AuthService } from 'src/app/auth/auth_service';
 
 @Component({
   selector: 'app-login-user',
@@ -8,25 +8,21 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./login-user.component.css']
 })
 export class LoginUserComponent implements OnInit {
-  email: string | undefined;
-  password: string | undefined;
+  email: string = "";
+  password: string = "";
 
-  constructor(private http: HttpClient) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   login(): void {
-    const data = {
-      email: this.email,
-      password: this.password
-    };
-
-    this.http.post('/login', data).subscribe(
-      response => {
-        console.log(response);
+    this.authService.login(this.email, this.password).subscribe(
+      (response: any) => {
+        this.authService.storeAuthToken(response.token); 
+        this.router.navigate(['/']); 
       },
-      error => {
+      (error: any) => {
         console.error(error);
       }
     );

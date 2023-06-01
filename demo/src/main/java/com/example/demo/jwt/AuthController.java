@@ -15,6 +15,7 @@ public class AuthController {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserDetailsServiceImpl userDetailsService;
 
+
     public AuthController(
             AuthenticationManager authenticationManager,
             JwtTokenProvider jwtTokenProvider,
@@ -23,7 +24,7 @@ public class AuthController {
         this.jwtTokenProvider = jwtTokenProvider;
         this.userDetailsService = userDetailsService;
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
         System.out.print("=============================="+authRequest.getUsername()+ authRequest.getPassword()+"\n");

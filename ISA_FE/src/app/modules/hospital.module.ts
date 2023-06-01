@@ -40,6 +40,9 @@ import { CalendarComponent } from "./calendar/calendar.component";
 import { UsersBloodCenterComponent } from './users-blood-center/users-blood-center.component';
 import { FutureAppointmentsBBComponent } from './future-appointments-bb/future-appointments-bb.component';
 import { BloodSupplyComponent } from './blood-supply/blood-supply.component';
+import { UserTypeGuard } from "../auth/auth_guards";
+import { UserRolesGuards } from "../auth/user_guard";
+import { UnautorizedComponentComponent } from './unautorized-component/unautorized-component.component';
 
 
 const routes: Routes = [
@@ -67,9 +70,11 @@ const routes: Routes = [
   { path: '', component : AllCentersComponent},
   { path: 'login', component : LoginUserComponent},
   { path: 'calendar', component : CalendarComponent},
-  { path: 'homeAdmin', component : UsersBloodCenterComponent},
+  // { path: 'homeAdmin', component : UsersBloodCenterComponent},
+  { path: 'homeAdmin', component: UsersBloodCenterComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_CENTER } },
   { path: 'appointmentBB', component : FutureAppointmentsBBComponent},
-  { path: 'bloodSupply', component : BloodSupplyComponent}
+  { path: 'bloodSupply', component : BloodSupplyComponent},
+  { path: 'unautorized', component : UnautorizedComponentComponent}
 ]
 
 @NgModule({
@@ -99,7 +104,8 @@ const routes: Routes = [
     CalendarComponent,
     UsersBloodCenterComponent,
     FutureAppointmentsBBComponent,
-    BloodSupplyComponent
+    BloodSupplyComponent,
+    UnautorizedComponentComponent
   ],
   imports: [
     CommonModule,
@@ -125,7 +131,7 @@ const routes: Routes = [
     useFactory: adapterFactory,
   }),
     ],
-  providers: [DayService, WeekService, WorkWeekService, MonthService, MonthAgendaService],
+  providers: [DayService, WeekService, WorkWeekService, MonthService, MonthAgendaService, UserTypeGuard],
   exports: [ RouterModule ]
 })
 export class HospitalModule { }

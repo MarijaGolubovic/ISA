@@ -1,12 +1,14 @@
-<p>Login</p>
-<div>
-  <label for="email">Email</label>
-  <input type="text" id="email" [(ngModel)]="email">
-</div>
-<div>
-  <label for="password">Password</label>
-  <input type="password" id="password" [(ngModel)]="password">
-</div>
-<div>
-  <button type="button" (click)="login()">Login</button>
+<div class="login-container">
+  <p>Login</p>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input class="input-field" type="text" id="email" [(ngModel)]="email">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input class="input-field" type="password" id="password" [(ngModel)]="password">
+  </div>
+  <div class="button-container">
+    <button class="button" type="button" (click)="login()">Login</button>
+  </div>
 </div>
