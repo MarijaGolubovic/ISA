@@ -45,6 +45,7 @@ import { UserRolesGuards } from "../auth/user_guard";
 import { UnautorizedComponentComponent } from './unautorized-component/unautorized-component.component';
 
 
+
 const routes: Routes = [
   { path: 'users', component: UsersComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_CENTER } },
   { path: 'users/edit', component: EditUserComponent , canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },

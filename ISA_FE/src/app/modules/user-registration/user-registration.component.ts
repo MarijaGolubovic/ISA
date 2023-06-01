@@ -4,6 +4,7 @@ import { RegistratedUser } from '../model/user.model';
 import { UserService } from '../services/user.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { transition } from '@angular/animations';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-registration',
@@ -38,11 +39,34 @@ export class UserRegistrationComponent{
     await this.router.navigateByUrl('/users')
   }
 
-  public registerUser(){
-    this.userService.registerUser(this.user).subscribe(res => {
-        this.redirectToUsers();
-        return console.log("User is created!");
-    });
+  // public registerUser(){
+  //   this.user.URN  = this.registrationForm.get('URN')!.value || "1234567890123"; 
+  //   this.userService.registerUser(this.user).subscribe(res => {
+  //       this.router.navigate(['/login']);
+  //       return console.log("User is created!");
+  //   });
+  // }
+
+
+  public registerUser() {
+    if (this.registrationForm.valid) {
+      this.user.URN = this.registrationForm.get('URN')!.value || "1234567890123";
+      this.userService.registerUser(this.user).subscribe(
+        (response: any) => {
+          if (response.status === 'success') {
+            this.router.navigate(['/login']);
+          } else if (response.status === 'error') {
+            alert('Email is already taken!')
+          }
+        },
+        (error: HttpErrorResponse) => {
+          console.error("Registration failed:", error);
+          alert('Email is already taken!')
+        }
+      );
+    } else {
+      console.log("Form is not valid.");
+    }
   }
 
   get name()  {
@@ -187,7 +211,6 @@ export class UserRegistrationComponent{
       phoneValid=true;
     
     allIsValid= nameValid && surnameValid && emailValid && longPasswordValid && passwordCorrect && genderValid && urnValid && phoneValid;
-    
     return allIsValid
   }
 

@@ -1,5 +1,8 @@
 package com.example.demo.jwt;
 
+import com.example.demo.model.User;
+import com.example.demo.model.enumerations.UserStatus;
+import com.example.demo.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,20 +17,26 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserDetailsServiceImpl userDetailsService;
+    private final UserRepository userRepository;
 
 
     public AuthController(
             AuthenticationManager authenticationManager,
             JwtTokenProvider jwtTokenProvider,
-            UserDetailsServiceImpl userDetailsService) {
+            UserDetailsServiceImpl userDetailsService, UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userDetailsService = userDetailsService;
+        this.userRepository = userRepository;
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
         System.out.print("=============================="+authRequest.getUsername()+ authRequest.getPassword()+"\n");
+        User user = userRepository.findByEmail(authRequest.getUsername());
+        if(user.getUserStatus() == UserStatus.NOT_ACTIVATED){
+            return ResponseEntity.badRequest().build();
+        }
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
         );

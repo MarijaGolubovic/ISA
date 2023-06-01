@@ -95,4 +95,47 @@ public class EmailServiceImpl implements EmailService {
             return "Error while sending mail!!!";
         }
     }
+
+    public void sendActivationEmail(String toEmail, String activationCode) {
+        String subject = "Activate Your Account";
+        String message = "<html><body>" +
+                "<h2>Activate Your Account</h2>" +
+                "<p>Click the following link to activate your account:</p>" +
+                "<a href=\"http://localhost:8081/api/user/activate/" + activationCode + "\">Activate Account</a>" +
+                "</body></html>";
+
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
+
+        try {
+            mimeMessageHelper.setTo(toEmail);
+            mimeMessageHelper.setSubject(subject);
+            mimeMessageHelper.setText(message, true); // Set the second parameter to true for HTML content
+            javaMailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void successActivation(String toEmail) {
+        String subject = "Account Activation";
+        String message = "<html><body>" +
+                "<h2>Account Activation</h2>" +
+                "<p>Your account is successfully activated. You can login by clicking the link below:</p>" +
+                "<a href=\"http://localhost:4200/login\"><b>Login</b></a>" +
+                "</body></html>";
+
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
+
+        try {
+            mimeMessageHelper.setTo(toEmail);
+            mimeMessageHelper.setSubject(subject);
+            mimeMessageHelper.setText(message, true); // Set the second parameter to true for HTML content
+            javaMailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 }
