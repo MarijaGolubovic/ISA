@@ -3,6 +3,7 @@ package com.example.demo.model;
 import com.example.demo.model.enumerations.AppointmentStatus;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table
@@ -22,6 +23,7 @@ public class QRCode {
 
     private Long userId;
     private Long appointmentId;
+    private Date appointmentDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name="appstatus")
@@ -32,9 +34,18 @@ public class QRCode {
     }
 
 
-    public QRCode(Long userId, Long appointmentId, AppointmentStatus appointmentStatus) {
+    public Date getAppointmentDate() {
+        return appointmentDate;
+    }
+
+    public void setAppointmentDate(Date appointmentDate) {
+        this.appointmentDate = appointmentDate;
+    }
+
+    public QRCode(Long userId, Long appointmentId, Date appointmentDate, AppointmentStatus appointmentStatus) {
         this.userId = userId;
         this.appointmentId = appointmentId;
+        this.appointmentDate = appointmentDate;
         this.appointmentStatus = appointmentStatus;
     }
 

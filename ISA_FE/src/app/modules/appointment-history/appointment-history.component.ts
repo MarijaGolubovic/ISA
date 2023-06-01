@@ -57,8 +57,8 @@ export class AppointmentHistoryComponent implements OnInit {
         return 'FREE';
       case 'BUSY':
         return 'BUSY';
-      case 'CANCELED':
-        return 'CANCELED';
+      case 'CANCELD':
+        return 'CANCELD';
       case 'DONE':
         return 'DONE';
       default:

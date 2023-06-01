@@ -30,7 +30,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long>{
 	@Query("select app from Appointment app where app.bloodBank.id = ?1 and app.status = \'DONE\'")
 	List<Appointment> getDoneAppointmentsByBloodBankID(Long id);
 
-	@Query("select app from Appointment app where app.status = \'FREE\'")
+	@Query("select app from Appointment app where app.status = \'FREE\' or app.status = \'CANCELD\'")
 	List<Appointment> getFreeAppointments();
 
 	@Query("select app from Appointment app where app.user.id = ?1 and app.status = \'DONE\'")

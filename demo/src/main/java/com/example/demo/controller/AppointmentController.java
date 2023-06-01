@@ -167,4 +167,18 @@ public class AppointmentController {
 		return appService.getHistoryForUser(userService.getCurrentUser().getId());
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED', 'ROLE_ADMIN_SISTEM')")
+	@GetMapping("/getBusyApointmentForUser")
+	public List<Appointment> getBusyApointmentForUser() {
+		return this.appService.getBusyAppointments(userService.getCurrentUser().getId());
+	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PreAuthorize("hasAuthority('ROLE_REGISTERED')")
+	@PostMapping("/cancelAppointment/{appointmentId}")
+	public boolean cancelAppointment(@PathVariable Long appointmentId ) {
+		return appService.cancelApointment(appointmentId);
+	}
+
 }

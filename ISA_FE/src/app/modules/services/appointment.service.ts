@@ -34,7 +34,7 @@ export class AppointmentService {
   }
 
   getFutureAppointments(): Observable<FutureAppointmentDTO[]> {
-    return this.http.get<FutureAppointmentDTO[]>(this.apiHost + 'api/appointments/getAllFutureAppointmentsForLoggedUser', {headers: this.createHeaders()});
+    return this.http.get<FutureAppointmentDTO[]>(this.apiHost + 'api/appointments/getBusyApointmentForUser', {headers: this.createHeaders()});
   }
 
   getFutureAppointmentByID(): Observable<FutureAppointmentDTO[]> {
@@ -66,5 +66,9 @@ export class AppointmentService {
 
   getAppointmentHistoryForUser(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiHost}api/appointments/getHistoryForUser`, {headers: this.createHeaders()});
+  }
+
+  cancelAppointment(appointmentId: number): Observable<any> {
+    return this.http.post(`${this.apiHost}api/appointments/cancelAppointment/${appointmentId}`, null, {headers: this.createHeaders()});
   }
 }

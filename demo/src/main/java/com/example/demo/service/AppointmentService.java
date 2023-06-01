@@ -1,10 +1,9 @@
 package com.example.demo.service;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Period;
-import java.time.ZoneId;
+import java.time.*;
+import java.time.chrono.ChronoLocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.dto.AppointmentUserDTO;
 import com.example.demo.dto.CreateAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentsBBDTO;
@@ -38,18 +36,21 @@ public class AppointmentService {
 	private final BloodBankRepository bloodRepo;
 	private final CenterRepository bbRepo;
 	private final UserRepository userRepo;
+	private final CanceledAppointmentService canceledAppointmentService;
 	private final EmailService emailService;
 	private final QRCodeGenerator qrCodeGenerator;
 	private final QRCodeService qrCodeService;
+	private final UserService userService;
 	private final EmailServiceImpl emailServiceImple;
 
 
 	private static final String QR_CODE_IMAGE_PATH = "./src/main/resources/images/QRCode.png";
 	
 	@Autowired
-	public AppointmentService(AppointmentRepository repo, BloodBankRepository bloodRepo, CenterRepository bbRepo, UserRepository userRepo, EmailServiceImpl emailService, QuestionnairuService questionnairuService, QRCodeGenerator qr, QRCodeService qrCodeService, EmailServiceImpl emailServiceImple)
+	public AppointmentService(AppointmentRepository repo, BloodBankRepository bloodRepo, CenterRepository bbRepo, UserRepository userRepo, CanceledAppointmentService canceledAppointmentService, EmailServiceImpl emailService, QuestionnairuService questionnairuService, QRCodeGenerator qr, QRCodeService qrCodeService, UserService userService, EmailServiceImpl emailServiceImple)
 	{
 		this.appRepo = repo;
+		this.canceledAppointmentService = canceledAppointmentService;
 		this.questionnairuService = questionnairuService;
 		this.bbRepo = bbRepo;
 		this.userRepo = userRepo;
@@ -57,6 +58,7 @@ public class AppointmentService {
 		this.bloodRepo = bloodRepo;
 		this.qrCodeGenerator = qr;
 		this.qrCodeService = qrCodeService;
+		this.userService = userService;
 		this.emailServiceImple = emailServiceImple;
 	}
 	
@@ -309,7 +311,7 @@ public class AppointmentService {
 		String QRPath = "./src/main/resources/images/"+appointment.getId()+".png";
 		qrCodeGenerator.generateQRCodeImage(qrCodeContent,150,150, QRPath);
 		emailServiceImple.sendQRCodeEmailWithAttachment(user.getEmail(), appointment.getId(), QRPath);
-		qrCodeService.save(new QRCode(user.getId(), appointment.getId(), AppointmentStatus.BUSY));
+		qrCodeService.save(new QRCode(user.getId(), appointment.getId(), appointment.getDate(), AppointmentStatus.BUSY));
 	}
 
 
@@ -319,5 +321,27 @@ public class AppointmentService {
 			appointment.setUser(null);
 		return  appointments;
 	}
-	
+
+	public List<Appointment> getBusyAppointments(Long userId){
+		return appRepo.getBusyAppointmentsForUser(userId);
+	}
+
+	public boolean canCancelAppointment(Appointment appointment){
+		LocalDateTime currentDateTime = LocalDateTime.now();
+		LocalDate appointmentDate = appointment.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDateTime twentyFourHoursBefore = currentDateTime.plus(24, ChronoUnit.HOURS);
+		return appointmentDate.isAfter(ChronoLocalDate.from(twentyFourHoursBefore));
+	}
+
+	public boolean cancelApointment(Long appointmentId){
+		Appointment appointment = appRepo.getById(appointmentId);
+		Date currentDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Long userId = userService.getCurrentUser().getId();
+		if(canCancelAppointment(appointment) == false)
+			return false;
+		appointment.setStatus(AppointmentStatus.CANCELD);
+		canceledAppointmentService.save(new CanceledApointments(userId, appointmentId, currentDate));
+		appRepo.save(appointment);
+		return  true;
+	}
 }
