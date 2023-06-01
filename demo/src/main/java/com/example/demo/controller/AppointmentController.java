@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.dto.*;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,13 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.model.Appointment;
-import com.example.demo.dto.BloodBankRegistrationRequest;
-import com.example.demo.dto.BloodTypeDTO;
 import com.example.demo.dto.CreateAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentsBBDTO;
 import com.example.demo.dto.SurveyDTO;
-import com.example.demo.model.Appointment;
 import com.example.demo.model.enumerations.AppointmentStatus;
 import com.example.demo.dto.AppointmentUserDTO;
 import com.example.demo.dto.AppoitmentScheduleDto;
@@ -30,11 +29,7 @@ import com.example.demo.service.BloodBankService;
 import com.example.demo.service.BloodSupplyService;
 import com.google.gson.Gson;
 
-import java.io.Console;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping(path="api/appointments")
@@ -43,12 +38,14 @@ public class AppointmentController {
 	private final AppointmentService appService;
 	private final BloodBankService bbService;
 	private final BloodSupplyService bsService;
+	private final UserService userService;
 	
 	@Autowired
-	public AppointmentController(AppointmentService appservice, BloodBankService bbService, BloodSupplyService bsService) {
+	public AppointmentController(AppointmentService appservice, BloodBankService bbService, BloodSupplyService bsService, UserService userService) {
 		this.appService = appservice;
 		this.bbService = bbService;
 		this.bsService = bsService;
+		this.userService = userService;
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
@@ -57,24 +54,28 @@ public class AppointmentController {
     public String getMessageAboutAvailability(@RequestBody CreateAppointmentDTO appDTO) {
 		Appointment app = appService.convertCreateAppointmentDTOtoAppointment(appDTO);
 		String message = new Gson().toJson(appService.getMessageAboutAvailability(app));
-        return message;
+		System.out.println("////////////////////////////"+message);
+		return message;
     }
-	
+
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED')")
 	@RequestMapping(path = "/create", method = RequestMethod.PUT)
 	public Appointment saveAppointment(@RequestBody CreateAppointmentDTO appDTO) {
 		Appointment app = appService.convertCreateAppointmentDTOtoAppointment(appDTO);
 		Appointment app1 = this.appService.saveAppointment(app);
+		System.out.println("Hello========================== " + app1.getId());
 		return app1;
 	}
-	
+
+
+
 	//ovdje ide id logovanog usera
 	@CrossOrigin(origins = "http://localhost:4200")
-	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED')")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED', 'ROLE_ADMIN_SISTEM')")
     @GetMapping("/getAllFutureAppointmentsForLoggedUser")
     public List<FutureAppointmentDTO> getAllFutureAppointmentsForLoggedUser() {
-		return this.appService.getAllFutureAppointmentsForLoggedUser(1L);
+		return this.appService.getAllFutureAppointmentsForLoggedUser(userService.getCurrentUser().getId());
     }
 
 	@CrossOrigin(origins = "http://localhost:4200")
@@ -91,7 +92,7 @@ public class AppointmentController {
 	public List<AppointmentResponse> getAllFutureAppointmentResponsesForLoggedUser() {
 		return this.appService.getAllFutureAppointmentResponsesForLoggedUser();
 	}
-	
+
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED')")
 	@RequestMapping(path = "/schedule", method = RequestMethod.PUT)
@@ -115,28 +116,45 @@ public class AppointmentController {
 		}
 		return list1;
 	}
-	
+
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED')")
 	@GetMapping("/getAppointment/{iD}")
 	public AppointmentUserDTO getAllForAdminCenter(@PathVariable Long iD) {
-		Appointment app= appService.getById(iD);		
+		Appointment app= appService.getById(iD);
 		return appService.convertAppointmentToAppointmentUserDTO(app);
 	}
-	
-	@CrossOrigin(origins = "http://localhost:4200")
-	@RequestMapping(path = "/addSurvey/{iD}", method = RequestMethod.PUT)
-	public void addSurvey(@RequestBody SurveyDTO surveyDTO,@PathVariable Long iD) {
-		Appointment app= appService.getById(iD);
-		app.setSurvey(appService.convertSurveyDTOToSurvey(surveyDTO)); 
-		app.setStatus(AppointmentStatus.DONE);
-		bsService.addDonatedQuantity(app.getBloodBank().getId(), 1, app.getSurvey().getBloodType());
-		appService.update(app);
-	}
-	
+
+//	@CrossOrigin(origins = "http://localhost:4200")
+//	@RequestMapping(path = "/addSurvey/{iD}", method = RequestMethod.PUT)
+//	public void addSurvey(@RequestBody SurveyDTO surveyDTO,@PathVariable Long iD) {
+//		Appointment app= appService.getById(iD);
+//		app.setSurvey(appService.convertSurveyDTOToSurvey(surveyDTO));
+//		app.setStatus(AppointmentStatus.DONE);
+//		bsService.addDonatedQuantity(app.getBloodBank().getId(), 1, app.getSurvey().getBloodType());
+//		appService.update(app);
+//	}
+
 	@CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/getAllFutureAppointmentsForBB/{iD}")
     public List<FutureAppointmentsBBDTO> getAllFutureAppointmentsBB(@PathVariable Long iD) {
 		return this.appService.getAllFutureAppointmentsBB(2);
     }
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED')")
+	@GetMapping("/getAllFree")
+	public List<Appointment> getAllFree() {
+		System.out.print("=============================="+appService.getAll().size()+"\n");
+		return appService.getFreeAppointments();
+	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PreAuthorize("hasAuthority('ROLE_REGISTERED')")
+	@PostMapping("/takeAppointment/{appointmentId}")
+	public int takeAppointment(@PathVariable Long appointmentId ) {
+		return appService.takeAppointment(userService.getCurrentUser().getId(), appointmentId);
+	}
+
+
 }

@@ -1,34 +1,30 @@
 package com.example.demo.service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.BloodBank;
 import com.example.demo.model.Questionnaire;
-import com.example.demo.model.User;
-import com.example.demo.model.enumerations.Gender;
-import com.example.demo.model.enumerations.UserStatus;
-import com.example.demo.model.enumerations.UserType;
 import com.example.demo.repository.BloodBankRepository;
 import com.example.demo.repository.QuestionnairuRepository;
 import com.example.demo.repository.UserRepository;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 
 @Service
 public class QuestionnairuService {
 	private final QuestionnairuRepository QuestionnairuRepository;
 	private final UserRepository userRepository;
 	private final BloodBankRepository bbRepo;
+	private final UserService userService;
+
 	
 	@Autowired
-	public QuestionnairuService(QuestionnairuRepository questionnairuRepository, UserRepository userRepo, BloodBankRepository bbRepo) {
+	public QuestionnairuService(QuestionnairuRepository questionnairuRepository, UserRepository userRepo, BloodBankRepository bbRepo, UserService userService) {
 		this.QuestionnairuRepository=questionnairuRepository;
 		this.userRepository = userRepo;
 		this.bbRepo = bbRepo;
+		this.userService = userService;
 	}
 	
 	//BITNO umjesto usera stavi ulogovanog usera
@@ -38,7 +34,7 @@ public class QuestionnairuService {
 		question.setTimeOfExecution(LocalDate.now());
 		//BloodBank bankaKrvi1 = new BloodBank();
         //User user1 = new User("ilija.ilic@gmail.com", "123", "Ilija", "Ilic", null, "064522255", "1236548956324", Gender.MALE, "menadzer", "",  UserType.ADMIN_CENTER, UserStatus.ACTIVATED, 0,0, bankaKrvi1, List.of(question));
-		question.setUser(userRepository.getOne(1L));
+		question.setUser(userService.getCurrentUser());
 		//this.userRepository.save(user1);
         this.QuestionnairuRepository.save(question);
     }
@@ -71,5 +67,9 @@ public class QuestionnairuService {
 			}
 		}
 		return mostRecentQuestionnaire;
+	}
+	public List<Questionnaire>getUserQuestionairy(Long userId){
+		List<Questionnaire> all = this.QuestionnairuRepository.findAllByUserId(userId);
+		return all;
 	}
 }

@@ -46,6 +46,16 @@ public class User {
     private UserStatus userStatus;
     private int pointsNum;
     private int strikesNum;
+    private int penalsNumber;
+
+    public int getPenalsNumber() {
+        return penalsNumber;
+    }
+
+    public void setPenalsNumber(int penalsNumber) {
+        this.penalsNumber = penalsNumber;
+    }
+
     @Enumerated(EnumType.STRING)
     @Column(name="userCategory")
     private UserCategory userCategory;

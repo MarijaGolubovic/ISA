@@ -127,12 +127,12 @@ public class UserController {
         this.userService.updateUser(user);
     }
     
-    @CrossOrigin(origins = "http://localhost:4200")
-    @PreAuthorize("hasAuthority('ROLE_REGISTERED')")
-    @RequestMapping(path = "/usersBlood/{id}", method = RequestMethod.GET)
-    public List<UsersBloodRespons> getDoneAppointmentsUser(@PathVariable Long id) {
-        return userService.getDoneAppointmentsUserByBloodBankID(id);
-    }
+//    @CrossOrigin(origins = "http://localhost:4200")
+//    @PreAuthorize("hasAuthority('ROLE_REGISTERED')")
+//    @RequestMapping(path = "/usersBlood/{id}", method = RequestMethod.GET)
+//    public List<UsersBloodRespons> getDoneAppointmentsUser(@PathVariable Long id) {
+//        return userService.getDoneAppointmentsUserByBloodBankID(id);
+//    }
 
     @GetMapping("/activate/{code}")
     public String activateAccount(@PathVariable String code) {

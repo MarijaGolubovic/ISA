@@ -55,4 +55,12 @@ export class AppointmentService {
   getFutureAppointmentsBB(): Observable<FutureAppointmentBBDTO[]> {
     return this.http.get<FutureAppointmentBBDTO[]>(this.apiHost + 'api/appointments/getAllFutureAppointmentsForBB/' + '2', {headers: this.createHeaders()});
   }
+
+  getAllFreeAppointments(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiHost}api/appointments/getAllFree`, {headers: this.createHeaders()});
+  }
+
+  takeAppointment(appointmentId: number): Observable<any> {
+    return this.http.post(`${this.apiHost}api/appointments/takeAppointment/${appointmentId}`, null, {headers: this.createHeaders()});
+  }
 }

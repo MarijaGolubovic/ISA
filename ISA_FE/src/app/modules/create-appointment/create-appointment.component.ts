@@ -39,4 +39,12 @@ export class CreateAppointmentComponent implements OnInit {
       }
     })
   }
+  // scheduleAppointment(){
+    
+  //       this.appService.saveAppointment(this.app).subscribe(res => {
+  //         // this.alert.success({detail: 'Success!', summary: "You are successfully schedule appointment!", duration: 5000})
+  //         alert("Success!")
+  //       })
+     
+  // }
 }
