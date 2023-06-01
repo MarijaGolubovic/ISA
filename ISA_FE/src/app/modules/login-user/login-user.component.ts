@@ -34,6 +34,7 @@ export class LoginUserComponent implements OnInit {
       },
       (error: any) => {
         console.error(error);
+        alert("Invalid credentials!")
       }
     );
   }
