@@ -12,6 +12,9 @@ import com.example.demo.repository.AddressRepository;
 import com.example.demo.repository.AppointmentRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,6 +30,10 @@ public class UserService {
     private final BloodBankRepository BloodBankRepository;
     private final AppointmentRepository appRepo;
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
     @Autowired
     public UserService(UserRepository userRepository, AddressRepository addressRepository, BloodBankRepository bloodBankRepository, AppointmentRepository appointmentRepository){
         this.UserRepository = userRepository;
@@ -87,6 +94,8 @@ public class UserService {
     }
     
     public void registerUser(User u) {
+        String encodedPassword = passwordEncoder().encode(u.getPassword());
+        u.setPassword(encodedPassword);
         this.AddressRepository.save(u.getAddress());
     	this.UserRepository.save(u);
     }

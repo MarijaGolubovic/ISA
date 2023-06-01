@@ -11,6 +11,7 @@ import com.example.demo.service.UserService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,14 +19,13 @@ import java.util.List;
 @RestController
 @RequestMapping(path="api/user")
 public class UserController {
-
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN_CENTER')") // Prilagodite ovaj izraz prema svojim potrebama
     private final UserService userService;
 
     @Autowired
     public UserController(UserService userService){
         this.userService = userService;
     }
-
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public List<UserResponse> getAllUserResponses(){
