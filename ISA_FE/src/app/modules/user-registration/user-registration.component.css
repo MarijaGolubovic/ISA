@@ -11,6 +11,8 @@ body {
   .container {
     padding: 16px;
     background-color: white;
+    margin: auto;
+
   }
   
   /* Full-width input fields */

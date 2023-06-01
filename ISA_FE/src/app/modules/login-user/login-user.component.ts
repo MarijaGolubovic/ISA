@@ -20,7 +20,17 @@ export class LoginUserComponent implements OnInit {
     this.authService.login(this.email, this.password).subscribe(
       (response: any) => {
         this.authService.storeAuthToken(response.token); 
-        this.router.navigate(['/']); 
+        const userRoles = this.authService.getUserRoles();
+        if (userRoles !== null && userRoles.includes('ROLE_REGISTERED')) {
+          this.router.navigate(['allCenters']); 
+        }else if(userRoles !== null && userRoles.includes('ROLE_ADMIN_CENTER')) {
+          this.router.navigate(['calendar']); 
+        }else if(userRoles !== null && userRoles.includes('ROLE_ADMIN_SISTEM')) {
+          this.router.navigate(['add-admin-centar']); 
+        }
+
+        
+        
       },
       (error: any) => {
         console.error(error);
