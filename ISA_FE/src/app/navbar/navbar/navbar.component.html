@@ -6,6 +6,7 @@
       <li *ngIf="isLoggedIn() && isRegisteredUser()"><a routerLink="/questionnaire" routerLinkActive="active">Questionnaire</a></li>
       <li *ngIf="isLoggedIn() && isRegisteredUser()"><a routerLink="/viewAppointments" routerLinkActive="active">Schedule appointment</a></li>
       <li *ngIf="isLoggedIn() && isRegisteredUser()"><a routerLink="/usersFutureAppointments" routerLinkActive="active">Feature appointment</a></li>
+      <li *ngIf="isLoggedIn() && isRegisteredUser()"><a routerLink="/appointmentsHistory" routerLinkActive="active">Appointments history</a></li>
 
 
       <li *ngIf="isLoggedIn() && isAdminCenter()"><a routerLink="/users" routerLinkActive="active">Users</a></li>

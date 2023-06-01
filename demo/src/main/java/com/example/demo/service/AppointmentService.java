@@ -203,9 +203,9 @@ public class AppointmentService {
 		return appRepo.getById(iD);
 	}
 
-	public  AppointmentUserDTO convertAppointmentToAppointmentUserDTO(Appointment a) {
-		return new AppointmentUserDTO(a.getId(),a.getDate(), a.getTime(), a.getDuration(), a.getStatus(),a.getUser().getId(), new QuestionnairuDTO(questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion1(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion2(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion3(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion4(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion5(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion6(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion7(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion8(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion9(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion10(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion11(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion12()));
-	}
+//	public  AppointmentUserDTO convertAppointmentToAppointmentUserDTO(Appointment a) {
+//		return new AppointmentUserDTO(a.getId(),a.getDate(), a.getTime(), a.getDuration(), a.getStatus(),a.getUser().getId(), new QuestionnairuDTO(questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion1(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion2(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion3(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion4(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion5(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion6(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion7(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion8(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion9(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion10(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion11(),questionnairuService.getLastQuestionnaire(a.getUser().getId()).isQuestion12()));
+//	}
 
 	public  Survey convertSurveyDTOToSurvey(SurveyDTO s) {
 		return new Survey(s.getBloodType(), s.getGeneralCondition(), s.getSystolicBP(),s.getDiastolicBP(), s.getPulse(), s.getUsedBags());
@@ -220,7 +220,12 @@ public class AppointmentService {
 	}
 
 	public  List<Appointment>getFreeAppointments(){
-		return  appRepo.getFreeAppointments();
+
+		List<Appointment> appointments = appRepo.getFreeAppointments();
+		for(Appointment appointment : appointments)
+			appointment.setUser(null);
+		return  appointments;
+
 	}
 
 	public boolean appointmentInLastSixMonth(Long userId){
@@ -267,8 +272,17 @@ public class AppointmentService {
 		appointment.setUser(userRepo.findById(userId).get());
 		appointment.setStatus(AppointmentStatus.BUSY);
 		appRepo.save(appointment);
+		setQuestion(userId);
 		generateQRCodeForAppointment(userId, appointment.getId());
 		return 0;
+	}
+
+	public void setQuestion(Long userId){
+		List<Questionnaire> questionnaires = questionnairuService.getUserQuestionairy(userId);
+		for(Questionnaire q: questionnaires){
+			q.setUser(null);
+			questionnairuService.save(q);
+		}
 	}
 
 	public void generateQRCodeForAppointment(Long userId, Long appointmentId) throws IOException, WriterException, MessagingException {
@@ -296,6 +310,14 @@ public class AppointmentService {
 		qrCodeGenerator.generateQRCodeImage(qrCodeContent,150,150, QRPath);
 		emailServiceImple.sendQRCodeEmailWithAttachment(user.getEmail(), appointment.getId(), QRPath);
 		qrCodeService.save(new QRCode(user.getId(), appointment.getId(), AppointmentStatus.BUSY));
+	}
+
+
+	public List<Appointment> getHistoryForUser(Long userId){
+		List<Appointment> appointments = appRepo.getHistoryForUser(userId);
+		for(Appointment appointment : appointments)
+			appointment.setUser(null);
+		return  appointments;
 	}
 	
 }

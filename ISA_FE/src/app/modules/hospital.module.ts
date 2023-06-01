@@ -44,6 +44,7 @@ import { UserTypeGuard } from "../auth/auth_guards";
 import { UserRolesGuards } from "../auth/user_guard";
 import { UnautorizedComponentComponent } from './unautorized-component/unautorized-component.component';
 import { ViewAppointmentsComponent } from './view-appointments/view-appointments.component';
+import { AppointmentHistoryComponent } from './appointment-history/appointment-history.component';
 
 
 
@@ -78,7 +79,8 @@ const routes: Routes = [
   { path: 'appointmentBB', component : FutureAppointmentsBBComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_SISTEM } },
   { path: 'bloodSupply', component : BloodSupplyComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_SISTEM } },
   { path: 'unautorized', component : UnautorizedComponentComponent},
-  { path: 'viewAppointments', component : ViewAppointmentsComponent}
+  { path: 'viewAppointments', component : ViewAppointmentsComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
+  { path: 'appointmentsHistory', component : AppointmentHistoryComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } }
 ]
 
 @NgModule({
@@ -110,7 +112,8 @@ const routes: Routes = [
     FutureAppointmentsBBComponent,
     BloodSupplyComponent,
     UnautorizedComponentComponent,
-    ViewAppointmentsComponent
+    ViewAppointmentsComponent,
+    AppointmentHistoryComponent
   ],
   imports: [
     CommonModule,

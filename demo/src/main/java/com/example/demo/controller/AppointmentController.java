@@ -120,13 +120,13 @@ public class AppointmentController {
 		return list1;
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
-	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED')")
-	@GetMapping("/getAppointment/{iD}")
-	public AppointmentUserDTO getAllForAdminCenter(@PathVariable Long iD) {
-		Appointment app= appService.getById(iD);
-		return appService.convertAppointmentToAppointmentUserDTO(app);
-	}
+//	@CrossOrigin(origins = "http://localhost:4200")
+//	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED')")
+//	@GetMapping("/getAppointment/{iD}")
+//	public AppointmentUserDTO getAllForAdminCenter(@PathVariable Long iD) {
+//		Appointment app= appService.getById(iD);
+//		return appService.convertAppointmentToAppointmentUserDTO(app);
+//	}
 
 //	@CrossOrigin(origins = "http://localhost:4200")
 //	@RequestMapping(path = "/addSurvey/{iD}", method = RequestMethod.PUT)
@@ -159,5 +159,12 @@ public class AppointmentController {
 		return appService.takeAppointment(userService.getCurrentUser().getId(), appointmentId);
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED')")
+	@GetMapping("/getHistoryForUser")
+	public List<Appointment> getHistoryForUser() {
+
+		return appService.getHistoryForUser(userService.getCurrentUser().getId());
+	}
 
 }

@@ -63,4 +63,8 @@ export class AppointmentService {
   takeAppointment(appointmentId: number): Observable<any> {
     return this.http.post(`${this.apiHost}api/appointments/takeAppointment/${appointmentId}`, null, {headers: this.createHeaders()});
   }
+
+  getAppointmentHistoryForUser(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiHost}api/appointments/getHistoryForUser`, {headers: this.createHeaders()});
+  }
 }

@@ -39,6 +39,9 @@ public class QuestionnairuService {
         this.QuestionnairuRepository.save(question);
     }
 
+	public void save(Questionnaire q){
+		this.QuestionnairuRepository.save(q);
+	}
 	public boolean checkIfQuestionnaireHasBeenCompletedInLastSixMonths(long userId) {
 		List<Questionnaire> all = this.QuestionnairuRepository.findAllByUserId(userId);
 		LocalDate nowMinusSixMounths = LocalDate.now().minusMonths(6);
