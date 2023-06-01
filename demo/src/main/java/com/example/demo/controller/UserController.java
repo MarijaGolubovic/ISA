@@ -33,25 +33,36 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN_CENTER')")
     @GetMapping("/admin-center")
     public List<UserResponse> getAllAdminCentersWithoutBB(){
         return userService.getAdminCentersWithoutBB();
     }
     
+//    @CrossOrigin(origins = "http://localhost:4200")
+//    @RequestMapping(path = "/getLoggedUser", method = RequestMethod.GET)
+//    public User getLoggedUser() {
+//    	User user = userService.getByEmail("nikolina.nikolic@gmail.com");
+//    	return user;
+//    }
+
     @CrossOrigin(origins = "http://localhost:4200")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED', 'ROLE_ADMIN_SISTEM')")
     @RequestMapping(path = "/getLoggedUser", method = RequestMethod.GET)
     public User getLoggedUser() {
-    	User user = userService.getByEmail("nikolina.nikolic@gmail.com");
-    	return user;
+        User user = userService.getCurrentUser();
+        return user;
     }
     
     @CrossOrigin(origins = "http://localhost:4200")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED', 'ROLE_ADMIN_SISTEM')")
     @RequestMapping(path = "/saveUser", method = RequestMethod.PUT)
     public void saveUser(@RequestBody User u) {
         this.userService.saveUser(u);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN_CENTER')")
     @GetMapping("/admin")
     public List<UserResponse> getAllUsersForAdminCenter(){
         User admin = getLoggedUser();
@@ -59,6 +70,7 @@ public class UserController {
     }
     
     @GetMapping("/{bloodBankName}")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED', 'ROLE_ADMIN_SISTEM')")
     @ResponseBody
     public List<UserResponse> getAllUsersForAdminCenter(@PathVariable String bloodBankName){
         User user = getLoggedUser();
@@ -66,6 +78,7 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_ADMIN_SISTEM')")
     @RequestMapping(path = "/centersAdmins/{id}", method = RequestMethod.GET)
     public List<User> getCentersAdmins(@PathVariable Long id) {
         return userService.getCentersAdmins(id);
@@ -79,12 +92,14 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_ADMIN_SISTEM')")
     @RequestMapping(path = "/updateBloodBankID/{bloodbankId}", method = RequestMethod.PUT)
     public void update(@RequestBody UserResponse u, @PathVariable String bloodbankId) {
         this.userService.update(u, bloodbankId);
     }
     
     @CrossOrigin(origins = "http://localhost:4200")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN_CENTER')")
     @RequestMapping(path = "/addStrikes/{id}", method = RequestMethod.PUT)
     public void addStrikes(@PathVariable Long id) {
     	User user = this.userService.getById(id);
@@ -95,6 +110,7 @@ public class UserController {
     }
     
     @CrossOrigin(origins = "http://localhost:4200")
+    @PreAuthorize("hasAuthority('ROLE_REGISTERED')")
     @RequestMapping(path = "/usersBlood/{id}", method = RequestMethod.GET)
     public List<UsersBloodRespons> getDoneAppointmentsUser(@PathVariable Long id) {
         return userService.getDoneAppointmentsUserByBloodBankID(id);

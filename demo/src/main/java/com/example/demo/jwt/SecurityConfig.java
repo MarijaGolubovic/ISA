@@ -11,6 +11,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -44,16 +49,45 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http
+                .cors(cors -> cors.configurationSource(request -> {
+                    CorsConfiguration corsConfiguration = new CorsConfiguration();
+                    corsConfiguration.setAllowedOrigins(Collections.singletonList("http://localhost:4200")); // Dozvoljeni izvori
+                    corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE")); // Dozvoljene HTTP metode
+                    corsConfiguration.setAllowedHeaders(Collections.singletonList("*")); // Dozvoljeni zaglavlja
+                    corsConfiguration.setAllowCredentials(true); // Dozvoljene kredencijale (npr. zahtev sa kolačićima)
+
+                    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                    source.registerCorsConfiguration("/**", corsConfiguration); // Povežite sa svim endpointima
+
+                    return corsConfiguration;
+                }))
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/auth/**").permitAll() // Pristup javnim resursima
-                .antMatchers("/api/user/**").permitAll() // Pristup javnim resursima
-                .anyRequest().authenticated() // Svi ostali zahtjevi moraju biti autenticirani
+                .antMatchers("/api/auth/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint) // Dodajte vaš JwtAuthenticationEntryPoint
+                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider, userDetailsService), UsernamePasswordAuthenticationFilter.class);
     }
+
+
+
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/api/auth/**").permitAll() // Pristup javnim resursima
+////                .antMatchers("/api/user/**").permitAll() // Pristup javnim resursima
+//                .anyRequest().authenticated() // Svi ostali zahtjevi moraju biti autenticirani
+//                .and()
+//                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint) // Dodajte vaš JwtAuthenticationEntryPoint
+//                .and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .addFilterBefore(new JwtTokenFilter(jwtTokenProvider, userDetailsService), UsernamePasswordAuthenticationFilter.class);
+//    }
 }

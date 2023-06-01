@@ -7,6 +7,7 @@ import com.example.demo.model.enumerations.UserType;
 import com.example.demo.service.BloodBankService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,12 +30,14 @@ public class BloodBankController {
     public List<BloodBank> getAll() { return BloodBankService.getAll();}
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN_SISTEM')")
     @PostMapping("/register")
     public boolean register(@RequestBody BloodBankRegistrationRequest bb) {
         return BloodBankService.save(bb);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN_SISTEM')")
     @PostMapping("/add-admin-centar/{bankName}")
     public void AddAdminCenter(@RequestBody User user,@PathVariable String bankName) {
         BloodBank bb = BloodBankService.getByName(bankName);

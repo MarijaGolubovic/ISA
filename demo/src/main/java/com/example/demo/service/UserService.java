@@ -13,6 +13,8 @@ import com.example.demo.repository.AppointmentRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -136,5 +138,15 @@ public class UserService {
 		}
 		return users;
 	}
+
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName(); // Dohvatanje korisničkog imena
+        User user = getByEmail(username);
+        System.out.print("=============================="+user.getEmail()+"\n");
+        // Možete dohvatiti više informacija kao što su role, authorities, itd.
+
+        return user;
+    }
 
 }

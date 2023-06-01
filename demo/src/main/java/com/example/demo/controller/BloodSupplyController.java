@@ -6,6 +6,7 @@ import com.example.demo.model.BloodSupply;
 import com.example.demo.model.enumerations.BloodType;
 import com.example.demo.service.BloodSupplyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,23 +28,27 @@ public class BloodSupplyController {
     }
     
 	@CrossOrigin(origins = "http://localhost:4200")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER',  'ROLE_ADMIN_SISTEM')")
 	@GetMapping("/supply/{iD}")
     public List<BloodSupplyDTO> getBloodSupplyByBBID(@PathVariable Long iD){
         return bloodSupplyService.convertToDTO(bloodSupplyService.getBloodSupplyByBBID(iD));
     }
 
     @GetMapping("/bloodType/{bloodType}")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER',  'ROLE_ADMIN_SISTEM')")
     @ResponseBody
     public boolean checkBloodType(@PathVariable BloodTypeDTO bloodType){
         return bloodSupplyService.checkBloodType(bloodType);
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_ADMIN_SISTEM')")
     @RequestMapping(path = "/bloodType/{bloodType}/{quantity}", method = RequestMethod.GET)
     public boolean checkBloodTypeAndQuantity(@PathVariable BloodTypeDTO bloodType, @PathVariable int quantity) {
         return bloodSupplyService.checkBloodTypeAndQuantity(bloodType,quantity);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER',  'ROLE_ADMIN_SISTEM')")
     @RequestMapping(path = "/{bloodBankName}/{bloodType}/{quantity}", method = RequestMethod.GET)
     public boolean checkBloodSupplyByBloodBank(@PathVariable String bloodBankName, @PathVariable BloodType bloodType, @PathVariable int quantity) {
         return bloodSupplyService.checkBloodSupplyByBloodBank(bloodBankName,bloodType,quantity);

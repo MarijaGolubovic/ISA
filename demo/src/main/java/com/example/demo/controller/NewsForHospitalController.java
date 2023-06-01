@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ public class NewsForHospitalController {
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED', 'ROLE_ADMIN_SISTEM')")
 	@PostMapping
     public void sendNews(@RequestBody NewsForHospital news) {
 		news.setApiKey("NkwQR/sa7Rm97+S7/KQxqWl2nZhnWjzLX3dvHOTngEk=");

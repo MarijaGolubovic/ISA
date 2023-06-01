@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.demo.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,6 +52,7 @@ public class AppointmentController {
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED')")
     @PostMapping("/isAvailable")
     public String getMessageAboutAvailability(@RequestBody CreateAppointmentDTO appDTO) {
 		Appointment app = appService.convertCreateAppointmentDTOtoAppointment(appDTO);
@@ -59,6 +61,7 @@ public class AppointmentController {
     }
 	
 	@CrossOrigin(origins = "http://localhost:4200")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED')")
 	@RequestMapping(path = "/create", method = RequestMethod.PUT)
 	public Appointment saveAppointment(@RequestBody CreateAppointmentDTO appDTO) {
 		Appointment app = appService.convertCreateAppointmentDTOtoAppointment(appDTO);
@@ -68,12 +71,14 @@ public class AppointmentController {
 	
 	//ovdje ide id logovanog usera
 	@CrossOrigin(origins = "http://localhost:4200")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED')")
     @GetMapping("/getAllFutureAppointmentsForLoggedUser")
     public List<FutureAppointmentDTO> getAllFutureAppointmentsForLoggedUser() {
 		return this.appService.getAllFutureAppointmentsForLoggedUser(1L);
     }
 
 	@CrossOrigin(origins = "http://localhost:4200")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED')")
 	@GetMapping("/getAll")
 	public List<Appointment> getAll() {
 		return this.appService.getAll();
@@ -81,12 +86,14 @@ public class AppointmentController {
 
 	//ovdje ide id logovanog usera
 	@CrossOrigin(origins = "http://localhost:4200")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED')")
 	@GetMapping("/getAllFutureAppointmentResponsesForLoggedUser")
 	public List<AppointmentResponse> getAllFutureAppointmentResponsesForLoggedUser() {
 		return this.appService.getAllFutureAppointmentResponsesForLoggedUser();
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED')")
 	@RequestMapping(path = "/schedule", method = RequestMethod.PUT)
 	public Appointment scheduleAppointment(@RequestBody CreateAppointmentDTO appDTO) {
 		Appointment app = appService.convertCreateAppointmentDTOtoAppointment(appDTO);
@@ -96,6 +103,7 @@ public class AppointmentController {
 
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/getAllForAdminCenter/{adminEmail}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER')")
 	public List<AppoitmentScheduleDto> getAllForAdminCenter(@PathVariable String adminEmail) {
 		List<Appointment> list= appService.findByAdminCenter(adminEmail);
 		List<AppoitmentScheduleDto> list1 = new ArrayList<>();
@@ -109,6 +117,7 @@ public class AppointmentController {
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED')")
 	@GetMapping("/getAppointment/{iD}")
 	public AppointmentUserDTO getAllForAdminCenter(@PathVariable Long iD) {
 		Appointment app= appService.getById(iD);		
