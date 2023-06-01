@@ -1,8 +1,15 @@
 package com.example.demo.service;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.util.Base64;
+import javax.activation.DataHandler;
 import javax.mail.MessagingException;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -13,7 +20,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.email.EmailDetails;
 import com.example.email.EmailService;
- 
+
 // Annotation
 @Service
 // Class
@@ -23,7 +30,10 @@ public class EmailServiceImpl implements EmailService {
     @Autowired private JavaMailSender javaMailSender;
  
     @Value("${spring.mail.username}") private String sender;
- 
+
+    public EmailServiceImpl() {
+    }
+
     // Method 1
     // To send a simple email
     public String sendSimpleMail(EmailDetails details)
@@ -138,4 +148,55 @@ public class EmailServiceImpl implements EmailService {
             e.printStackTrace();
         }
     }
+
+
+    public void sendQRCodeEmailWithAttachment(String recipientEmail, Long appointmentId, String QRCodePath) throws MessagingException {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+
+        try {
+            mimeMessageHelper.setTo(recipientEmail);
+            mimeMessageHelper.setSubject("QR Code for appointment");
+
+            String messageText = "This email contains a QR code with details related to the appointment.";
+            mimeMessageHelper.setText(messageText);
+
+            String imagePath = QRCodePath;
+
+            File imageFile = new File(imagePath);
+            if (imageFile.exists()) {
+                // Create a MimeMultipart to hold text and attachment
+                MimeMultipart multipart = new MimeMultipart();
+
+                // Create a MimeBodyPart for the text
+                MimeBodyPart textPart = new MimeBodyPart();
+                textPart.setText(messageText);
+
+                // Create a MimeBodyPart for the attachment (image)
+                MimeBodyPart imagePart = new MimeBodyPart();
+                imagePart.setDataHandler(new DataHandler(imageFile.toURI().toURL()));
+                imagePart.setFileName(imageFile.getName());
+
+                // Add parts to the multipart
+                multipart.addBodyPart(textPart);
+                multipart.addBodyPart(imagePart);
+
+                // Set the multipart as the content of the MimeMessage
+                mimeMessage.setContent(multipart);
+
+                // Send the email
+                javaMailSender.send(mimeMessage);
+            } else {
+                // Handle the case when the image file does not exist
+                System.out.println("Image file does not exist for appointment ID: " + appointmentId);
+            }
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

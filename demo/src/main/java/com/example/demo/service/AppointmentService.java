@@ -6,16 +6,12 @@ import java.time.LocalTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import com.example.demo.dto.*;
+import com.example.demo.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,15 +20,7 @@ import com.example.demo.dto.AppointmentUserDTO;
 import com.example.demo.dto.CreateAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentsBBDTO;
-import com.example.demo.model.Address;
-import com.example.demo.model.Appointment;
-import com.example.demo.model.BloodBank;
-import com.example.demo.model.Survey;
-import com.example.demo.model.User;
 import com.example.demo.model.enumerations.AppointmentStatus;
-import com.example.demo.model.enumerations.Gender;
-import com.example.demo.model.enumerations.UserStatus;
-import com.example.demo.model.enumerations.UserType;
 import com.example.demo.repository.AppointmentRepository;
 import com.example.demo.repository.BloodBankRepository;
 import com.example.demo.repository.CenterRepository;
@@ -40,6 +28,8 @@ import com.example.demo.repository.UserRepository;
 import com.example.email.EmailDetails;
 import com.example.email.EmailService;
 import com.google.zxing.WriterException;
+
+import javax.mail.MessagingException;
 
 @Service
 public class AppointmentService {
@@ -50,10 +40,14 @@ public class AppointmentService {
 	private final UserRepository userRepo;
 	private final EmailService emailService;
 	private final QRCodeGenerator qrCodeGenerator;
+	private final QRCodeService qrCodeService;
+	private final EmailServiceImpl emailServiceImple;
+
+
 	private static final String QR_CODE_IMAGE_PATH = "./src/main/resources/images/QRCode.png";
 	
 	@Autowired
-	public AppointmentService(AppointmentRepository repo, BloodBankRepository bloodRepo, CenterRepository bbRepo, UserRepository userRepo, EmailServiceImpl emailService, QuestionnairuService questionnairuService, QRCodeGenerator qr) 
+	public AppointmentService(AppointmentRepository repo, BloodBankRepository bloodRepo, CenterRepository bbRepo, UserRepository userRepo, EmailServiceImpl emailService, QuestionnairuService questionnairuService, QRCodeGenerator qr, QRCodeService qrCodeService, EmailServiceImpl emailServiceImple)
 	{
 		this.appRepo = repo;
 		this.questionnairuService = questionnairuService;
@@ -62,6 +56,8 @@ public class AppointmentService {
 		this.emailService = emailService;
 		this.bloodRepo = bloodRepo;
 		this.qrCodeGenerator = qr;
+		this.qrCodeService = qrCodeService;
+		this.emailServiceImple = emailServiceImple;
 	}
 	
 	public String getMessageAboutAvailability(Appointment app) {
@@ -256,7 +252,7 @@ public class AppointmentService {
 		else
 			return true;
 	}
-	public int takeAppointment(Long userId, Long appointmentID){
+	public int takeAppointment(Long userId, Long appointmentID) throws IOException, WriterException, MessagingException {
 		if(questionnairuService.getUserQuestionairy(userId).size() == 0)
 			return 1;
 		if(isMoreThan3Penals(userId) == true)
@@ -271,7 +267,35 @@ public class AppointmentService {
 		appointment.setUser(userRepo.findById(userId).get());
 		appointment.setStatus(AppointmentStatus.BUSY);
 		appRepo.save(appointment);
+		generateQRCodeForAppointment(userId, appointment.getId());
 		return 0;
+	}
+
+	public void generateQRCodeForAppointment(Long userId, Long appointmentId) throws IOException, WriterException, MessagingException {
+		User user = userRepo.findById(userId).get();
+		Appointment appointment = appRepo.findById(appointmentId).get();
+		BloodBank bloodBank =  appointment.getBloodBank();
+
+//		String qrCodeContent = "User: " + user.getName() + " " + user.getSurname() + "\n" +
+//				"Blood Bank: " + bloodBank.getName() + " - " + bloodBank.getAddress() + "\n" +
+//				"Date: " + appointment.getDate() + "\n" +
+//				"Time: " + appointment.getTime() + "\n" +
+//				"Duration: " + appointment.getDuration() + " minutes";
+
+		String qrCodeContent = "Appointment Details:\n" +
+				"User: " + user.getName() + " " + user.getSurname() + "\n" +
+				"Blood Bank: " + bloodBank.getName() + "\n" +
+				"Address: " + bloodBank.getAddress().getStreet() + " " + bloodBank.getAddress().getNumber() + "\n" +
+				"         " + bloodBank.getAddress().getCity() + ", " + bloodBank.getAddress().getCountry() + "\n" +
+				"Date: " + appointment.getDate() + "\n" +
+				"Time: " + appointment.getTime() + "\n" +
+				"Duration: " + appointment.getDuration() + " minutes";
+
+
+		String QRPath = "./src/main/resources/images/"+appointment.getId()+".png";
+		qrCodeGenerator.generateQRCodeImage(qrCodeContent,150,150, QRPath);
+		emailServiceImple.sendQRCodeEmailWithAttachment(user.getEmail(), appointment.getId(), QRPath);
+		qrCodeService.save(new QRCode(user.getId(), appointment.getId(), AppointmentStatus.BUSY));
 	}
 	
 }

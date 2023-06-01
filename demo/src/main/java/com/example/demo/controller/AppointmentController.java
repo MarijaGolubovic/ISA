@@ -1,10 +1,12 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.dto.*;
 import com.example.demo.service.UserService;
+import com.google.zxing.WriterException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,6 +31,7 @@ import com.example.demo.service.BloodBankService;
 import com.example.demo.service.BloodSupplyService;
 import com.google.gson.Gson;
 
+import javax.mail.MessagingException;
 import java.util.Date;
 
 @RestController
@@ -152,7 +155,7 @@ public class AppointmentController {
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PreAuthorize("hasAuthority('ROLE_REGISTERED')")
 	@PostMapping("/takeAppointment/{appointmentId}")
-	public int takeAppointment(@PathVariable Long appointmentId ) {
+	public int takeAppointment(@PathVariable Long appointmentId ) throws IOException, WriterException, MessagingException {
 		return appService.takeAppointment(userService.getCurrentUser().getId(), appointmentId);
 	}
 
