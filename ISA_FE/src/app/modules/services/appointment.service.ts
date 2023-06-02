@@ -75,4 +75,8 @@ export class AppointmentService {
   loadQRCodes(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiHost}api/appointments/loadQRCodes`, {headers: this.createHeaders()});
   }
+
+  getPenalsNumber(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiHost}api/appointments/getPenalNumber`, {headers: this.createHeaders()});
+  }
 }

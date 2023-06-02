@@ -1,10 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.PenalsNumberDTO;
 import com.example.demo.dto.UserResponse;
-import com.example.demo.dto.UsersBloodRespons;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.ActivationCodeService;
+import com.example.demo.service.CanceledAppointmentService;
 import com.example.demo.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,13 +26,15 @@ public class UserController {
     private final UserService userService;
     private final ActivationCodeService activationCodeService;
     private final UserRepository userRepository;
+    private final CanceledAppointmentService canceledAppointmentService;
 
     @Autowired
     public UserController(UserService userService, ActivationCodeService activationCodeService,
-                          UserRepository userRepository){
+                          UserRepository userRepository, CanceledAppointmentService canceledAppointmentService){
         this.userService = userService;
         this.activationCodeService = activationCodeService;
         this.userRepository = userRepository;
+        this.canceledAppointmentService = canceledAppointmentService;
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
@@ -151,4 +155,6 @@ public class UserController {
             return errorMessage;
         }
     }
+
+
 }

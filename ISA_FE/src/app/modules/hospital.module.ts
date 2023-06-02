@@ -46,6 +46,7 @@ import { UnautorizedComponentComponent } from './unautorized-component/unautoriz
 import { ViewAppointmentsComponent } from './view-appointments/view-appointments.component';
 import { AppointmentHistoryComponent } from './appointment-history/appointment-history.component';
 import { QrCodesComponent } from './qr-codes/qr-codes.component';
+import { PenalsComponent } from './penals/penals.component';
 
 
 
@@ -82,7 +83,8 @@ const routes: Routes = [
   { path: 'unautorized', component : UnautorizedComponentComponent},
   { path: 'viewAppointments', component : ViewAppointmentsComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
   { path: 'appointmentsHistory', component : AppointmentHistoryComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
-  { path: 'qrCodes', component : QrCodesComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } }
+  { path: 'qrCodes', component : QrCodesComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
+  { path: 'penals', component : PenalsComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } }
 ]
 
 @NgModule({
@@ -116,7 +118,8 @@ const routes: Routes = [
     UnautorizedComponentComponent,
     ViewAppointmentsComponent,
     AppointmentHistoryComponent,
-    QrCodesComponent
+    QrCodesComponent,
+    PenalsComponent
   ],
   imports: [
     CommonModule,

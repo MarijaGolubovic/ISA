@@ -64,4 +64,5 @@ export class UserService {
     return this.http.put<any>(this.apiHost + 'api/user/addStrikes/' + id.toString(), {headers: this.createHeaders()})
   }
 
+
 }

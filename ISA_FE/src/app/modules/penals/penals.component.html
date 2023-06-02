@@ -1,0 +1,31 @@
+<div class="penals-container">
+    <div class="total-penals">
+      Total Penals: {{ totalPenals }} 
+    </div>
+    
+    <table class="table">
+      <thead>
+        <tr class="header-row">
+          <th>Date</th>
+          <th>Time</th>
+          <th>Duration</th>
+          <th>Blood Bank Name</th>
+          <th>Cancelling Time</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="penals.length > 0; else noPenalsMessage">
+        <tr *ngFor="let penal of penals">
+          <td>{{ penal.date | date: 'yyyy-MM-dd' }}</td>
+          <td>{{ penal.time }}</td>
+          <td>{{ penal.duration }}</td>
+          <td>{{ penal.bloodBankName }}</td>
+          <td>{{ penal.cancekingTime | date }}</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <ng-template #noPenalsMessage>
+      <p>No penalties to display.</p>
+    </ng-template>
+  </div>
+  

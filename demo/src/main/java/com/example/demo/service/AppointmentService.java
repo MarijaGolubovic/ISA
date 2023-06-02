@@ -354,7 +354,29 @@ public class AppointmentService {
 		appointment.setStatus(AppointmentStatus.CANCELD);
 		canceledAppointmentService.save(new CanceledApointments(userId, appointmentId, currentDate));
 		setQRStatus(appointmentId);
+		int penals = userService.getCurrentUser().getPenalsNumber() + 1;
+		User user =userService.getCurrentUser();
+		user.setPenalsNumber(penals);
+		userService.saveUser(user);
+
 		appRepo.save(appointment);
 		return  true;
+	}
+
+	public List<PenalsNumberDTO> getPenalsForUser(User user){
+		List<CanceledApointments> canceledApointments = canceledAppointmentService.findByUserId(user.getId());
+		List<PenalsNumberDTO>retList = new ArrayList<>();
+		for(CanceledApointments canceleed:canceledApointments){
+			PenalsNumberDTO penalsNumberDTO = new PenalsNumberDTO();
+			penalsNumberDTO.setPenalNum(user.getPenalsNumber());
+			Appointment appointment = findById(canceleed.getAppointmentId());
+			penalsNumberDTO.setDate(appointment.getDate());
+			penalsNumberDTO.setTime(appointment.getTime());
+			penalsNumberDTO.setDuration(appointment.getDuration());
+			penalsNumberDTO.setCancekingTime(canceleed.getCancelingDate());
+			penalsNumberDTO.setBloodBankName(appointment.getBloodBank().getName());
+			retList.add(penalsNumberDTO);
+		}
+		return retList;
 	}
 }

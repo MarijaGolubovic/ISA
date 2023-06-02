@@ -183,4 +183,11 @@ public class AppointmentController {
 		return qrCodeService.LoadQRCodes();
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PreAuthorize("hasAuthority('ROLE_REGISTERED')")
+	@GetMapping("/getPenalNumber")
+	public List<PenalsNumberDTO> getPenalsForUser(){
+		return appService.getPenalsForUser(userService.getCurrentUser());
+	}
+
 }
