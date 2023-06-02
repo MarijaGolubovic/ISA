@@ -45,6 +45,7 @@ import { UserRolesGuards } from "../auth/user_guard";
 import { UnautorizedComponentComponent } from './unautorized-component/unautorized-component.component';
 import { ViewAppointmentsComponent } from './view-appointments/view-appointments.component';
 import { AppointmentHistoryComponent } from './appointment-history/appointment-history.component';
+import { QrCodesComponent } from './qr-codes/qr-codes.component';
 
 
 
@@ -80,7 +81,8 @@ const routes: Routes = [
   { path: 'bloodSupply', component : BloodSupplyComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_SISTEM } },
   { path: 'unautorized', component : UnautorizedComponentComponent},
   { path: 'viewAppointments', component : ViewAppointmentsComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
-  { path: 'appointmentsHistory', component : AppointmentHistoryComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } }
+  { path: 'appointmentsHistory', component : AppointmentHistoryComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
+  { path: 'qrCodes', component : QrCodesComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } }
 ]
 
 @NgModule({
@@ -113,7 +115,8 @@ const routes: Routes = [
     BloodSupplyComponent,
     UnautorizedComponentComponent,
     ViewAppointmentsComponent,
-    AppointmentHistoryComponent
+    AppointmentHistoryComponent,
+    QrCodesComponent
   ],
   imports: [
     CommonModule,

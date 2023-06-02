@@ -71,4 +71,8 @@ export class AppointmentService {
   cancelAppointment(appointmentId: number): Observable<any> {
     return this.http.post(`${this.apiHost}api/appointments/cancelAppointment/${appointmentId}`, null, {headers: this.createHeaders()});
   }
+
+  loadQRCodes(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiHost}api/appointments/loadQRCodes`, {headers: this.createHeaders()});
+  }
 }

@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.dto.*;
-import com.example.demo.service.UserService;
+import com.example.demo.service.*;
 import com.google.zxing.WriterException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,13 +21,7 @@ import com.example.demo.model.Appointment;
 import com.example.demo.dto.CreateAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentsBBDTO;
-import com.example.demo.dto.SurveyDTO;
-import com.example.demo.model.enumerations.AppointmentStatus;
-import com.example.demo.dto.AppointmentUserDTO;
 import com.example.demo.dto.AppoitmentScheduleDto;
-import com.example.demo.service.AppointmentService;
-import com.example.demo.service.BloodBankService;
-import com.example.demo.service.BloodSupplyService;
 import com.google.gson.Gson;
 
 import javax.mail.MessagingException;
@@ -42,13 +35,15 @@ public class AppointmentController {
 	private final BloodBankService bbService;
 	private final BloodSupplyService bsService;
 	private final UserService userService;
+	private final QRCodeService qrCodeService;
 	
 	@Autowired
-	public AppointmentController(AppointmentService appservice, BloodBankService bbService, BloodSupplyService bsService, UserService userService) {
+	public AppointmentController(AppointmentService appservice, BloodBankService bbService, BloodSupplyService bsService, UserService userService, QRCodeService qrCodeService) {
 		this.appService = appservice;
 		this.bbService = bbService;
 		this.bsService = bsService;
 		this.userService = userService;
+		this.qrCodeService = qrCodeService;
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
@@ -179,6 +174,13 @@ public class AppointmentController {
 	@PostMapping("/cancelAppointment/{appointmentId}")
 	public boolean cancelAppointment(@PathVariable Long appointmentId ) {
 		return appService.cancelApointment(appointmentId);
+	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PreAuthorize("hasAuthority('ROLE_REGISTERED')")
+	@GetMapping("/loadQRCodes")
+	public List<QRCodeDTO> getQRCodes() throws IOException {
+		return qrCodeService.LoadQRCodes();
 	}
 
 }

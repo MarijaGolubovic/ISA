@@ -11,6 +11,7 @@ import java.util.Optional;
 
 import com.example.demo.dto.*;
 import com.example.demo.model.*;
+import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,10 +20,6 @@ import com.example.demo.dto.CreateAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentDTO;
 import com.example.demo.dto.FutureAppointmentsBBDTO;
 import com.example.demo.model.enumerations.AppointmentStatus;
-import com.example.demo.repository.AppointmentRepository;
-import com.example.demo.repository.BloodBankRepository;
-import com.example.demo.repository.CenterRepository;
-import com.example.demo.repository.UserRepository;
 import com.example.email.EmailDetails;
 import com.example.email.EmailService;
 import com.google.zxing.WriterException;
@@ -45,9 +42,11 @@ public class AppointmentService {
 
 
 	private static final String QR_CODE_IMAGE_PATH = "./src/main/resources/images/QRCode.png";
-	
+	private final QRCodeRepository qRCodeRepository;
+
 	@Autowired
-	public AppointmentService(AppointmentRepository repo, BloodBankRepository bloodRepo, CenterRepository bbRepo, UserRepository userRepo, CanceledAppointmentService canceledAppointmentService, EmailServiceImpl emailService, QuestionnairuService questionnairuService, QRCodeGenerator qr, QRCodeService qrCodeService, UserService userService, EmailServiceImpl emailServiceImple)
+	public AppointmentService(AppointmentRepository repo, BloodBankRepository bloodRepo, CenterRepository bbRepo, UserRepository userRepo, CanceledAppointmentService canceledAppointmentService, EmailServiceImpl emailService, QuestionnairuService questionnairuService, QRCodeGenerator qr, QRCodeService qrCodeService, UserService userService, EmailServiceImpl emailServiceImple,
+							  QRCodeRepository qRCodeRepository)
 	{
 		this.appRepo = repo;
 		this.canceledAppointmentService = canceledAppointmentService;
@@ -60,6 +59,7 @@ public class AppointmentService {
 		this.qrCodeService = qrCodeService;
 		this.userService = userService;
 		this.emailServiceImple = emailServiceImple;
+		this.qRCodeRepository = qRCodeRepository;
 	}
 	
 	public String getMessageAboutAvailability(Appointment app) {
@@ -260,14 +260,21 @@ public class AppointmentService {
 			return true;
 	}
 	public int takeAppointment(Long userId, Long appointmentID) throws IOException, WriterException, MessagingException {
+
+		if(isMoreThan3Penals(userId) == true){
+			setQuestion(userId);
+			return 2;
+		}
+		if(appointmentInLastSixMonth(userId) == true){
+			setQuestion(userId);
+			return 3;
+		}
+		if(isUserAlreadyBusy(userId) == true){
+			setQuestion(userId);
+			return 4;
+		}
 		if(questionnairuService.getUserQuestionairy(userId).size() == 0)
 			return 1;
-		if(isMoreThan3Penals(userId) == true)
-			return 2;
-		if(appointmentInLastSixMonth(userId) == true)
-			return 3;
-		if(isUserAlreadyBusy(userId) == true)
-			return 4;
 
 		Optional<Appointment> appointmentOptional = appRepo.findById(appointmentID);
 		Appointment appointment = appointmentOptional.get();
@@ -333,6 +340,11 @@ public class AppointmentService {
 		return appointmentDate.isAfter(ChronoLocalDate.from(twentyFourHoursBefore));
 	}
 
+	public void setQRStatus( Long appointmentId){
+		QRCode qrCode = qrCodeService.findByApointmentId(appointmentId);
+		qrCode.setAppointmentStatus(AppointmentStatus.CANCELD);
+		qRCodeRepository.save(qrCode);
+	}
 	public boolean cancelApointment(Long appointmentId){
 		Appointment appointment = appRepo.getById(appointmentId);
 		Date currentDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -341,6 +353,7 @@ public class AppointmentService {
 			return false;
 		appointment.setStatus(AppointmentStatus.CANCELD);
 		canceledAppointmentService.save(new CanceledApointments(userId, appointmentId, currentDate));
+		setQRStatus(appointmentId);
 		appRepo.save(appointment);
 		return  true;
 	}

@@ -92,7 +92,7 @@ export class QuestionnaireComponent{
   }
 
   async redirectToFutureAppointments() : Promise<void>{
-    await this.router.navigateByUrl('/usersFutureAppointments')
+    await this.router.navigateByUrl('/viewAppointments')
   }
 
   public saveQuestionaire(){

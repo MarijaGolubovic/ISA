@@ -1,0 +1,27 @@
+<div class="filter-container">
+  <label for="statusFilter"><h3>Filter by Status:</h3></label>
+  <select id="statusFilter" [(ngModel)]="selectedStatuses" (ngModelChange)="applyStatusFilter()" multiple>
+    <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+  </select>
+  <button class="clear-button" (click)="clearFilters()">Clear Filter</button>
+</div>
+
+<div class="qr-codes-container">
+    <table class="table">
+        <thead>
+          <tr class="header-row">
+            <th (click)="sortBy('date')">Date</th>
+            <th>Image</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let qrCode of filteredQrCodes; let odd = odd" [class.odd-row]="odd">
+            <td>{{ qrCode.date | date }}</td>
+            <td><img [src]="getImageUrl(qrCode.image)" alt="QR Code Image" /></td>
+            <td>{{ qrCode.appointmentStatus }}</td>
+          </tr>
+        </tbody>
+      </table>
+      
+</div>
