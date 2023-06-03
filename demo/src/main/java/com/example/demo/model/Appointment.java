@@ -44,7 +44,11 @@ public class Appointment {
     @Enumerated(EnumType.STRING)
     @Column(name="appstatus")
     private AppointmentStatus status;
-    
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Version
     private Long version;
 

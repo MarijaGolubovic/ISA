@@ -13,6 +13,7 @@ import com.example.demo.dto.*;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -84,7 +85,34 @@ public class AppointmentService {
 		return("Available");
 	}
 
-	public Appointment saveAppointment(Appointment app) {
+	public boolean isAppointmentConflict(Appointment newAppointment) {
+		Date appointmentDate = newAppointment.getDate();
+		LocalTime startTime = newAppointment.getTime();
+		LocalTime endTime = newAppointment.getTime().plusMinutes(newAppointment.getDuration());
+
+		List<Appointment> existingAppointments = appRepo.findAppointmentsInTimeRange(
+				appointmentDate,
+				startTime,
+				endTime
+		);
+
+		for (Appointment existingAppointment : existingAppointments) {
+			if (!existingAppointment.getId().equals(newAppointment.getId()) &&
+					existingAppointment.getVersion() >= newAppointment.getVersion()) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+	public Appointment saveApp(Appointment app) {
+		if (isAppointmentConflict(app)) {
+			throw new IllegalArgumentException("Appointment time conflict.");
+		}
+		return appRepo.save(app);
+	}
+
+	public  Appointment saveAppointment(Appointment app){
 		return appRepo.save(app);
 	}
 
@@ -259,6 +287,8 @@ public class AppointmentService {
 		else
 			return true;
 	}
+
+	@Transactional
 	public int takeAppointment(Long userId, Long appointmentID) throws IOException, WriterException, MessagingException {
 
 		if(isMoreThan3Penals(userId) == true){
@@ -278,11 +308,19 @@ public class AppointmentService {
 
 		Optional<Appointment> appointmentOptional = appRepo.findById(appointmentID);
 		Appointment appointment = appointmentOptional.get();
-		appointment.setUser(userRepo.findById(userId).get());
-		appointment.setStatus(AppointmentStatus.BUSY);
-		appRepo.save(appointment);
-		setQuestion(userId);
-		generateQRCodeForAppointment(userId, appointment.getId());
+		if(appointment.getStatus() == AppointmentStatus.BUSY)
+			return 6;
+		try{
+			appointment.setUser(userRepo.findById(userId).get());
+			appointment.setStatus(AppointmentStatus.BUSY);
+			appRepo.save(appointment);
+			setQuestion(userId);
+			generateQRCodeForAppointment(userId, appointment.getId());
+
+		}catch (ObjectOptimisticLockingFailureException ex) {
+		  return 5;
+		}
+
 		return 0;
 	}
 
@@ -345,22 +383,29 @@ public class AppointmentService {
 		qrCode.setAppointmentStatus(AppointmentStatus.CANCELD);
 		qRCodeRepository.save(qrCode);
 	}
-	public boolean cancelApointment(Long appointmentId){
-		Appointment appointment = appRepo.getById(appointmentId);
-		Date currentDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
-		Long userId = userService.getCurrentUser().getId();
-		if(canCancelAppointment(appointment) == false)
-			return false;
-		appointment.setStatus(AppointmentStatus.CANCELD);
-		canceledAppointmentService.save(new CanceledApointments(userId, appointmentId, currentDate));
-		setQRStatus(appointmentId);
-		int penals = userService.getCurrentUser().getPenalsNumber() + 1;
-		User user =userService.getCurrentUser();
-		user.setPenalsNumber(penals);
-		userService.saveUser(user);
+	public boolean cancelApointment(Long appointmentId) {
+		try {
+			Appointment appointment = appRepo.getById(appointmentId);
+			Date currentDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+			Long userId = userService.getCurrentUser().getId();
+			if (!canCancelAppointment(appointment)) {
+				return false;
+			}
+			appointment.setStatus(AppointmentStatus.CANCELD);
+			canceledAppointmentService.save(new CanceledApointments(userId, appointmentId, currentDate));
+			int penals = userService.getCurrentUser().getPenalsNumber() + 1;
+			User user = userService.getCurrentUser();
+			user.setPenalsNumber(penals);
+			userService.saveUser(user);
+			setQRStatus(appointmentId);
 
-		appRepo.save(appointment);
-		return  true;
+			appRepo.save(appointment);
+			return true;
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public List<PenalsNumberDTO> getPenalsForUser(User user){

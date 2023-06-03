@@ -26,6 +26,7 @@ export class PenalsComponent implements OnInit {
   }
 
   calculateTotalPenals(): void {
-    this.totalPenals = this.penals.reduce((total, penal) => total + penal.penalNum, 0);
+    // this.totalPenals = this.penals.reduce((total, penal) => total + penal.penalNum, 0);
+    this.totalPenals = this.penals.length;
   }
 }

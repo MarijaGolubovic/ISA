@@ -47,6 +47,7 @@ export class FutureAppointmentsComponent implements OnInit {
       },
       error => {
         console.error('Greška pri otkazivanju termina:', error);
+        this.loadAppointments();
       }
     );
   

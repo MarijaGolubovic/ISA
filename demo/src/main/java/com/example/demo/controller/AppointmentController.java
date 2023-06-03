@@ -61,7 +61,7 @@ public class AppointmentController {
 	@RequestMapping(path = "/create", method = RequestMethod.PUT)
 	public Appointment saveAppointment(@RequestBody CreateAppointmentDTO appDTO) {
 		Appointment app = appService.convertCreateAppointmentDTOtoAppointment(appDTO);
-		Appointment app1 = this.appService.saveAppointment(app);
+		Appointment app1 = this.appService.saveApp(app);
 		System.out.println("Hello========================== " + app1.getId());
 		return app1;
 	}
