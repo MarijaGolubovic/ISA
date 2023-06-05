@@ -67,6 +67,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/user/activate/**").permitAll()
                 .antMatchers("/api/user/registerUser").permitAll()
+                .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
+                .antMatchers("/swagger-ui/**").permitAll()
 //                .antMatchers("/api/appointments/getAllFree").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -76,21 +78,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider, userDetailsService), UsernamePasswordAuthenticationFilter.class);
     }
-
-
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers("/api/auth/**").permitAll() // Pristup javnim resursima
-////                .antMatchers("/api/user/**").permitAll() // Pristup javnim resursima
-//                .anyRequest().authenticated() // Svi ostali zahtjevi moraju biti autenticirani
-//                .and()
-//                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint) // Dodajte vaš JwtAuthenticationEntryPoint
-//                .and()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .addFilterBefore(new JwtTokenFilter(jwtTokenProvider, userDetailsService), UsernamePasswordAuthenticationFilter.class);
-//    }
 }

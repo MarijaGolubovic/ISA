@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import java.awt.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Properties;
 
 import org.modelmapper.ModelMapper;
@@ -37,6 +40,14 @@ public class IsaApplication {
 	
 	public static void main(String[] args) {
         	SpringApplication.run(IsaApplication.class, args);
+
+//		Desktop desktop = Desktop.getDesktop();
+//		try {
+//			URI swaggerUri = new URI("http://localhost:8081/swagger-ui/index.html");
+//			desktop.browse(swaggerUri);
+//		} catch (IOException | URISyntaxException e) {
+//			e.printStackTrace();
+//		}
     }
 
 
