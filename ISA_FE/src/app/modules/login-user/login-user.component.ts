@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'; // Dodajte Router
 import { AuthService } from 'src/app/auth/auth_service';
@@ -11,7 +12,7 @@ export class LoginUserComponent implements OnInit {
   email: string = "";
   password: string = "";
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
   }
@@ -35,6 +36,20 @@ export class LoginUserComponent implements OnInit {
       (error: any) => {
         console.error(error);
         alert("Check your credentials or activate your account (check e-mail)!")
+      }
+    );
+  }
+
+
+
+  sendRequest() {
+    const apiUrl = 'http://localhost:5000/api/vehicles'; // Promeniti na odgovarajući URL
+    this.http.post(apiUrl, {}).subscribe(
+      response => {
+        console.log('Zahtev je uspešno poslat.', response);
+      },
+      error => {
+        console.error('Greška pri slanju zahteva:', error);
       }
     );
   }

@@ -73,7 +73,7 @@ public class MounthlyBloodSubscriptionService {
 				
 				String responseForHospital = new Gson().toJson(response);
 				
-				producer.sendMessage(responseForHospital);
+//				producer.sendMessage(responseForHospital);
 			}
 		}
 	}

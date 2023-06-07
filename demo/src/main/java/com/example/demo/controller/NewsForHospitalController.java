@@ -42,6 +42,6 @@ public class NewsForHospitalController {
 		news.setApiKey("NkwQR/sa7Rm97+S7/KQxqWl2nZhnWjzLX3dvHOTngEk=");
 		news.setBloodBankName("David Albala");
 		String newsForHospital = new Gson().toJson(news);
-    	producer.sendMessage(newsForHospital);
+//    	producer.sendMessage(newsForHospital);
     }
 }
