@@ -1,5 +1,9 @@
 package com.example.demo.websocket;
 
+import com.example.demo.model.User;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.service.RefreshPeriodService;
+import com.example.demo.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -9,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -16,17 +21,21 @@ public class CoordinateSenderService {
 
     private final RabbitTemplate rabbitTemplate;
     private final CoordinateGeneratorService coordinateGeneratorService;
-    private final ObjectMapper objectMapper; // Dodato
-
+    private final ObjectMapper objectMapper;
+    private final RefreshPeriodService refreshPeriodService;
+   private final UserService userService;
 
     @Autowired
-    public CoordinateSenderService(RabbitTemplate rabbitTemplate, CoordinateGeneratorService coordinateGeneratorService, ObjectMapper objectMapper) {
+    public CoordinateSenderService(RabbitTemplate rabbitTemplate, CoordinateGeneratorService coordinateGeneratorService, ObjectMapper objectMapper, RefreshPeriodService refreshPeriodService,
+                                   UserService userService) {
         this.rabbitTemplate = rabbitTemplate;
         this.coordinateGeneratorService = coordinateGeneratorService;
         this.objectMapper = objectMapper;
+        this.refreshPeriodService = refreshPeriodService;
+        this.userService = userService;
     }
 
-    public void sendCoordinate(double startLatitude, double startLongitude) throws JsonProcessingException {
+    public void sendCoordinate(double startLatitude, double startLongitude) throws JsonProcessingException, ExecutionException, InterruptedException {
         if(startLatitude == -1 && startLatitude==-1){
             Coordinate endSight = new Coordinate(-1, -1);
             String jsonCoordinate = objectMapper.writeValueAsString(endSight);
@@ -45,11 +54,12 @@ public class CoordinateSenderService {
         Coordinate bloodBankCordinates = northernCoordinates.get(randomIndex);
 
         List<Coordinate> coord =  coordinateGeneratorService.generateCoordinates(startLatitude, startLongitude, bloodBankCordinates.getLatitude(), bloodBankCordinates.getLongitude(), 15);
-
+        int time =2;
         for (Coordinate c: coord){
+            time = refreshPeriodService.findRefreshPeriodAsync(userService.getAuthUser()).get();
             String jsonCoordinate = objectMapper.writeValueAsString(c);
             rabbitTemplate.convertAndSend("vehicle-coordinates-queue", jsonCoordinate);
-            sleep(1);
+            sleep(time);
         }
         System.out.println("Kretanje vozila zavrseno!");
     }

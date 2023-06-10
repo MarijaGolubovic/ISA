@@ -46,5 +46,9 @@ export class CenterService {
   getCentersSupply(centerID: number): Observable<BloodSupply[]>{
     return this.http.get<BloodSupply[]>(this.apiHost + 'api/blood/supply/' + '2', {headers: this.createHeaders()})
   }
+
+  sendSpeed(speed: number) {
+    return this.http.post<any>(this.apiHost+'api/coordinates/set_refresh_period',  speed ,{headers: this.createHeaders()})
+  }
   
 }

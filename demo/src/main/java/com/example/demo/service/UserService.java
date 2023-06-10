@@ -154,8 +154,20 @@ public class UserService {
         User user = getByEmail(username);
         System.out.print("=============================="+user.getEmail()+"\n");
         // Možete dohvatiti više informacija kao što su role, authorities, itd.
-
         return user;
+    }
+
+    public Long getAuthUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("##################"+authentication);
+        if(authentication == null){
+            return Long.valueOf(47);
+        }
+        String username = authentication.getName(); // Dohvatanje korisničkog imena
+        User user = getByEmail(username);
+        System.out.print("=============================="+user.getEmail()+"\n");
+        // Možete dohvatiti više informacija kao što su role, authorities, itd.
+        return user.getId();
     }
 
 }

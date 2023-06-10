@@ -86,7 +86,7 @@ const routes: Routes = [
   { path: 'appointmentsHistory', component : AppointmentHistoryComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
   { path: 'qrCodes', component : QrCodesComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
   { path: 'penals', component : PenalsComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
-  { path: 'map', component : VahiclesCoordinatesComponent},
+  { path: 'map', component : VahiclesCoordinatesComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_CENTER } }
 ]
 
 @NgModule({

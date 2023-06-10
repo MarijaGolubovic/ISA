@@ -39,18 +39,4 @@ export class LoginUserComponent implements OnInit {
       }
     );
   }
-
-
-
-  sendRequest() {
-    const apiUrl = 'http://localhost:5000/api/vehicles'; // Promeniti na odgovarajući URL
-    this.http.post(apiUrl, {}).subscribe(
-      response => {
-        console.log('Zahtev je uspešno poslat.', response);
-      },
-      error => {
-        console.error('Greška pri slanju zahteva:', error);
-      }
-    );
-  }
 }

@@ -1,0 +1,20 @@
+/* Dodajte stilove prema vašim željama */
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  label {
+    color: #333;
+    font-weight: bold;
+  }
+  
+  #speedSelect {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  

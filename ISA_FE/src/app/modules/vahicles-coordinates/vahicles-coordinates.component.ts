@@ -10,6 +10,7 @@ import Point from 'ol/geom/Point';
 import { Icon, Style } from 'ol/style';
 import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
+import { CenterService } from '../services/centers.service';
 
 @Component({
   selector: 'app-vahicles-coordinates',
@@ -23,7 +24,20 @@ export class VahiclesCoordinatesComponent implements OnInit, OnDestroy {
   avionIconUrl: string = 'https://img.icons8.com/?size=512&id=HrxNQff0Qrmc&format=png';
 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private apiService: CenterService) {}
+  changeSpeed(selectedValue: string): void {
+    const newSpeed = parseInt(selectedValue);
+
+    // Pozivamo servis da šalje brzinu na server
+    this.apiService.sendSpeed(newSpeed).subscribe(
+      response => {
+        console.log('Brzina uspešno poslata na server:', response);
+      },
+      error => {
+        console.error('Greška pri slanju brzine:', error);
+      }
+    );
+  }
 
   ngOnInit(): void {
     this.map = new Map({
