@@ -20,6 +20,8 @@ export class VahiclesCoordinatesComponent implements OnInit, OnDestroy {
   eventSource?: EventSource;
   map?: Map;
   vectorLayer?: VectorLayer<VectorSource<Point>>;
+  avionIconUrl: string = 'https://img.icons8.com/?size=512&id=HrxNQff0Qrmc&format=png';
+
 
   constructor(private http: HttpClient) {}
 
@@ -56,6 +58,9 @@ export class VahiclesCoordinatesComponent implements OnInit, OnDestroy {
         if (latitudeStr && longitudeStr) {
           const latitude = parseFloat(latitudeStr);
           const longitude = parseFloat(longitudeStr);
+          if(latitude === -1 && longitude === -1){
+            this.vectorLayer?.getSource()?.clear();
+          }
           
           const point = new Point(olProj.fromLonLat([longitude, latitude]));
           const feature = new Feature({
@@ -63,12 +68,14 @@ export class VahiclesCoordinatesComponent implements OnInit, OnDestroy {
           });
           feature.setStyle(new Style({
             image: new Icon({
-              src: 'https://cdn-icons-png.flaticon.com/512/5225/5225195.png',
+              src: this.avionIconUrl,
               scale: 0.1
             })
           }));
-          
-          if (this.vectorLayer?.getSource()) {
+          if(latitude === -1 && longitude === -1){
+            this.vectorLayer?.getSource()?.clear();
+          }
+          else if (this.vectorLayer?.getSource()) {
             this.vectorLayer?.getSource()?.addFeature(feature);
           }
         }

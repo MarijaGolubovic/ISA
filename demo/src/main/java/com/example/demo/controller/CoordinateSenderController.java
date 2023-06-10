@@ -23,6 +23,6 @@ public class CoordinateSenderController {
         Coordinate sampleCoordinate = new Coordinate(20.0, 30.0);
 
         // Slanje testnih koordinata RabbitMQ redom
-        coordinateSenderService.sendCoordinate(sampleCoordinate);
+//        coordinateSenderService.sendCoordinate(sampleCoordinate);
     }
 }

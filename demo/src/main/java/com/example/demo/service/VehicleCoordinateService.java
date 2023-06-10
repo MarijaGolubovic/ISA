@@ -24,9 +24,11 @@ public class VehicleCoordinateService {
         ObjectMapper objectMapper = new ObjectMapper();
         RebbitRequest coordinates = objectMapper.readValue(message, RebbitRequest.class);
         if(Integer.parseInt(coordinates.getStatus()) == 0){
-            Coordinate sampleCoordinate = new Coordinate(20.0, 30.0);
-        coordinateSenderService.sendCoordinate(sampleCoordinate);
+            double latitude = Double.valueOf(coordinates.getLatitude());
+            double longitude = Double.valueOf(coordinates.getLongitude());
+        coordinateSenderService.sendCoordinate(latitude, longitude);
         }
+        coordinateSenderService.sendCoordinate(-1, -1);
         System.out.println("Slanje zavrseno!");
 
     }
