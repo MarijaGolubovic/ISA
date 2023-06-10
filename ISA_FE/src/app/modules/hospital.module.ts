@@ -47,6 +47,7 @@ import { ViewAppointmentsComponent } from './view-appointments/view-appointments
 import { AppointmentHistoryComponent } from './appointment-history/appointment-history.component';
 import { QrCodesComponent } from './qr-codes/qr-codes.component';
 import { PenalsComponent } from './penals/penals.component';
+import { VahiclesCoordinatesComponent } from "./vahicles-coordinates/vahicles-coordinates.component";
 
 
 
@@ -84,7 +85,8 @@ const routes: Routes = [
   { path: 'viewAppointments', component : ViewAppointmentsComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
   { path: 'appointmentsHistory', component : AppointmentHistoryComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
   { path: 'qrCodes', component : QrCodesComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
-  { path: 'penals', component : PenalsComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } }
+  { path: 'penals', component : PenalsComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
+  { path: 'map', component : VahiclesCoordinatesComponent},
 ]
 
 @NgModule({

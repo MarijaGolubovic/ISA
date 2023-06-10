@@ -33,6 +33,7 @@
     "ng-angular-popup": "^0.2.0",
     "ngx-material-timepicker": "^5.5.3",
     "ngx-toastr": "^16.0.1",
+    "ol": "^7.5.1",
     "rxjs": "~7.5.0",
     "zone.js": "~0.11.4"
   },
