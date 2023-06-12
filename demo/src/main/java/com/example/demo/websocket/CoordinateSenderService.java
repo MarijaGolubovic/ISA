@@ -1,7 +1,8 @@
 package com.example.demo.websocket;
 
-import com.example.demo.model.User;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.model.BloodSupply;
+import com.example.demo.service.BloodBankService;
+import com.example.demo.service.BloodSupplyService;
 import com.example.demo.service.RefreshPeriodService;
 import com.example.demo.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -24,18 +25,24 @@ public class CoordinateSenderService {
     private final ObjectMapper objectMapper;
     private final RefreshPeriodService refreshPeriodService;
    private final UserService userService;
+   private final BloodBankService bloodBankService;
+   private  final BloodSupplyService bloodSupplyService;
 
     @Autowired
     public CoordinateSenderService(RabbitTemplate rabbitTemplate, CoordinateGeneratorService coordinateGeneratorService, ObjectMapper objectMapper, RefreshPeriodService refreshPeriodService,
-                                   UserService userService) {
+                                   UserService userService, BloodBankService bloodBankService, BloodSupplyService bloodSupplyService) {
         this.rabbitTemplate = rabbitTemplate;
         this.coordinateGeneratorService = coordinateGeneratorService;
         this.objectMapper = objectMapper;
         this.refreshPeriodService = refreshPeriodService;
         this.userService = userService;
+        this.bloodBankService = bloodBankService;
+        this.bloodSupplyService = bloodSupplyService;
     }
 
-    public void sendCoordinate(double startLatitude, double startLongitude) throws JsonProcessingException, ExecutionException, InterruptedException {
+    public void sendCoordinate(double startLatitude, double startLongitude, int bloodUnist) throws JsonProcessingException, ExecutionException, InterruptedException {
+        bloodBankService.changeBloodUnits(Long.valueOf(1),bloodUnist);
+
         if(startLatitude == -1 && startLatitude==-1){
             Coordinate endSight = new Coordinate(-1, -1);
             String jsonCoordinate = objectMapper.writeValueAsString(endSight);

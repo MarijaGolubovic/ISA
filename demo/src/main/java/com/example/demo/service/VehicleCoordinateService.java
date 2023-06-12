@@ -27,9 +27,9 @@ public class VehicleCoordinateService {
         if(Integer.parseInt(coordinates.getStatus()) == 0){
             double latitude = Double.valueOf(coordinates.getLatitude());
             double longitude = Double.valueOf(coordinates.getLongitude());
-        coordinateSenderService.sendCoordinate(latitude, longitude);
+        coordinateSenderService.sendCoordinate(latitude, longitude, coordinates.getBloodUnits());
         }
-        coordinateSenderService.sendCoordinate(-1, -1);
+        coordinateSenderService.sendCoordinate(-1, -1, 0);
         System.out.println("Slanje zavrseno!");
 
     }
