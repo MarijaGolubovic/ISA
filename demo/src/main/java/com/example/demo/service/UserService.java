@@ -14,6 +14,7 @@ import com.example.demo.repository.AppointmentRepository;
 
 import com.example.email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -49,12 +50,14 @@ public class UserService {
         this.emailService = emailService;
     }
 
+    @Cacheable("dataCache")
     public List<User> getAllUsers(){
         return UserRepository.findAll();
     }
 
     public User getByEmail(String email){return UserRepository.findByEmail(email);}
 
+    @Cacheable("dataCache")
     public List<UserResponse> getAllUserResponses(){
         return UserRepository.findAll()
                 .stream()
@@ -89,6 +92,8 @@ public class UserService {
     	  this.UserRepository.save(u);
     }
 
+
+    @Cacheable("dataCache")
     public List<UserResponse> getAllUsersForAdminCenter(User admin){
         if (admin.getUserType() == UserType.ADMIN_SISTEM){
             return getAllUserResponses();

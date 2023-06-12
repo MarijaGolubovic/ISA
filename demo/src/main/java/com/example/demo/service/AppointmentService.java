@@ -26,6 +26,7 @@ import com.example.email.EmailService;
 import com.google.zxing.WriterException;
 
 import javax.mail.MessagingException;
+import org.springframework.cache.annotation.Cacheable;
 
 @Service
 public class AppointmentService {
@@ -62,7 +63,7 @@ public class AppointmentService {
 		this.emailServiceImple = emailServiceImple;
 		this.qRCodeRepository = qRCodeRepository;
 	}
-	
+	@Cacheable("dataCache")
 	public String getMessageAboutAvailability(Appointment app) {
 		List<Appointment> appointments = appRepo.findAll();
 
@@ -192,7 +193,7 @@ public class AppointmentService {
 	}
 
 
-
+	@Cacheable("dataCache")
 	public List<FutureAppointmentsBBDTO> getAllFutureAppointmentsBB(long l) {
 		List<Appointment> apps = this.appRepo.getAppointmentsByBloodBankID(l);
 		List<FutureAppointmentsBBDTO> retList = new ArrayList<>();
@@ -217,6 +218,7 @@ public class AppointmentService {
 		appRepo.save(appointment);
 	}
 
+	@Cacheable("dataCache")
 	public List<Appointment> findByAdminCenter(String email){
 		return appRepo.findByAdminCenter(email);
 	}
@@ -248,7 +250,6 @@ public class AppointmentService {
 	public List<Appointment> getDoneAppointmentsByBloodBankID(Long id) {
 		return appRepo.getDoneAppointmentsByBloodBankID(id);
 	}
-
 	public  List<Appointment>getFreeAppointments(){
 
 		List<Appointment> appointments = appRepo.getFreeAppointments();
