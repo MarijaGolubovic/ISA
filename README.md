@@ -14,5 +14,5 @@ Load **demo** directory to IntelliJ (recomended) or Eclipse, wait setap and inic
 
 You can view and points in [swagger]([https://en.wikipedia.org/wiki/Swagger](https://swagger.io/)), visiting url adress:
 ```
-http://localhost:8080/swagger-ui.html
+http://localhost:8081/swagger-ui.html
 ```
