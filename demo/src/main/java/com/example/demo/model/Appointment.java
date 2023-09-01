@@ -30,10 +30,10 @@ public class Appointment {
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
-    
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "survey_id",referencedColumnName = "id")
-    private Survey survey;
+
+//    @OneToOne(cascade = {CascadeType.ALL})
+//    @JoinColumn(name = "survey_id",referencedColumnName = "id")
+//    private Survey survey;
     
     
     private Date date;
@@ -44,17 +44,21 @@ public class Appointment {
     @Enumerated(EnumType.STRING)
     @Column(name="appstatus")
     private AppointmentStatus status;
-    
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Version
     private Long version;
 
-    public Survey getSurvey() {
-		return survey;
-	}
-
-	public void setSurvey(Survey survey) {
-		this.survey = survey;
-	}
+//    public Survey getSurvey() {
+//		return survey;
+//	}
+//
+//	public void setSurvey(Survey survey) {
+//		this.survey = survey;
+//	}
 
 	public Appointment() {
     }
@@ -76,7 +80,7 @@ public class Appointment {
 		this.id = id;
 		this.bloodBank = bloodBank;
 		this.user = user;
-		this.survey = survey;
+//		this.survey = survey;
 		this.date = date;
 		this.time = time;
 		this.duration = duration;
@@ -85,7 +89,7 @@ public class Appointment {
 	}
 
 	public Appointment(BloodBank bloodBank, Date date, LocalTime time, int duration, List<User> medicalStuff, AppointmentStatus status, User u) {
-        this.bloodBank = bloodBank;
+       this.bloodBank = bloodBank;
         this.date = date;
         this.time = time;
         this.duration = duration;
@@ -113,11 +117,11 @@ public class Appointment {
 	public void setUser(User optional) {
 		this.user = optional;
 	}
-
-	public void setId(Long id) {
-        this.id = id;
-    }
-
+//
+//	public void setId(Long id) {
+//        this.id = id;
+//    }
+//
     public BloodBank getBloodBank() {
         return bloodBank;
     }
@@ -166,34 +170,34 @@ public class Appointment {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Appointment{" +
-                "id=" + id +
-                ", bloodBank=" + bloodBank +
-                ", date=" + date +
-                ", time=" + time +
-                ", duration=" + duration +
-                ", medicalStuff=" + medicalStuff +
-                ", status=" + status +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Appointment{" +
+//                "id=" + id +
+//                ", bloodBank=" + bloodBank +
+//                ", date=" + date +
+//                ", time=" + time +
+//                ", duration=" + duration +
+//                ", medicalStuff=" + medicalStuff +
+//                ", status=" + status +
+//                '}';
+//    }
     
-    public boolean isAppointmentInWorkTime() {
-    	WorkTime bbWorkTime = this.bloodBank.getWorkTime();
-    	LocalTime startTime = this.time;
-    	LocalTime endTime = this.time.plusMinutes(this.duration);
-    	int compareStartWithStart = startTime.compareTo(bbWorkTime.getStart());
-    	int compareStartWithEnd = startTime.compareTo(bbWorkTime.getEnd());
-    	int compareEndWithStart = endTime.compareTo(bbWorkTime.getStart());
-    	int compareEndWithEnd = endTime.compareTo(bbWorkTime.getEnd());
-    	
-    	if(compareStartWithStart > 0 && compareStartWithEnd < 0 &&
-    			compareEndWithStart > 0 && compareEndWithEnd < 0) 
-    		return true;
-    	else
-    		return false;
-    }
+//    public boolean isAppointmentInWorkTime() {
+//    	WorkTime bbWorkTime = this.bloodBank.getWorkTime();
+//    	LocalTime startTime = this.time;
+//    	LocalTime endTime = this.time.plusMinutes(this.duration);
+//    	int compareStartWithStart = startTime.compareTo(bbWorkTime.getStart());
+//    	int compareStartWithEnd = startTime.compareTo(bbWorkTime.getEnd());
+//    	int compareEndWithStart = endTime.compareTo(bbWorkTime.getStart());
+//    	int compareEndWithEnd = endTime.compareTo(bbWorkTime.getEnd());
+//
+//    	if(compareStartWithStart > 0 && compareStartWithEnd < 0 &&
+//    			compareEndWithStart > 0 && compareEndWithEnd < 0)
+//    		return true;
+//    	else
+//    		return false;
+//    }
     
     public boolean isAppointmentOverlapsWithOtherAppointment(Appointment app) {
     	LocalTime start1 = this.time;

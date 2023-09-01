@@ -2,21 +2,28 @@ package com.example.demo.service;
 
 import com.example.demo.dto.UserResponse;
 import com.example.demo.dto.UsersBloodRespons;
+import com.example.demo.model.ActivationCode;
 import com.example.demo.model.Appointment;
-import com.example.demo.model.BloodBank;
 import com.example.demo.model.User;
+import com.example.demo.model.enumerations.UserStatus;
 import com.example.demo.model.enumerations.UserType;
 import com.example.demo.repository.BloodBankRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.AddressRepository;
 import com.example.demo.repository.AppointmentRepository;
 
+import com.example.email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,22 +33,29 @@ public class UserService {
     private final AddressRepository AddressRepository;
     private final BloodBankRepository BloodBankRepository;
     private final AppointmentRepository appRepo;
+    private final ActivationCodeService activationCodeService;
+    private final EmailServiceImpl emailService;
 
     @Autowired
-    public UserService(UserRepository userRepository, AddressRepository addressRepository, BloodBankRepository bloodBankRepository, AppointmentRepository appointmentRepository){
+    public PasswordEncoder passwordEncoder;
+    @Autowired
+    public UserService(UserRepository userRepository, AddressRepository addressRepository, BloodBankRepository bloodBankRepository, AppointmentRepository appointmentRepository, ActivationCodeService activationCodeService, EmailServiceImpl emailService){
         this.UserRepository = userRepository;
         this.AddressRepository = addressRepository;
         this.BloodBankRepository = bloodBankRepository;
 		this.appRepo = appointmentRepository;
-
+        this.activationCodeService = activationCodeService;
+        this.emailService = emailService;
     }
 
+    @Cacheable("dataCache")
     public List<User> getAllUsers(){
         return UserRepository.findAll();
     }
 
     public User getByEmail(String email){return UserRepository.findByEmail(email);}
 
+    @Cacheable("dataCache")
     public List<UserResponse> getAllUserResponses(){
         return UserRepository.findAll()
                 .stream()
@@ -76,6 +90,8 @@ public class UserService {
     	  this.UserRepository.save(u);
     }
 
+
+    @Cacheable("dataCache")
     public List<UserResponse> getAllUsersForAdminCenter(User admin){
         if (admin.getUserType() == UserType.ADMIN_SISTEM){
             return getAllUserResponses();
@@ -87,6 +103,13 @@ public class UserService {
     }
     
     public void registerUser(User u) {
+        String encodedPassword = passwordEncoder.encode(u.getPassword());
+        u.setPassword(encodedPassword);
+        ActivationCode activationCode = activationCodeService.generateAndSaveCode(u.getEmail());
+        emailService.sendActivationEmail(u.getEmail(), activationCode.getCode());
+
+        u.setUserStatus(UserStatus.NOT_ACTIVATED);
+        u.setURN("123456789012");
         this.AddressRepository.save(u.getAddress());
     	this.UserRepository.save(u);
     }
@@ -127,5 +150,27 @@ public class UserService {
 		}
 		return users;
 	}
+
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName(); // Dohvatanje korisničkog imena
+        User user = getByEmail(username);
+        System.out.print("=============================="+user.getEmail()+"\n");
+        // Možete dohvatiti više informacija kao što su role, authorities, itd.
+        return user;
+    }
+
+    public Long getAuthUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("##################"+authentication);
+        if(authentication == null){
+            return Long.valueOf(47);
+        }
+        String username = authentication.getName(); // Dohvatanje korisničkog imena
+        User user = getByEmail(username);
+        System.out.print("=============================="+user.getEmail()+"\n");
+        // Možete dohvatiti više informacija kao što su role, authorities, itd.
+        return user.getId();
+    }
 
 }

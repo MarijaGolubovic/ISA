@@ -1,0 +1,32 @@
+nav {
+    background-color: #272e46;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding: 0 20px;
+  }
+  
+  .left-links,
+  .right-links {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .right-links {
+    margin-left: auto;
+  }
+  
+  a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  
+  a.active {
+    color: #ffffff;
+    font-weight: bold;
+  }
+  

@@ -1,0 +1,25 @@
+<!-- appointments-list.component.html -->
+<div class="table-container">
+    <h2>Appointment History</h2>
+    <table class="table">
+      <thead>
+        <tr class="header-row">
+          <th (click)="sortData('date')">Date</th>
+          <th (click)="sortData('time')">Time</th>
+          <th (click)="sortData('duration')">Duration</th>
+          <th (click)="sortData('bloodBank.name')">Blood bank</th>
+          <th (click)="sortData('status')">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appointment of appointments; let i = index" [class.odd-row]="i % 2 !== 0">
+          <td>{{ appointment.date | date: 'yyyy-MM-dd' }}</td>
+          <td>{{ appointment.time }}</td>
+          <td>{{ appointment.duration }} minutes</td>
+          <td>{{ appointment.bloodBank.name }}</td>
+          <td>{{ getStatusLabel(appointment.status) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

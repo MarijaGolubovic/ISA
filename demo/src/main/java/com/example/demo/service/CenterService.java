@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.repository.AppointmentRepository;
@@ -29,11 +30,12 @@ public class CenterService {
 		this.appointmentRepository = appRepo;
 	}
 
-
+	@Cacheable("dataCache")
 	public List<BloodBank> getAllBloodBanks(){
 	    return CenterRepository.findAll();
 	}
 
+	@Cacheable("dataCache")
 	public List<CenterResponse> getAllCentersResponses(){
 	    return CenterRepository.findAll()
 	            .stream()
@@ -76,7 +78,7 @@ public class CenterService {
         this.CenterRepository.save(bb);
     }
 
-
+	@Cacheable("dataCache")
 	public List<CenterResponse> getAllAvailableCenters(DateTimeDTO dateTimeDTO) {
 		List<CenterResponse> retList = new ArrayList<CenterResponse>();
 		List<BloodBank> allBanks = this.getAllBloodBanks();

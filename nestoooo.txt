@@ -1,0 +1,26 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+@Component({
+  selector: 'app-vahicles-coordinates',
+  templateUrl: './vahicles-coordinates.component.html',
+  styleUrls: ['./vahicles-coordinates.component.css']
+})
+export class VahiclesCoordinatesComponent implements OnInit, OnDestroy {
+  coordinates: string[] = [];
+  eventSource?: EventSource;
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.eventSource = new EventSource('http://localhost:5000/events'); // Promenite URL servera
+    this.eventSource.onmessage = (event) => {
+      console.log(event.data)
+      this.coordinates.push(event.data);
+    };
+  }
+
+  ngOnDestroy(): void {
+    this.eventSource?.close();
+  }
+}

@@ -9,12 +9,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from "@angular/forms";
 import {MatGridListModule} from "@angular/material/grid-list";
 import { FormsModule } from '@angular/forms';
+import { NavbarComponent } from './navbar/navbar/navbar.component';
+
+
 
 
 @NgModule({
   declarations: [
-    AppComponent
-  ],
+    AppComponent,
+    NavbarComponent ],
   imports: [
     BrowserModule,
     AppRoutingModule,

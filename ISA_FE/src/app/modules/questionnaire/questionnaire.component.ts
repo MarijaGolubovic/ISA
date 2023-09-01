@@ -92,7 +92,7 @@ export class QuestionnaireComponent{
   }
 
   async redirectToFutureAppointments() : Promise<void>{
-    await this.router.navigateByUrl('/usersFutureAppointments')
+    await this.router.navigateByUrl('/viewAppointments')
   }
 
   public saveQuestionaire(){
@@ -107,14 +107,12 @@ export class QuestionnaireComponent{
     );
       
       
-      this.appointmentService.scheduleAppointment(this.appointment).subscribe(res =>{
-        alert("succesful")
-        this.alert.success({detail: 'Success!', summary: "You are successfully schedule appointment!", duration: 5000});
+      
         this.questionnaireService.saveQuestionaire(this.questionnaire).subscribe(res => {
           this.redirectToFutureAppointments();
-          //return console.log("Questinaire is save!");
+          return console.log("Questinaire is save!");
         });
-      });
+      
       
   }
 

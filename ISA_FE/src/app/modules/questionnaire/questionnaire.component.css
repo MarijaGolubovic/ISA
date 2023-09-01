@@ -1,5 +1,5 @@
 body {
-    background-color: #05c46b;
+    background-color: #1c233c;
     font-family: Verdana;
     text-align: center;
 }
@@ -48,7 +48,7 @@ button and Checkbox */
 
 /* Styling Button */
 button {
-    background-color: #04AA6D;
+    background-color: #1c233c;
     border: 1px solid #777;
     border-radius: 2px;
     font-family: inherit;
@@ -81,7 +81,7 @@ h5{
 }
 
 button:disabled{
-    background-color: #B2D8C6;
+    background-color: #a9a6b9;
     color: white;
     padding: 16px 20px;
     margin: 8px 0;

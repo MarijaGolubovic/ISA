@@ -11,15 +11,46 @@ import { AppointmentService } from '../services/appointment.service';
 })
 export class FutureAppointmentsComponent implements OnInit {
 
-  public dataSource = new MatTableDataSource<FutureAppointmentDTO>();
-  public displayedColumns = ['name', 'Date', 'Time'];
+  appointments: any[] = [];
 
   constructor(private appService: AppointmentService, private router: Router) { }
 
   ngOnInit(): void {
-    this.appService.getFutureAppointments().subscribe(res => {
-      this.dataSource.data = res;
-    })
+    this.loadAppointments();
   }
+
+
+  loadAppointments() {
+    this.appService.getFutureAppointments().subscribe(
+      (data: any[]) => {
+        this.appointments = data;
+      },
+      error => {
+        console.error('Greška pri dohvatanju termina:', error);
+      }
+    );
+  }
+
+
+  cancelAppointment(appointmentId: number) {
+    
+    this.appService.cancelAppointment(appointmentId).subscribe(
+      (response: boolean) => {
+        if (response) {
+          console.log('Termin uspješno otkazan.');
+          this.router.navigate(['appointmentsHistory']); 
+          this.loadAppointments();
+        } else {
+          const twentyFourHoursNotice = 'Appointment can be canceled at least 24 hours before the start.';
+          alert(twentyFourHoursNotice);
+        }
+      },
+      error => {
+        console.error('Greška pri otkazivanju termina:', error);
+        this.loadAppointments();
+      }
+    );
+  
+}
 
 }

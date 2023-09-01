@@ -1,0 +1,44 @@
+<nav>
+    <ul class="left-links">
+      <li *ngIf="isLoggedIn() && isRegisteredUser()"><a routerLink="/allCenters" routerLinkActive="active">All centers</a></li>
+      <li *ngIf="isLoggedIn() && isRegisteredUser()"><a routerLink="/users/changePassword" routerLinkActive="active">Change password</a></li>
+      <li *ngIf="isLoggedIn() && isRegisteredUser()"><a routerLink="/users/edit" routerLinkActive="active">Edit users</a></li>
+      <li *ngIf="isLoggedIn() && isRegisteredUser()"><a routerLink="/questionnaire" routerLinkActive="active">Questionnaire</a></li>
+      <li *ngIf="isLoggedIn() && isRegisteredUser()"><a routerLink="/viewAppointments" routerLinkActive="active">Schedule appointment</a></li>
+      <li *ngIf="isLoggedIn() && isRegisteredUser()"><a routerLink="/usersFutureAppointments" routerLinkActive="active">Feature appointment</a></li>
+      <li *ngIf="isLoggedIn() && isRegisteredUser()"><a routerLink="/appointmentsHistory" routerLinkActive="active">Appointments history</a></li>
+      <li *ngIf="isLoggedIn() && isRegisteredUser()"><a routerLink="/qrCodes" routerLinkActive="active">QR Codes</a></li>
+      <li *ngIf="isLoggedIn() && isRegisteredUser()"><a routerLink="/penals" routerLinkActive="active">Penals</a></li>
+
+
+      <li *ngIf="isLoggedIn() && isAdminCenter()"><a routerLink="/users" routerLinkActive="active">Users</a></li>
+      <li *ngIf="isLoggedIn() && isAdminCenter()"><a routerLink="/hospital/sendNews" routerLinkActive="active">Send news</a></li>
+      <li *ngIf="isLoggedIn() && isAdminCenter()"><a routerLink="/appointment/create" routerLinkActive="active">Create appointmenst</a></li>
+      <li *ngIf="isLoggedIn() && isAdminCenter()"><a routerLink="/centerPredefinedAppointments" routerLinkActive="active">Predefined appointmenst</a></li>
+      <li *ngIf="isLoggedIn() && isAdminCenter()"><a routerLink="/view-all-blood-subscriptions" routerLinkActive="active">All blood subscriptions</a></li>
+      <li *ngIf="isLoggedIn() && isAdminCenter()"><a routerLink="/startAppointment" routerLinkActive="active">Start appointment</a></li>
+      <li *ngIf="isLoggedIn() && isAdminCenter()"><a routerLink="/calendar" routerLinkActive="active">Calendar</a></li>
+      <li *ngIf="isLoggedIn() && isAdminCenter()"><a routerLink="/map" routerLinkActive="active">Map</a></li>
+
+      
+      
+      <li *ngIf="isLoggedIn() && isAdminSistem()"><a routerLink="/register-bloodbank" routerLinkActive="active">Register blood bank</a></li>
+      <li *ngIf="isLoggedIn() && isAdminSistem()"><a routerLink="/add-admin-centar" routerLinkActive="active">Add admin</a></li>
+      <li *ngIf="isLoggedIn() && isAdminSistem()"><a routerLink="/admin-sistem/changePassword" routerLinkActive="active">Change password</a></li>
+      <li *ngIf="isLoggedIn() && isAdminSistem()"><a routerLink="/appointmentBB" routerLinkActive="active">Appointments</a></li>
+      <li *ngIf="isLoggedIn() && isAdminSistem()"><a routerLink="/bloodSupply" routerLinkActive="active">Blood supply</a></li>
+      
+      
+
+      
+
+      
+      
+    </ul>
+    <ul class="right-links">
+      <li *ngIf="!isLoggedIn()"><a routerLink="/login" routerLinkActive="active">Login</a></li>
+      <li><a routerLink="/userRegistration" routerLinkActive="active">Register</a></li>
+      <li *ngIf="isLoggedIn()"><a (click)="logout()">Logout</a></li>
+    </ul>
+  </nav>
+  

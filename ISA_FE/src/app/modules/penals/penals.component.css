@@ -1,0 +1,38 @@
+.penals-container {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .total-penals {
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  
+  .header-row {
+    background-color: #272e46;
+    color: white;
+  }
+  
+  .header-row th {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .odd-row {
+    background-color: #f2f2f2;
+  }
+  

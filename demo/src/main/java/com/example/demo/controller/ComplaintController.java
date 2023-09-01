@@ -9,6 +9,7 @@ import com.example.demo.service.ComplaintService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,18 +27,21 @@ public class ComplaintController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED', 'ROLE_ADMIN_SISTEM')")
     @GetMapping
     public List<Complaint> getAll(){
         return complaintService.getAll();
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED', 'ROLE_ADMIN_SISTEM')")
     @GetMapping("/pending")
     public List<Complaint> getAllOnPending(){
         return complaintService.getAllOnPending();
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN_CENTER', 'ROLE_REGISTERED', 'ROLE_ADMIN_SISTEM')")
     @PostMapping("/update")
     public ResponseEntity<Complaint> register(@RequestBody Complaint complaint) throws Exception{
         Complaint updatedComplaint = null;

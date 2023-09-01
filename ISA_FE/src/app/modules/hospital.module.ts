@@ -40,36 +40,53 @@ import { CalendarComponent } from "./calendar/calendar.component";
 import { UsersBloodCenterComponent } from './users-blood-center/users-blood-center.component';
 import { FutureAppointmentsBBComponent } from './future-appointments-bb/future-appointments-bb.component';
 import { BloodSupplyComponent } from './blood-supply/blood-supply.component';
+import { UserTypeGuard } from "../auth/auth_guards";
+import { UserRolesGuards } from "../auth/user_guard";
+import { UnautorizedComponentComponent } from './unautorized-component/unautorized-component.component';
+import { ViewAppointmentsComponent } from './view-appointments/view-appointments.component';
+import { AppointmentHistoryComponent } from './appointment-history/appointment-history.component';
+import { QrCodesComponent } from './qr-codes/qr-codes.component';
+import { PenalsComponent } from './penals/penals.component';
+import { VahiclesCoordinatesComponent } from "./vahicles-coordinates/vahicles-coordinates.component";
+
 
 
 const routes: Routes = [
-  { path: 'users', component: UsersComponent },
-  { path: 'users/edit', component: EditUserComponent },
+  { path: 'users', component: UsersComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_CENTER } },
+  { path: 'users/edit', component: EditUserComponent , canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
   { path: 'autorizedUser', component: AuthorizedUserComponent },
-  { path: 'autorizedUser/centers', component: CentersComponent },
-  { path: 'register-bloodbank', component: BloodbankRegistrationComponent},
+  { path: 'autorizedUser/centers', component: CentersComponent , canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
+  { path: 'register-bloodbank', component: BloodbankRegistrationComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_SISTEM } },
   { path: 'autorizedUser/center', component: EditBloodBankComponent },
-  { path: 'users/changePassword', component: ChangeUserPasswordComponent },
+  { path: 'users/changePassword', component: ChangeUserPasswordComponent , canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
   { path: 'register-bloodbank', component: BloodbankRegistrationComponent},
   { path: 'userRegistration', component: UserRegistrationComponent },
-  { path: 'questionnaire', component: QuestionnaireComponent },
-  { path: 'hospital/sendNews', component: SendNewsToHospitalComponent },
-  { path: 'appointment/create', component: CreateAppointmentComponent },
-  { path: 'appointment/scheduleNew', component: SchedulingNewAppointmentComponent },
-  { path: 'usersFutureAppointments', component: FutureAppointmentsComponent },
-  { path: 'centerPredefinedAppointments', component: FutureAppointmentsComponent },
+  { path: 'questionnaire', component: QuestionnaireComponent , canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
+  { path: 'hospital/sendNews', component: SendNewsToHospitalComponent , canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_CENTER } },
+  { path: 'appointment/create', component: CreateAppointmentComponent , canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_CENTER } },
+  { path: 'appointment/scheduleNew', component: SchedulingNewAppointmentComponent , canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
+  { path: 'usersFutureAppointments', component: FutureAppointmentsComponent , canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
+  { path: 'centerPredefinedAppointments', component: FutureAppointmentsComponent , canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_CENTER } },
   { path: 'complaints', component: ViewComplaintComponent},
   { path: 'complaints/reply', component: AddCommentComponent},
-  { path: 'add-admin-centar', component: AddAdminCenterComponent},
-  { path: 'admin-sistem/changePassword', component : ChangeAdminSistemPasswordComponent},
-  { path: 'view-all-blood-subscriptions', component : ViewAllBloodSubscriptionsComponent},
-  { path: 'startAppointment', component : StartAppointmentComponent},
-  { path: '', component : AllCentersComponent},
+  { path: 'add-admin-centar', component: AddAdminCenterComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_SISTEM } },
+  { path: 'admin-sistem/changePassword', component : ChangeAdminSistemPasswordComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_SISTEM } },
+  { path: 'view-all-blood-subscriptions', component : ViewAllBloodSubscriptionsComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_CENTER } },
+  { path: 'startAppointment', component : StartAppointmentComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_CENTER } },
+  { path: '', component : LoginUserComponent},
+  { path: 'allCenters', component : AllCentersComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
   { path: 'login', component : LoginUserComponent},
-  { path: 'calendar', component : CalendarComponent},
-  { path: 'homeAdmin', component : UsersBloodCenterComponent},
-  { path: 'appointmentBB', component : FutureAppointmentsBBComponent},
-  { path: 'bloodSupply', component : BloodSupplyComponent}
+  { path: 'calendar', component : CalendarComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_CENTER } },
+  // { path: 'homeAdmin', component : UsersBloodCenterComponent},
+  { path: 'homeAdmin', component: UsersBloodCenterComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_CENTER } },
+  { path: 'appointmentBB', component : FutureAppointmentsBBComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_SISTEM } },
+  { path: 'bloodSupply', component : BloodSupplyComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_SISTEM } },
+  { path: 'unautorized', component : UnautorizedComponentComponent},
+  { path: 'viewAppointments', component : ViewAppointmentsComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
+  { path: 'appointmentsHistory', component : AppointmentHistoryComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
+  { path: 'qrCodes', component : QrCodesComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
+  { path: 'penals', component : PenalsComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_REGISTERED } },
+  { path: 'map', component : VahiclesCoordinatesComponent, canActivate: [UserTypeGuard], data: { requiredRole: UserRolesGuards.ROLE_ADMIN_CENTER } }
 ]
 
 @NgModule({
@@ -99,7 +116,12 @@ const routes: Routes = [
     CalendarComponent,
     UsersBloodCenterComponent,
     FutureAppointmentsBBComponent,
-    BloodSupplyComponent
+    BloodSupplyComponent,
+    UnautorizedComponentComponent,
+    ViewAppointmentsComponent,
+    AppointmentHistoryComponent,
+    QrCodesComponent,
+    PenalsComponent
   ],
   imports: [
     CommonModule,
@@ -125,7 +147,7 @@ const routes: Routes = [
     useFactory: adapterFactory,
   }),
     ],
-  providers: [DayService, WeekService, WorkWeekService, MonthService, MonthAgendaService],
+  providers: [DayService, WeekService, WorkWeekService, MonthService, MonthAgendaService, UserTypeGuard],
   exports: [ RouterModule ]
 })
 export class HospitalModule { }

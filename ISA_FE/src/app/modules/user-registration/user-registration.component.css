@@ -11,6 +11,8 @@ body {
   .container {
     padding: 16px;
     background-color: white;
+    margin: auto;
+
   }
   
   /* Full-width input fields */
@@ -36,7 +38,7 @@ body {
   
   /* Set a style for the submit button */
   .registerbtn {
-    background-color: #04AA6D;
+    background-color: #1c233c;
     color: white;
     padding: 16px 20px;
     margin: 8px 0;
@@ -46,7 +48,7 @@ body {
     opacity: 0.9;
   }
   .registerbtn:disabled{
-    background-color: #B2D8C6;
+    background-color: #abadb3;
     color: white;
     padding: 16px 20px;
     margin: 8px 0;
