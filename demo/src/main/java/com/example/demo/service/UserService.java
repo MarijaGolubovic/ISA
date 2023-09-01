@@ -36,10 +36,8 @@ public class UserService {
     private final ActivationCodeService activationCodeService;
     private final EmailServiceImpl emailService;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    @Autowired
+    public PasswordEncoder passwordEncoder;
     @Autowired
     public UserService(UserRepository userRepository, AddressRepository addressRepository, BloodBankRepository bloodBankRepository, AppointmentRepository appointmentRepository, ActivationCodeService activationCodeService, EmailServiceImpl emailService){
         this.UserRepository = userRepository;
@@ -105,7 +103,7 @@ public class UserService {
     }
     
     public void registerUser(User u) {
-        String encodedPassword = passwordEncoder().encode(u.getPassword());
+        String encodedPassword = passwordEncoder.encode(u.getPassword());
         u.setPassword(encodedPassword);
         ActivationCode activationCode = activationCodeService.generateAndSaveCode(u.getEmail());
         emailService.sendActivationEmail(u.getEmail(), activationCode.getCode());
